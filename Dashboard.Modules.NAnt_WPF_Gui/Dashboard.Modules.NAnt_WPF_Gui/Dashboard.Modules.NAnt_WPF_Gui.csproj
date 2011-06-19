@@ -71,21 +71,8 @@
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\References\AvalonEdit\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.Core">
-      <HintPath>..\References\NAntGui\ICSharpCode.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.Core.WinForms">
-      <HintPath>..\References\NAntGui\ICSharpCode.Core.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpDevelop">
-      <HintPath>..\References\NAntGui\ICSharpCode.SharpDevelop.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpDevelop.Dom">
-      <HintPath>..\References\NAntGui\ICSharpCode.SharpDevelop.Dom.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=b32731d11ce58905">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\NAntGui\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\References\NAntGui\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

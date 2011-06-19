@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System;
 using NAntGui.Core;
 using NAntGui.Framework;
 using System.Windows;

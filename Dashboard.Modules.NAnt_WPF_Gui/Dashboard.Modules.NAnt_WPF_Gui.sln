@@ -75,9 +75,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Infrastructure.De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.NAnt_WPF_Gui", "Dashboard.Modules.NAnt_WPF_Gui\Dashboard.Modules.NAnt_WPF_Gui.csproj", "{093C592F-ADE2-4B72-8410-31D355CB9943}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{0BB5153F-92D8-4B85-8020-6FB7E306BD88}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DevToolsDashboard_Install", "Setup\DevToolsDashboard_Install\DevToolsDashboard_Install.vdproj", "{9EED37ED-C3D7-42E6-955F-F95692A10359}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DevToolsDashboard_Install", "DevToolsDashboard_Install\DevToolsDashboard_Install.vdproj", "{FAA6071F-E101-48C5-82C8-2D77508EC9D8}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -112,10 +110,9 @@ Global
 		SccProjectTopLevelParentUniqueName7 = Dashboard.Modules.NAnt_WPF_Gui.sln
 		SccProjectName7 = Framework/WPGBrushEditor
 		SccLocalPath7 = Framework\\WPGBrushEditor
-		SccProjectUniqueName8 = Setup\\DevToolsDashboard_Install\\DevToolsDashboard_Install.vdproj
-		SccProjectTopLevelParentUniqueName8 = Dashboard.Modules.NAnt_WPF_Gui.sln
-		SccProjectName8 = Setup/DevToolsDashboard_Install
-		SccLocalPath8 = Setup\\DevToolsDashboard_Install
+		SccProjectUniqueName8 = DevToolsDashboard_Install\\DevToolsDashboard_Install.vdproj
+		SccProjectName8 = DevToolsDashboard_Install
+		SccLocalPath8 = DevToolsDashboard_Install
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,24 +233,24 @@ Global
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|x86.ActiveCfg = Release|Any CPU
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Debug|Any CPU.ActiveCfg = Debug
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Debug|Any CPU.Build.0 = Debug
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Debug|Mixed Platforms.Build.0 = Debug
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Debug|x86.ActiveCfg = Debug
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Debug|x86.Build.0 = Debug
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Part1|Any CPU.ActiveCfg = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Part1|Any CPU.Build.0 = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Part1|Mixed Platforms.ActiveCfg = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Part1|Mixed Platforms.Build.0 = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Part1|x86.ActiveCfg = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Part1|x86.Build.0 = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Release|Any CPU.ActiveCfg = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Release|Any CPU.Build.0 = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Release|Mixed Platforms.ActiveCfg = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Release|Mixed Platforms.Build.0 = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Release|x86.ActiveCfg = Release
-		{9EED37ED-C3D7-42E6-955F-F95692A10359}.Release|x86.Build.0 = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|Any CPU.ActiveCfg = Debug
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|Any CPU.Build.0 = Debug
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|Mixed Platforms.Build.0 = Debug
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|x86.ActiveCfg = Debug
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|x86.Build.0 = Debug
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|Any CPU.ActiveCfg = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|Any CPU.Build.0 = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|Mixed Platforms.ActiveCfg = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|Mixed Platforms.Build.0 = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|x86.ActiveCfg = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|x86.Build.0 = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|Any CPU.ActiveCfg = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|Any CPU.Build.0 = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|Mixed Platforms.ActiveCfg = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|Mixed Platforms.Build.0 = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|x86.ActiveCfg = Release
+		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -273,6 +270,5 @@ Global
 		{FBBB3BBA-0C48-4E23-8B85-162CBF2E6200} = {A266B28E-5327-461B-85BE-7011DF1C3A57}
 		{5E4DCFB3-057E-4CFF-8929-3CE0FE62E848} = {A266B28E-5327-461B-85BE-7011DF1C3A57}
 		{F09A9032-464D-4C42-8C00-EC78B30E603B} = {A266B28E-5327-461B-85BE-7011DF1C3A57}
-		{9EED37ED-C3D7-42E6-955F-F95692A10359} = {0BB5153F-92D8-4B85-8020-6FB7E306BD88}
 	EndGlobalSection
 EndGlobal

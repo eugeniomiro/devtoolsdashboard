@@ -43,7 +43,6 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 {
     class NAntDocumentWindowModel : DockingWindowViewModelBase<NAntDocumentWindow>, IActiveAware 
     {
-        private int _documentIndex = 0;
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
         private readonly IEventAggregator _eventAggregator;
@@ -235,11 +234,11 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
                 _buildRunner.Targets = targets;
         }
 
-        internal void Close()
-        {
-            if (_buildRunner != null)
-                _buildRunner.Stop();
-        }
+        //internal void Close()
+        //{
+        //    if (_buildRunner != null)
+        //        _buildRunner.Stop();
+        //}
 
         private void ParseBuildFile()
         {
