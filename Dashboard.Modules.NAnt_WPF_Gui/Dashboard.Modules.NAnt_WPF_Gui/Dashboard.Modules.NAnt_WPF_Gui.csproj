@@ -160,9 +160,6 @@
     <Reference Include="UIAutomationProvider">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking">
-      <HintPath>..\References\NAntGui\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>

@@ -17,21 +17,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AvalonEdit", "AvalonEdit", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NAntGui", "NAntGui", "{A050357C-6A57-4A52-8B0B-03ABE997D875}"
 	ProjectSection(SolutionItems) = preProject
-		References\NAntGui\ICSharpCode.Core.dll = References\NAntGui\ICSharpCode.Core.dll
-		References\NAntGui\ICSharpCode.Core.WinForms.dll = References\NAntGui\ICSharpCode.Core.WinForms.dll
-		References\NAntGui\ICSharpCode.SharpDevelop.dll = References\NAntGui\ICSharpCode.SharpDevelop.dll
-		References\NAntGui\ICSharpCode.SharpDevelop.Dom.dll = References\NAntGui\ICSharpCode.SharpDevelop.Dom.dll
 		References\NAntGui\ICSharpCode.TextEditor.dll = References\NAntGui\ICSharpCode.TextEditor.dll
 		References\NAntGui\log4net.dll = References\NAntGui\log4net.dll
 		References\NAntGui\NAnt-Gui.Core.dll = References\NAntGui\NAnt-Gui.Core.dll
 		References\NAntGui\NAnt-Gui.Framework.dll = References\NAntGui\NAnt-Gui.Framework.dll
-		References\NAntGui\NAnt-Gui.MSBuild.dll = References\NAntGui\NAnt-Gui.MSBuild.dll
 		References\NAntGui\NAnt-Gui.NAnt.dll = References\NAntGui\NAnt-Gui.NAnt.dll
 		References\NAntGui\NAnt.Core.dll = References\NAntGui\NAnt.Core.dll
 		References\NAntGui\NAnt.DotNetTasks.dll = References\NAntGui\NAnt.DotNetTasks.dll
 		References\NAntGui\NAnt.Win32Tasks.dll = References\NAntGui\NAnt.Win32Tasks.dll
 		References\NAntGui\nunit.framework.dll = References\NAntGui\nunit.framework.dll
-		References\NAntGui\WeifenLuo.WinFormsUI.Docking.dll = References\NAntGui\WeifenLuo.WinFormsUI.Docking.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{8B4B9011-20ED-448F-A450-11EED2AB24D6}"
@@ -81,9 +75,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Infrastructure.De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.NAnt_WPF_Gui", "Dashboard.Modules.NAnt_WPF_Gui\Dashboard.Modules.NAnt_WPF_Gui.csproj", "{093C592F-ADE2-4B72-8410-31D355CB9943}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{0BB5153F-92D8-4B85-8020-6FB7E306BD88}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DevToolsDashboard_Install", "DevToolsDashboard_Install\DevToolsDashboard_Install.vdproj", "{B5378F64-A20C-4320-8293-1D2E6B5F11D9}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 9
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs32
 		SccLocalPath0 = .
@@ -114,6 +112,10 @@ Global
 		SccProjectTopLevelParentUniqueName7 = Dashboard.Modules.NAnt_WPF_Gui.sln
 		SccProjectName7 = Framework/WPGBrushEditor
 		SccLocalPath7 = Framework\\WPGBrushEditor
+		SccProjectUniqueName8 = DevToolsDashboard_Install\\DevToolsDashboard_Install.vdproj
+		SccProjectTopLevelParentUniqueName8 = Dashboard.Modules.NAnt_WPF_Gui.sln
+		SccProjectName8 = DevToolsDashboard_Install
+		SccLocalPath8 = DevToolsDashboard_Install
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -234,6 +236,15 @@ Global
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|x86.ActiveCfg = Release|Any CPU
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Debug|Any CPU.ActiveCfg = Debug
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Debug|x86.ActiveCfg = Debug
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Part1|Any CPU.ActiveCfg = Release
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Part1|Mixed Platforms.ActiveCfg = Release
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Part1|x86.ActiveCfg = Release
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Release|Any CPU.ActiveCfg = Release
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Release|Mixed Platforms.ActiveCfg = Release
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -253,5 +264,6 @@ Global
 		{FBBB3BBA-0C48-4E23-8B85-162CBF2E6200} = {A266B28E-5327-461B-85BE-7011DF1C3A57}
 		{5E4DCFB3-057E-4CFF-8929-3CE0FE62E848} = {A266B28E-5327-461B-85BE-7011DF1C3A57}
 		{F09A9032-464D-4C42-8C00-EC78B30E603B} = {A266B28E-5327-461B-85BE-7011DF1C3A57}
+		{B5378F64-A20C-4320-8293-1D2E6B5F11D9} = {0BB5153F-92D8-4B85-8020-6FB7E306BD88}
 	EndGlobalSection
 EndGlobal
