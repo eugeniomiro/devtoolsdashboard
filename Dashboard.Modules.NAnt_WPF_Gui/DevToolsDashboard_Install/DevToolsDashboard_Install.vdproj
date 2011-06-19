@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:DevToolsDashboard_Install"
+"ProjectName" = "8:DevToolsDashboardSetup"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -29,18 +29,6 @@
         {
         "MsmKey" = "8:_1C8CD9DA6E5EBC6808DDEA35A859AFE9"
         "OwnerKey" = "8:_E9DAAE128DC84E0A92330BF012896B90"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1C8CD9DA6E5EBC6808DDEA35A859AFE9"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2273153A54B3DF54FA22B7D08525BC59"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,12 +118,6 @@
         "Entry"
         {
         "MsmKey" = "8:_4B5ECEB843EC1B12926F77CFCA3712D0"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4B5ECEB843EC1B12926F77CFCA3712D0"
         "OwnerKey" = "8:_85B1F2096E7F472C8F97EABA1D150417"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -183,12 +165,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5C64112EC8771A6A958A417A4D3D75AE"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_62A805D6890986F312019A5162BF3E39"
         "OwnerKey" = "8:_85B1F2096E7F472C8F97EABA1D150417"
         "MsmSig" = "8:_UNDEFINED"
@@ -214,12 +190,6 @@
         "Entry"
         {
         "MsmKey" = "8:_6AEA35F7D139890590B0AE9F293BC48C"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6AEA35F7D139890590B0AE9F293BC48C"
         "OwnerKey" = "8:_2273153A54B3DF54FA22B7D08525BC59"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -239,12 +209,6 @@
         {
         "MsmKey" = "8:_6CE3450EEE2C65749C2DA18EF0C59667"
         "OwnerKey" = "8:_E9DAAE128DC84E0A92330BF012896B90"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6CE3450EEE2C65749C2DA18EF0C59667"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -286,12 +250,6 @@
         "Entry"
         {
         "MsmKey" = "8:_8726BCB6077C7DD248C3C858669ABF53"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8726BCB6077C7DD248C3C858669ABF53"
         "OwnerKey" = "8:_1C8CD9DA6E5EBC6808DDEA35A859AFE9"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -305,12 +263,6 @@
         {
         "MsmKey" = "8:_9B4B5CD7E1C91FD3BDB04D68DEAA6200"
         "OwnerKey" = "8:_E9DAAE128DC84E0A92330BF012896B90"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9B4B5CD7E1C91FD3BDB04D68DEAA6200"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -370,19 +322,7 @@
         "Entry"
         {
         "MsmKey" = "8:_BA733557D0B20DB2866D3844E7607BCA"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BA733557D0B20DB2866D3844E7607BCA"
         "OwnerKey" = "8:_8726BCB6077C7DD248C3C858669ABF53"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -395,12 +335,6 @@
         {
         "MsmKey" = "8:_CAAF645634F52E62BDD380FC6FB6CC5C"
         "OwnerKey" = "8:_E9DAAE128DC84E0A92330BF012896B90"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CAAF645634F52E62BDD380FC6FB6CC5C"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -478,12 +412,6 @@
         "Entry"
         {
         "MsmKey" = "8:_F69ED5B7E402D9C709A1D6FB1A0B2D4B"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F69ED5B7E402D9C709A1D6FB1A0B2D4B"
         "OwnerKey" = "8:_2273153A54B3DF54FA22B7D08525BC59"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -526,19 +454,7 @@
         "Entry"
         {
         "MsmKey" = "8:_FFA8390646DF4700560F09B681475118"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FFA8390646DF4700560F09B681475118"
         "OwnerKey" = "8:_85B1F2096E7F472C8F97EABA1D150417"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C87C7537585F450B914C173D269500B9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -766,10 +682,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    "Name" = "8:Microsoft .NET Framework 4 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0"
                     }
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
                     {
@@ -1121,7 +1037,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:WPG, Version=1.0.4187.30401, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:WPG, Version=1.0.4187.30637, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5B8CE29B4B93087ECF4A5E251ACD38C1"
@@ -1723,7 +1639,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:.NET Dev Tools Dashboard"
         "ProductCode" = "8:{5ACC100D-34AB-40A4-827E-80512EE34063}"
-        "PackageCode" = "8:{F3EB5581-313F-4E7D-BCFE-BBB5098EE2D8}"
+        "PackageCode" = "8:{3596578C-E1F5-4A20-8692-590F0F9C925F}"
         "UpgradeCode" = "8:{0E0FB3F1-01F8-4601-B58C-10C9B392E628}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1843,18 +1759,18 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_348AB038C97145618CA081B722BB89D6"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_91E3816CA9124EFBA6737CFFD4F7FD42"
             {
             "Name" = "8:.NET Dev Tools Dashboard"
             "Arguments" = "8:"
-            "Description" = "8:.NET Dev Tools Dashboard is an extendable .NET development toolbox written in WPF .NET 4.0."
+            "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_C87C7537585F450B914C173D269500B9"
+            "Target" = "8:_E9DAAE128DC84E0A92330BF012896B90"
             "Folder" = "8:_41230468B12B4C6FB2F74702D4E0E29E"
             "WorkingFolder" = "8:_B53E350318BA4C468AA15847A4F84D5D"
-            "Icon" = "8:"
+            "Icon" = "8:_D47FCD3A9D4440EF99C5005361AD42C8"
             "Feature" = "8:"
             }
         }
@@ -2284,34 +2200,6 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_490067DEE1F744FC816B68D1AC3F7CFD"
-            {
-            "SourcePath" = "8:"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_B53E350318BA4C468AA15847A4F84D5D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:ContentFiles"
-            "OutputProjectGuid" = "8:{D336009D-51F3-4834-BA7D-85B989FB5BC4}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5B6E5954911142F882AF5FC331A96FCA"
             {
             "SourcePath" = "8:"
@@ -2363,34 +2251,6 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{093C592F-ADE2-4B72-8410-31D355CB9943}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C87C7537585F450B914C173D269500B9"
-            {
-            "SourcePath" = "8:..\\Framework\\Dashboard.Desktop\\obj\\Release\\DevToolsDashboard.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_B53E350318BA4C468AA15847A4F84D5D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{D336009D-51F3-4834-BA7D-85B989FB5BC4}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
