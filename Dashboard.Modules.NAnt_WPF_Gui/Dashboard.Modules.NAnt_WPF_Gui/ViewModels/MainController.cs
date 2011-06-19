@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.IO;
 using NAntGui.Core;
 using NAntGui.Framework;
-using WeifenLuo.WinFormsUI.Docking;
 using Microsoft.Practices.Prism.Regions;
 using System.Windows;
 using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
