@@ -75,7 +75,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Infrastructure.De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.NAnt_WPF_Gui", "Dashboard.Modules.NAnt_WPF_Gui\Dashboard.Modules.NAnt_WPF_Gui.csproj", "{093C592F-ADE2-4B72-8410-31D355CB9943}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DevToolsDashboard_Install", "DevToolsDashboard_Install\DevToolsDashboard_Install.vdproj", "{FAA6071F-E101-48C5-82C8-2D77508EC9D8}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DevToolsDashboardSetup", "DevToolsDashboardSetup\DevToolsDashboardSetup.vdproj", "{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -110,9 +110,9 @@ Global
 		SccProjectTopLevelParentUniqueName7 = Dashboard.Modules.NAnt_WPF_Gui.sln
 		SccProjectName7 = Framework/WPGBrushEditor
 		SccLocalPath7 = Framework\\WPGBrushEditor
-		SccProjectUniqueName8 = DevToolsDashboard_Install\\DevToolsDashboard_Install.vdproj
-		SccProjectName8 = DevToolsDashboard_Install
-		SccLocalPath8 = DevToolsDashboard_Install
+		SccProjectUniqueName8 = DevToolsDashboardSetup\\DevToolsDashboardSetup.vdproj
+		SccProjectName8 = DevToolsDashboardSetup
+		SccLocalPath8 = DevToolsDashboardSetup
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,24 +233,24 @@ Global
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|x86.ActiveCfg = Release|Any CPU
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|Any CPU.ActiveCfg = Debug
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|Any CPU.Build.0 = Debug
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|Mixed Platforms.Build.0 = Debug
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|x86.ActiveCfg = Debug
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Debug|x86.Build.0 = Debug
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|Any CPU.ActiveCfg = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|Any CPU.Build.0 = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|Mixed Platforms.ActiveCfg = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|Mixed Platforms.Build.0 = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|x86.ActiveCfg = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Part1|x86.Build.0 = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|Any CPU.ActiveCfg = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|Any CPU.Build.0 = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|Mixed Platforms.ActiveCfg = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|Mixed Platforms.Build.0 = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|x86.ActiveCfg = Release
-		{FAA6071F-E101-48C5-82C8-2D77508EC9D8}.Release|x86.Build.0 = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Debug|Any CPU.ActiveCfg = Debug
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Debug|Any CPU.Build.0 = Debug
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Debug|Mixed Platforms.Build.0 = Debug
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Debug|x86.ActiveCfg = Debug
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Debug|x86.Build.0 = Debug
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Part1|Any CPU.ActiveCfg = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Part1|Any CPU.Build.0 = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Part1|Mixed Platforms.ActiveCfg = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Part1|Mixed Platforms.Build.0 = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Part1|x86.ActiveCfg = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Part1|x86.Build.0 = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Release|Any CPU.ActiveCfg = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Release|Any CPU.Build.0 = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Release|Mixed Platforms.ActiveCfg = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Release|Mixed Platforms.Build.0 = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Release|x86.ActiveCfg = Release
+		{5FDBA86D-F1C7-4045-B4FB-8C96C505A071}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
