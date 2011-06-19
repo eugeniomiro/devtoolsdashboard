@@ -205,11 +205,16 @@
     <Resource Include="Images\splash.png" />
     <Resource Include="Images\tools-icon.jpg" />
     <Resource Include="Images\aboutme_box.png" />
+    <Content Include="License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Modules\ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Views\AboutLogo.png" />
-    <Resource Include="Quote.ico" />
+    <Content Include="Quote.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dashboard.Infrastructure.Desktop\Dashboard.Infrastructure.Desktop.csproj">

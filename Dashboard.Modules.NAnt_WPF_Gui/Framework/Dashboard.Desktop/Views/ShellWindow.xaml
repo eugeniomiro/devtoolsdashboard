@@ -6,7 +6,7 @@
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:dashboardCore="clr-namespace:Techno_Fly.Tools.Dashboard;assembly=Dashboard.Infrastructure"
         Title=".NET Dev Tools Dashboard"
-		Width="800" Height="600" Icon="/Quote.ico">
+		Width="800" Height="600" Icon="/Images/Quote.png">
 
     <!-- Window Resources -->
     <ribbon:RibbonWindow.Resources>
