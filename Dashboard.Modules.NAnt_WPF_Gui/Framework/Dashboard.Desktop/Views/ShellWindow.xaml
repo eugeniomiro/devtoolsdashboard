@@ -1,0 +1,153 @@
+﻿<ribbon:RibbonWindow x:Class="Techno_Fly.Tools.Dashboard.Shell.Views.ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+        xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
+        xmlns:prism="http://www.codeplex.com/prism"
+        xmlns:dashboardCore="clr-namespace:Techno_Fly.Tools.Dashboard;assembly=Dashboard.Infrastructure"
+        Title=".NET Dev Tools Dashboard"
+		Width="800" Height="600" Icon="/Quote.ico">
+
+    <!-- Window Resources -->
+    <ribbon:RibbonWindow.Resources>
+        <LinearGradientBrush x:Key="WindowBackgroundBrush">
+            <GradientStop Color="#FFE7E9EB" Offset="0" />
+            <GradientStop Color="#FFC6CACF" Offset="1" />
+        </LinearGradientBrush>
+    </ribbon:RibbonWindow.Resources>
+
+    <ribbon:RibbonWindow.Background>
+        <StaticResource ResourceKey="WindowBackgroundBrush" />
+    </ribbon:RibbonWindow.Background>
+
+    <!-- Layout Root -->
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="RibbonRow" Height="Auto"/>
+            <RowDefinition x:Name="ClientRow" Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Note that the application Ribbon is defined as a Prism region, so that modules can
+             load their own tabs into the Ribbon. The Utility folder contains a RibbonRegionAdapter
+             class that enables the Ribbon to act as a Prism region. -->
+
+        <!-- Application Ribbon -->
+        <ribbon:Ribbon x:Name="ApplicationRibbon" 
+                Grid.Row="0"  
+                Background="Transparent"  
+                prism:RegionManager.RegionName="RibbonRegion" ShowQuickAccessToolBarOnTop="False">
+
+            <!-- Ribbon ApplicationMenu (defined here) -->
+            <ribbon:Ribbon.ApplicationMenu>
+                <ribbon:RibbonApplicationMenu KeyTip="ApplicationMenuKeyTip"
+                        ToolTipTitle="ApplicationMenuTitle"
+                        ToolTipDescription="ApplicationMenuDescription"
+                        SmallImageSource="..\Images\Clear16.png">
+                    <ribbon:RibbonApplicationMenuItem Name="btnNew"
+                            Header="New" KeyTip="NewKeyTip"
+                            ToolTipTitle="NewTitle"
+                            ToolTipDescription="NewDescription"
+                            ImageSource="..\Images\New32.png" Command="{x:Static dashboardCore:Commands.New}" />
+                    <ribbon:RibbonApplicationMenuItem Name="btnOpen"
+                            Header="Open" KeyTip="OpenKeyTip"
+                            ToolTipTitle="OpenTitle"
+                            ToolTipDescription="OpenDescription"
+                            ImageSource="..\Images\Open32.png" Command="{x:Static dashboardCore:Commands.Open}" />
+                    <ribbon:RibbonApplicationMenuItem Name="btnSave"
+                            Header="Save" KeyTip="SaveKeyTip"
+                            ToolTipTitle="SaveTitle"
+                            ToolTipDescription="SaveDescription"
+                            ImageSource="..\Images\Save32.png" Command="{x:Static dashboardCore:Commands.Save}" />
+                    <ribbon:RibbonApplicationMenuItem Name="btnSaveAs"
+                            Header="Save As" KeyTip="SaveAsKeyTip"
+                            ToolTipTitle="SaveAsTitle"
+                            ToolTipDescription="SaveAsDescription"
+                            ImageSource="..\Images\Save32.png" Command="{x:Static dashboardCore:Commands.SaveAs}" />
+                    <ribbon:RibbonSeparator />
+                    <ribbon:RibbonApplicationSplitMenuItem Name="btnPrint"
+                            Header="Print" HeaderKeyTip="PrintHeaderKeyTip"
+                            KeyTip="PrintKeyTip" ToolTipTitle="PrintTitle"
+                            ToolTipDescription="PrintDescription"
+                            ImageSource="..\Images\Print32.png" Command="{x:Static dashboardCore:Commands.Print}" >
+                        <ribbon:RibbonApplicationMenuItem Name="btnPrint2"
+                                KeyTip="PrintKeyTip" ToolTipTitle="Print"
+                                ToolTipDescription="PrintDescription2"
+                                ImageSource="..\Images\Print32.png" />
+                        <ribbon:RibbonApplicationMenuItem Name="btnQuickPrint"
+                                KeyTip="QuickPrintKeyTip"
+                                ToolTipTitle="QuickPrintTitle"
+                                ToolTipDescription="QuickPrintDescription"
+                                ImageSource="..\Images\Print32.png" />
+                        <ribbon:RibbonApplicationMenuItem Name="btnPrintPreview"
+                                KeyTip="PrintPreviewKeyTip"
+                                ToolTipTitle="PrintPreviewTitle"
+                                ToolTipDescription="PrintPreviewDescription"
+                                ImageSource="..\Images\Print32.png" />
+                    </ribbon:RibbonApplicationSplitMenuItem>
+                    <ribbon:RibbonApplicationMenuItem Name="btnAbout"
+                            Header="About" KeyTip="AboutKeyTip"
+                            ToolTipTitle="AboutTitle"
+                            ToolTipDescription="AboutDescription"
+                            ImageSource="..\Images\Quote.png" Command="{x:Static dashboardCore:Commands.About}" />
+                </ribbon:RibbonApplicationMenu>
+            </ribbon:Ribbon.ApplicationMenu>
+
+            <!-- Ribbon QuickAccessToolbar  (defined here) -->
+            <ribbon:Ribbon.QuickAccessToolBar>
+                <ribbon:RibbonQuickAccessToolBar></ribbon:RibbonQuickAccessToolBar>
+            </ribbon:Ribbon.QuickAccessToolBar>
+
+            <!-- Home Tab (defined here) -->
+            <ribbon:RibbonTab x:Name="HomeTab"  Header="Home">
+                <ribbon:RibbonGroup x:Name="TPMLogo" Header="">
+                    <Image Source="..\Images\Quote.png"></Image>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup x:Name="TPMSlider" Header="">
+                    <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Opacity="0"								
+								Text=".NET Dev Tools Dashboard">
+								<TextBlock.LayoutTransform>
+									<ScaleTransform ScaleY="1.5" />								
+								</TextBlock.LayoutTransform>
+								<TextBlock.RenderTransform>
+									<TranslateTransform x:Name="SampleBrowserTranslateTransform" Y="-2" />
+								</TextBlock.RenderTransform>
+								<TextBlock.Triggers>
+									<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+										<BeginStoryboard>
+											<Storyboard>
+												<DoubleAnimation Storyboard.TargetName="SampleBrowserTranslateTransform" DecelerationRatio="0.7"
+													Storyboard.TargetProperty="X" From="250" To="0" BeginTime="0:0:0.5" Duration="0:0:1" />
+												<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="0.65" BeginTime="0:0:0.5" Duration="0:0:1" />
+											</Storyboard>
+										</BeginStoryboard>
+									</EventTrigger>
+								</TextBlock.Triggers>
+                    </TextBlock>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="" >
+                    <!-- Task Button Region -->
+                    <ItemsControl x:Name="TaskButtonRegion" prism:RegionManager.RegionName="TaskButtonRegion" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                </ribbon:RibbonGroup>
+            </ribbon:RibbonTab>
+            <!-- Navigation Pane Grid -->
+
+        </ribbon:Ribbon>
+
+        <!-- Workspace -->
+        <!--<ContentControl prism:RegionManager.RegionName="{x:Static dashboardCore:RegionNames.ShellWorkspaceRegion}" />-->
+        <ad:DockingManager x:Name="dockManager" Grid.Row="1" Margin="0,4,0,0">
+            <ad:ResizingPanel Orientation="Vertical">
+                <ad:ResizingPanel Orientation="Horizontal">
+                    <ad:DockablePane ad:ResizingPanel.ResizeWidth="300" prism:RegionManager.RegionName="LeftRegion">
+                    </ad:DockablePane>
+                    <ad:DocumentPane prism:RegionManager.RegionName="DocumentRegion" >
+                    </ad:DocumentPane>
+                </ad:ResizingPanel>
+                <ad:DockablePane ad:ResizingPanel.ResizeHeight="200" prism:RegionManager.RegionName="BottomRegion">
+                </ad:DockablePane>
+            </ad:ResizingPanel>
+
+        </ad:DockingManager>
+
+    </Grid>
+</ribbon:RibbonWindow>

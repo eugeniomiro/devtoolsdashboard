@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views.ScriptEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
+    >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <avalonEdit:TextEditor
+				Name="textEditor"
+				FontFamily="Consolas"
+				FontSize="10pt"
+				SyntaxHighlighting="XML" ShowLineNumbers="True">Welcome to AvalonEdit!
+        </avalonEdit:TextEditor>     
+    </Grid>
+</UserControl>

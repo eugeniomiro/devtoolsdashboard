@@ -1,0 +1,20 @@
+﻿<AvalonDock:DockableContent  x:Class="Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views.TargetsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:NAntGui="clr-namespace:NAntGui.Framework;assembly=NAnt-Gui.Framework"
+    xmlns:AvalonDock="clr-namespace:AvalonDock;assembly=AvalonDock" 
+	Title="Targets">
+    <TreeView Height="Auto" Name="treeView1" Width="Auto" ItemsSource="{Binding Targets}">
+        <TreeView.ItemTemplate>
+            <HierarchicalDataTemplate ItemsSource="{Binding Targets}"
+                                 DataType="{x:Type NAntGui:IBuildTarget}">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" />
+                </StackPanel>
+
+            </HierarchicalDataTemplate>
+        </TreeView.ItemTemplate>
+
+    </TreeView>  
+</AvalonDock:DockableContent>
