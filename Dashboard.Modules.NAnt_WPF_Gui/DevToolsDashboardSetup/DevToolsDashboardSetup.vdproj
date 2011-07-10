@@ -722,7 +722,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.0"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.0,Profile=Client"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=131000"
                 }
@@ -1679,7 +1679,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:.NET Dev Tools Dashboard"
         "ProductCode" = "8:{5ACC100D-34AB-40A4-827E-80512EE34063}"
-        "PackageCode" = "8:{7EA1D698-90D0-470C-8929-A4BDA4004D31}"
+        "PackageCode" = "8:{96D62FE7-4D2E-4C5D-B7E8-86334B374398}"
         "UpgradeCode" = "8:{0E0FB3F1-01F8-4601-B58C-10C9B392E628}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

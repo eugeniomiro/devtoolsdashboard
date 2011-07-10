@@ -8,7 +8,7 @@
         <XmlDataProvider x:Key="aboutProvider" XPath="ApplicationInfo" IsAsynchronous="False" IsInitialLoadEnabled="True">
             <x:XData>
                 <ApplicationInfo xmlns="">
-                    <Link Uri="http://blogs.msdn.com/pedrosilva">More Info</Link>
+                    <Link Uri="http://www.techno-fly.net/">More Info</Link>
                 </ApplicationInfo>
             </x:XData>
         </XmlDataProvider>
