@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NAntGui", "NAntGui", "{A050
 		References\NAntGui\NAnt.Core.dll = References\NAntGui\NAnt.Core.dll
 		References\NAntGui\NAnt.DotNetTasks.dll = References\NAntGui\NAnt.DotNetTasks.dll
 		References\NAntGui\NAnt.Win32Tasks.dll = References\NAntGui\NAnt.Win32Tasks.dll
+		References\NAntGui\NDoc.Core.dll = References\NAntGui\NDoc.Core.dll
 		References\NAntGui\nunit.framework.dll = References\NAntGui\nunit.framework.dll
 	EndProjectSection
 EndProject
