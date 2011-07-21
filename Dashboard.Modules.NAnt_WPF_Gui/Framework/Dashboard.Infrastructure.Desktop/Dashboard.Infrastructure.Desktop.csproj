@@ -64,6 +64,9 @@
     <Reference Include="AvalonDock.Themes">
       <HintPath>..\..\References\AvalonDock\AvalonDock.Themes.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\References\NAntGui\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\Prism\EntLib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
@@ -71,6 +74,10 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\Prism\EntLib\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Prism\CommonServiceLocation\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -88,6 +95,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -102,15 +110,88 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveAwareUIElementAdapter.cs" />
+    <Compile Include="ArgumentValidator.cs" />
     <Compile Include="AvalonRegionAdapter.cs" />
+    <Compile Include="CancelableEventArgs.cs" />
+    <Compile Include="Collections\Extensions.cs" />
+    <Compile Include="Collections\IRangeOperations.cs" />
+    <Compile Include="Collections\KeyEqualityComparer.cs" />
+    <Compile Include="Collections\ObservableList.cs" />
+    <Compile Include="Collections\ReadWriteSafeDictionary.cs" />
+    <Compile Include="Collections\ReadWriteSafeStack.cs" />
+    <Compile Include="Collections\SynchronizedObservableCollection.cs" />
+    <Compile Include="ComponentModel\ImplicitTypeConverter.cs" />
+    <Compile Include="ComponentModel\ISuspendChangeNotification.cs" />
+    <Compile Include="ComponentModel\IUserMessageProvider.cs" />
+    <Compile Include="ComponentModel\NotifyPropertyChangeBase.cs" />
+    <Compile Include="ComponentModel\PropertyChangedEventArgs.cs" />
+    <Compile Include="ComponentModel\PropertyChangeNotifier.cs" />
+    <Compile Include="ComponentModel\PropertyChangingEventArgs.cs" />
+    <Compile Include="Concurrency\ConcurrencyException.cs" />
+    <Compile Include="Concurrency\DelegateManager.cs" />
+    <Compile Include="Concurrency\DelegateReference.cs" />
+    <Compile Include="Concurrency\Synchronization\DualContextProvider.cs" />
+    <Compile Include="Concurrency\Synchronization\ISynchronizationContext.cs" />
+    <Compile Include="Concurrency\Synchronization\SynchronizationContexts\ModelSynchronizationContext.cs" />
+    <Compile Include="Concurrency\Synchronization\SynchronizationContexts\UISynchronizationContext.cs" />
+    <Compile Include="Concurrency\Synchronization\UIContextProvider.cs" />
+    <Compile Include="Concurrency\Threading\DispatcherExtensions.cs" />
+    <Compile Include="Concurrency\Threading\LockedOperations.cs" />
+    <Compile Include="Concurrency\Threading\ReaderWriterLockSlimExtensions.cs" />
+    <Compile Include="Content\IContentProvider.cs" />
+    <Compile Include="Content\ISavableContentProvider.cs" />
+    <Compile Include="Dependency.cs" />
+    <Compile Include="DependencyObjectExtensions.cs" />
+    <Compile Include="DockableContentView.cs" />
+    <Compile Include="DockableContentViewModel.cs" />
+    <Compile Include="EnvironmentValues.cs" />
+    <Compile Include="Gui\Adaptation\IUIElement.cs" />
+    <Compile Include="Gui\Adaptation\IUIElementAdapter.cs" />
+    <Compile Include="Gui\IMainWindow.cs" />
+    <Compile Include="Gui\IShell.cs" />
+    <Compile Include="Gui\IShellWindow.cs" />
+    <Compile Include="Gui\IViewTracking.cs" />
+    <Compile Include="Gui\MenuNames.cs" />
+    <Compile Include="IDockableContentViewModel.cs" />
+    <Compile Include="InversionOfControl\IDependencyRegistrar.cs" />
+    <Compile Include="InversionOfControl\ServiceLocatorAdapter.cs" />
+    <Compile Include="InversionOfControl\ServiceLocatorExtensions.cs" />
+    <Compile Include="InversionOfControl\Unity\UnityDependencyRegistrar.cs" />
+    <Compile Include="InversionOfControl\Unity\UnityExtensions.cs" />
+    <Compile Include="InversionOfControl\Unity\UnityServiceLocator.cs" />
+    <Compile Include="IO\ConsoleAdapter.cs" />
+    <Compile Include="IO\FileErrorAction.cs" />
+    <Compile Include="IO\FileOperationResult.cs" />
+    <Compile Include="IO\FileSystem.cs" />
+    <Compile Include="IO\ICommandLine.cs" />
+    <Compile Include="IO\ISavableContent.cs" />
+    <Compile Include="IProvider.cs" />
+    <Compile Include="IView.cs" />
+    <Compile Include="IViewAware.cs" />
+    <Compile Include="ModuleBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Events\NavigationCompletedEvent.cs" />
     <Compile Include="DockingWindowViewModelBase.cs" />
     <Compile Include="ITabViewInfo.cs" />
+    <Compile Include="RegionManagerExtentions.cs" />
+    <Compile Include="RibbonGroupRegionAdapter.cs" />
     <Compile Include="RibbonRegionAdapter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SelectedWorkspaceViewChangedEvent.cs" />
+    <Compile Include="ServiceLocatorSingleton.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\ICommandService.cs" />
+    <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\IMessageService.cs" />
+    <Compile Include="Services\IViewService.cs" />
+    <Compile Include="Services\ViewService.cs" />
+    <Compile Include="Services\ViewService.Desktop.cs" />
+    <Compile Include="TBExtender.cs" />
+    <Compile Include="UIElementSateChangedEvent.cs" />
+    <Compile Include="ViewControl.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="IDockingWindowViewModel.cs" />
     <Compile Include="IViewModel.cs" />
