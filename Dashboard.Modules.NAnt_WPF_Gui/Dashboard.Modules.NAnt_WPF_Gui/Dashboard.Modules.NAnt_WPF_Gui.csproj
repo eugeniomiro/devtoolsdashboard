@@ -37,7 +37,8 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <ApplicationIcon>Advanced Options.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
   </PropertyGroup>
@@ -164,15 +165,15 @@
     <Compile Include="ViewModels\BlankBuildScript.cs" />
     <Compile Include="ViewModels\EventsArgs.cs" />
     <Compile Include="ViewModels\MainController.cs" />
-    <Compile Include="ViewModels\ModuleTaskButtonViewModel.cs" />
+    <Compile Include="ViewModels\TaskButtonViewModel.cs" />
     <Compile Include="ViewModels\NAntDocumentWindowModel.cs" />
     <Compile Include="ViewModels\OutputViewModel.cs" />
     <Compile Include="ViewModels\TargetsViewModel.cs" />
     <Compile Include="ViewModels\FileType.cs" />
     <Compile Include="ViewModels\IEditCommands.cs" />
     <Compile Include="ViewModels\PropertiesViewModel.cs" />
-    <Compile Include="Views\ModuleTaskButton.xaml.cs">
-      <DependentUpon>ModuleTaskButton.xaml</DependentUpon>
+    <Compile Include="Views\TaskButton.xaml.cs">
+      <DependentUpon>TaskButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TargetsView.xaml.cs">
       <DependentUpon>TargetsView.xaml</DependentUpon>
@@ -211,7 +212,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Resource Include="Advanced Options.ico" />
     <Resource Include="Ant.ico" />
     <Content Include="App.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -223,7 +223,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\ModuleTaskButton.xaml">
+    <Page Include="Views\TaskButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

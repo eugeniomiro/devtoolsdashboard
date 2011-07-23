@@ -27,12 +27,12 @@ using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
 using Techno_Fly.Tools.Dashboard.Events;
-using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Commands;
+using Techno_Fly.Tools.Dashboard.Modules.ILSpy.Commands;
 
-namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
+namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy.ViewModels
 {
     [CLSCompliant(false)]
-    public class ModuleTaskButtonViewModel : ViewModelBase, INavigationAware
+    public class TaskButtonViewModel : ViewModelBase, INavigationAware
     {
         #region Fields
 
@@ -45,7 +45,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ModuleTaskButtonViewModel()
+        public TaskButtonViewModel()
         {
             this.Initialize();
         }

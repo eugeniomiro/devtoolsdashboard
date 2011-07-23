@@ -33,9 +33,9 @@ namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy.Views
     /// </summary>
     [ViewSortHint("01")]
     [CLSCompliant(false)]
-    public partial class ModuleTaskButton : UserControl
+    public partial class TaskButton : ViewControl
     {
-        public ModuleTaskButton(ModuleTaskButtonViewModel viewModel)
+        public TaskButton(TaskButtonViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

@@ -68,10 +68,10 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui
             {
                 System.Diagnostics.Trace.WriteLine("NAnt_WPF_Gui.Initialize ...");
 
-                Container.RegisterType<ModuleTaskButton>(new ContainerControlledLifetimeManager());
-                RegionManager.Regions["TaskButtonRegion"].Add(Container.Resolve<ModuleTaskButton>());
+                Container.RegisterType<TaskButton>(new ContainerControlledLifetimeManager());
+                RegionManager.Regions["TaskButtonRegion"].Add(Container.Resolve<TaskButton>());
 
-                Container.RegisterType<Object, ModuleRibbonTab>("DeployServersModuleRibbonTab");
+                Container.RegisterType<Object, ModuleRibbonTab>("NAnt_WPF_GuiModuleRibbonTab");
 
                 //_container.RegisterType<Object, TargetsView>("TargetsView");
                 //_container.RegisterType<Object, PropertiesView>("PropertiesView");

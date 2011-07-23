@@ -78,12 +78,12 @@
     <Compile Include="Commands\ShowModuleViewCommand.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ModuleTaskButtonViewModel.cs" />
+    <Compile Include="ViewModels\TaskButtonViewModel.cs" />
     <Compile Include="Views\ModuleRibbonTab.xaml.cs">
       <DependentUpon>ModuleRibbonTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ModuleTaskButton.xaml.cs">
-      <DependentUpon>ModuleTaskButton.xaml</DependentUpon>
+    <Compile Include="Views\TaskButton.xaml.cs">
+      <DependentUpon>TaskButton.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +91,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ModuleTaskButton.xaml">
+    <Page Include="Views\TaskButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -117,6 +117,11 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>C:\WINDOWS\system32\xcopy "$(TargetDir)*.*" "$(SolutionDir)Framework\Dashboard.Desktop\bin\$(ConfigurationName)\" /Y
+
+C:\WINDOWS\system32\xcopy "$(TargetDir)Dashboard.Modules.*" "$(SolutionDir)Framework\Dashboard.Desktop\bin\$(ConfigurationName)\Modules\" /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

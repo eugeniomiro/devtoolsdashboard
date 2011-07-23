@@ -15,7 +15,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Commands
         #region Fields
 
         // Member variables
-        private ModuleTaskButtonViewModel _moduleTaskButtonViewModel;
+        private TaskButtonViewModel _moduleTaskButtonViewModel;
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Commands
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ShowModuleViewCommand(ModuleTaskButtonViewModel viewModel)
+        public ShowModuleViewCommand(TaskButtonViewModel viewModel)
         {
             _moduleTaskButtonViewModel = viewModel;
         }
@@ -60,7 +60,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Commands
             var container = ServiceLocator.Current.GetInstance<IUnityContainer>();
 
             // Show Ribbon Tab
-            var moduleRibbonTab = new Uri("DeployServersModuleRibbonTab", UriKind.Relative);
+            var moduleRibbonTab = new Uri("NAnt_WPF_GuiModuleRibbonTab", UriKind.Relative);
             regionManager.RequestNavigate("RibbonRegion", moduleRibbonTab);
 
             var targetsView = new Uri("TargetsView", UriKind.Relative);

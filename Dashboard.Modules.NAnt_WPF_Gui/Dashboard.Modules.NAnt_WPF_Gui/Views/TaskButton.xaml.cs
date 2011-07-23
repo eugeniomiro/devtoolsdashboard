@@ -31,11 +31,11 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views
     /// <summary>
     /// Interaction logic for ModuleATaskButton.xaml
     /// </summary>
-    [ViewSortHint("01")]
+    [ViewSortHint("02")]
     [CLSCompliant(false)]
-    public partial class ModuleTaskButton : UserControl
+    public partial class TaskButton : ViewControl
     {
-        public ModuleTaskButton(ModuleTaskButtonViewModel viewModel)
+        public TaskButton(TaskButtonViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;
