@@ -6,6 +6,6 @@
      xmlns:Dashboard="clr-namespace:Techno_Fly.Tools.Dashboard;assembly=Dashboard.Infrastructure"
     >
     <Grid>
-        <ribbon:RibbonToggleButton   Name="NAnt_WPF_GuiButton" LargeImageSource="..\Ant.ico" Label="DeployServers" Command="{Data:Binding ShowModuleView}" Dashboard:TbExtender.IsChecked="{Binding Path=IsChecked, Mode=OneWay}" />
+        <ribbon:RibbonToggleButton   Name="NAnt_WPF_GuiButton" LargeImageSource="..\Ant.ico" Label="NAnt Gui" Command="{Data:Binding ShowModuleView}" Dashboard:TbExtender.IsChecked="{Binding Path=IsChecked, Mode=OneWay}" />
     </Grid>
 </Dashboard:ViewControl>
