@@ -7,7 +7,7 @@
              xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary" 
              xmlns:Commands="clr-namespace:Techno_Fly.Tools.Dashboard.Modules.ILSpy.Commands"
              mc:Ignorable="d">
-    <ribbon:RibbonButton x:Name="TaskButton" LargeImageSource="..\Ant.ico" Label="NAnt Gui" Command="{Binding ShowModuleView}" />
+    <ribbon:RibbonButton x:Name="TaskButton" LargeImageSource="..\ILSpy.ico" Label="ILSpy" Command="{Binding ShowModuleView}" />
 
     <!--<fsc:TaskButton x:Name="TaskButton"
                     Command="{Binding ShowModuleView}" 

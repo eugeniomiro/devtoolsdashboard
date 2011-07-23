@@ -96,7 +96,9 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ILSpy.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework\Dashboard.Infrastructure.Desktop\Dashboard.Infrastructure.Desktop.csproj">
       <Project>{D4910710-A3DF-481F-87D1-7068CF372595}</Project>
@@ -110,6 +112,9 @@
       <Project>{77138947-1D13-4E22-AEE0-5D0DD046CA34}</Project>
       <Name>Prism.Desktop</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
