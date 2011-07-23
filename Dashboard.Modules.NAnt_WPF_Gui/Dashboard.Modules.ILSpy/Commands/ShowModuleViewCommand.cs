@@ -24,6 +24,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy.Commands
         /// <summary>
         /// Default constructor.
         /// </summary>
+        [CLSCompliant(false)]
         public ShowModuleViewCommand(ModuleTaskButtonViewModel viewModel)
         {
             _moduleTaskButtonViewModel = viewModel;

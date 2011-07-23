@@ -60,6 +60,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views
             DataContext = ViewModel = new NAntDocumentWindowModel(fileName, logger, options);
         }
 
+        [CLSCompliant(false)]
         public NAntDocumentWindowModel NAntDocumentWindowModel
         {
             get

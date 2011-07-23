@@ -26,11 +26,13 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             get { return "Untitled"; }
         }
 
+        [CLSCompliant(false)]
         public List<IBuildProperty> Properties
         {
             get { return new List<IBuildProperty>(); }
         }
 
+        [CLSCompliant(false)]
         public List<IBuildTarget> Targets
         {
             get { return new List<IBuildTarget>(); }

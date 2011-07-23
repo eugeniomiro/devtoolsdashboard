@@ -35,7 +35,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy
     {
         //private readonly CommandLineOptions _options = new CommandLineOptions();
         //private OutputView _outputView;
-        private int _newFileCount;
+        //private int _newFileCount;
         private const string FileFilter = "NAnt files (*.build)|*.build";
 
         public Module()

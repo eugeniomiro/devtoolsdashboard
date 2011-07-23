@@ -17,22 +17,12 @@ using Techno_Fly.Tools.Dashboard.IO;
 using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
 using ICSharpCode.AvalonEdit.Document;
 using Techno_Fly.Tools.Dashboard.Services;
-
-using System;
-using System.Linq;
-using System.IO;
-using System.Windows.Input;
-using NAntGui.Core;
-using Microsoft.Practices.Prism.Regions;
-using System.Windows;
 using Microsoft.Win32;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Prism.Commands;
-using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
-using NAntGui.Framework;
 
 namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 {
+    [CLSCompliant(false)]
     public class NAntDocumentWindowModel : DockableContentViewModel<NAntDocumentWindow>, IContentProvider<ISavableContent>, ISavableContent
     {
         private readonly CommandLineOptions _options;
