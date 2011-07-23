@@ -1,6 +1,24 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿//===================================================================================
+// Microsoft patterns & practices
+// Composite Application Guidance for Windows Presentation Foundation and Silverlight
+//===================================================================================
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+// THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
+// OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
+// LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+// FITNESS FOR A PARTICULAR PURPOSE.
+//===================================================================================
+// The example companies, organizations, products, domain names,
+// e-mail addresses, logos, people, places, and events depicted
+// herein are fictitious.  No association with any real company,
+// organization, product, domain name, email address, logo, person,
+// places, or events is intended or should be inferred.
+//===================================================================================
+using System;
+using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -8,9 +26,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Dashboard.Modules.ILSpy")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Dashboard.Modules.ILSpy")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCompany("Techno Fly")]
+[assembly: AssemblyProduct(".NET Dev Tools Dashboard")]
+[assembly: AssemblyCopyright("This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,4 +51,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
+[assembly: CLSCompliant(true)]
 [assembly: AssemblyFileVersion("1.0.0.0")]
