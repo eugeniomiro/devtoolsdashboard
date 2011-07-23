@@ -1,0 +1,11 @@
+﻿<ribbon:RibbonTab x:Class="Techno_Fly.Tools.Dashboard.Modules.ILSpy.Views.ModuleRibbonTab"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dashboardCore="clr-namespace:Techno_Fly.Tools.Dashboard;assembly=Dashboard.Infrastructure"
+        xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+        x:Name="HomeTab" Header="NAnt Gui" >
+    <ribbon:RibbonGroup x:Name="NantCommands" Header="Nant Commands">
+        <ribbon:RibbonButton x:Name="Button1" LargeImageSource="..\Images\Build.png" Label="Build" Command="{x:Static dashboardCore:Commands.Build}" />
+    </ribbon:RibbonGroup>
+</ribbon:RibbonTab>
+
