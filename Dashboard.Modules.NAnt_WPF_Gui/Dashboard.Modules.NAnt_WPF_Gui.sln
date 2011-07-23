@@ -78,9 +78,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.NAnt_WPF_
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DevToolsDashboardSetup", "DevToolsDashboardSetup\DevToolsDashboardSetup.vdproj", "{7840CFD3-82CB-4204-AFDE-D56C91892B85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.ILSpy", "Dashboard.Modules.ILSpy\Dashboard.Modules.ILSpy.csproj", "{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
+		SccNumberOfProjects = 10
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs32
 		SccLocalPath0 = .
@@ -114,6 +116,9 @@ Global
 		SccProjectUniqueName8 = DevToolsDashboardSetup\\DevToolsDashboardSetup.vdproj
 		SccProjectName8 = DevToolsDashboardSetup
 		SccLocalPath8 = DevToolsDashboardSetup
+		SccProjectUniqueName9 = Dashboard.Modules.ILSpy\\Dashboard.Modules.ILSpy.csproj
+		SccProjectName9 = Dashboard.Modules.ILSpy
+		SccLocalPath9 = Dashboard.Modules.ILSpy
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -252,6 +257,21 @@ Global
 		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|Mixed Platforms.Build.0 = Release
 		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|x86.ActiveCfg = Release
 		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|x86.Build.0 = Release
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|x86.ActiveCfg = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
