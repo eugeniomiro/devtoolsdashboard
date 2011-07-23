@@ -150,16 +150,8 @@ namespace Microsoft.Practices.Prism.Regions.Behaviors
             }
 
             DependencyObject parent = null;
-#if SILVERLIGHT
-            //parent = System.Windows.Media.VisualTreeHelper.GetParent(dependencyObject);
-                    FrameworkElement frameworkElement = dependencyObject as FrameworkElement;
-                    if (frameworkElement != null)
-                    {
-                        parent = frameworkElement.Parent;
-                    }
-#else
             parent = LogicalTreeHelper.GetParent(dependencyObject);
-#endif
+
             if (parent != null)
             {
                 return this.FindRegionManager(parent);

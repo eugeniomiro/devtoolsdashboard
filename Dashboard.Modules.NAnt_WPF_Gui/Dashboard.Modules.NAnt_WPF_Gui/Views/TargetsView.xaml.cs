@@ -31,7 +31,8 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views
 	/// Represents a window for the properties window.
 	/// </summary>
     [CLSCompliant(false)]
-	public partial class TargetsView : DockableContent {
+    public partial class TargetsView : DockableContentView
+    {
 
 		//public static readonly DependencyProperty SelectedObjectProperty = DependencyProperty.Register("SelectedObject", typeof(object), typeof(PropertiesView), new FrameworkPropertyMetadata(null));
 		

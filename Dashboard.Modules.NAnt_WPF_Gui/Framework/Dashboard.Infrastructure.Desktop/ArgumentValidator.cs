@@ -58,8 +58,7 @@ namespace Techno_Fly.Tools.Dashboard
 
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentException(
-                    "Argument should not be an empty string.", parameterName); /* TODO: Make localizable resource. */
+                throw new ArgumentException("Argument should not be an empty string.", parameterName);
             }
 
             return value;
@@ -82,8 +81,7 @@ namespace Techno_Fly.Tools.Dashboard
                 return value;
             }
 
-            throw new ArgumentOutOfRangeException(
-                "Argument should be greater than " + expected, parameterName); /* TODO: Make localizable resource. */
+            throw new ArgumentOutOfRangeException("Argument should be greater than " + expected, parameterName);
         }
 
         public static double AssertGreaterThan(double value, double expected, string parameterName)
@@ -93,8 +91,7 @@ namespace Techno_Fly.Tools.Dashboard
                 return value;
             }
 
-            throw new ArgumentOutOfRangeException(
-                "Argument should be greater than " + expected, parameterName); /* TODO: Make localizable resource. */
+            throw new ArgumentOutOfRangeException("Argument should be greater than " + expected, parameterName); 
         }
 
         public static int AssertGreaterThanOrEqual(int value, int expected, string parameterName)
@@ -104,8 +101,7 @@ namespace Techno_Fly.Tools.Dashboard
                 return value;
             }
 
-            throw new ArgumentOutOfRangeException(
-                "Argument should be greater than or equal to " + expected, parameterName); /* TODO: Make localizable resource. */
+            throw new ArgumentOutOfRangeException("Argument should be greater than or equal to " + expected, parameterName); 
         }
 
         public static double AssertGreaterThanOrEqual(double value, double expected, string parameterName)
@@ -115,16 +111,14 @@ namespace Techno_Fly.Tools.Dashboard
                 return value;
             }
 
-            throw new ArgumentOutOfRangeException(
-                "Argument should be greater than or equal to " + expected, parameterName); /* TODO: Make localizable resource. */
+            throw new ArgumentOutOfRangeException("Argument should be greater than or equal to " + expected, parameterName); 
         }
 
         public static int AssertLessThan(int value, int expected, string parameterName)
         {
             if (value >= expected)
             {
-                throw new ArgumentOutOfRangeException(
-                    "Argument should be less than " + expected, parameterName); /* TODO: Make localizable resource. */
+                throw new ArgumentOutOfRangeException("Argument should be less than " + expected, parameterName); 
             }
 
             return value;
@@ -134,8 +128,7 @@ namespace Techno_Fly.Tools.Dashboard
         {
             if (value >= expected)
             {
-                throw new ArgumentOutOfRangeException(
-                    "Argument should be less than " + expected, parameterName); /* TODO: Make localizable resource. */
+                throw new ArgumentOutOfRangeException("Argument should be less than " + expected, parameterName); 
             }
 
             return value;
@@ -145,8 +138,7 @@ namespace Techno_Fly.Tools.Dashboard
         {
             if (value > expected)
             {
-                throw new ArgumentOutOfRangeException(
-                    "Argument should be less than or equal to " + expected, parameterName); /* TODO: Make localizable resource. */
+                throw new ArgumentOutOfRangeException("Argument should be less than or equal to " + expected, parameterName); 
             }
 
             return value;
@@ -156,8 +148,7 @@ namespace Techno_Fly.Tools.Dashboard
         {
             if (value > expected)
             {
-                throw new ArgumentOutOfRangeException(
-                    "Argument should be less than or equal to " + expected, parameterName); /* TODO: Make localizable resource. */
+                throw new ArgumentOutOfRangeException("Argument should be less than or equal to " + expected, parameterName); 
             }
 
             return value;

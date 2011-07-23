@@ -35,19 +35,13 @@ using System.Collections.Generic;
 namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 {
     [CLSCompliant(false)]
-	public class TargetsViewModel : DockingWindowViewModelBase<TargetsView> {
-
-        private readonly IRegionManager _regionManager;
-        private readonly IUnityContainer _container;
+    public class TargetsViewModel : DockableContentViewModel<TargetsView>
+    {
 
         private string _projectName = "";
 
-        public TargetsViewModel(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
-            : base(container, regionManager,eventAggregator)
+        public TargetsViewModel()
         {
-            _container = container;
-            _regionManager = regionManager;
-
 			// Create a view
 			this.View = new TargetsView { DataContext = this };
 
@@ -103,12 +97,6 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 	    {
 	        Debug.Print(message);
 	    }
-
-	    protected override string ViewName { 
-			get {
-				return "Targets";
-			}
-		}
 
         internal List<IBuildTarget> SelectedTargets
         {
@@ -259,7 +247,8 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             set
             {
                 _targets = value;
-                RaisePropertyChangedEvent("Targets");
+                Notifier.NotifyChanged("Targets");
+                //RaisePropertyChangedEvent("Targets");
             }
         }
 	}

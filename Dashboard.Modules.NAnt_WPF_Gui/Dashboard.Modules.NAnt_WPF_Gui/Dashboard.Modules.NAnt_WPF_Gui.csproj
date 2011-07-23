@@ -180,8 +180,8 @@
     <Compile Include="Views\TargetsView.xaml.cs">
       <DependentUpon>TargetsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OutputWindow.xaml.cs">
-      <DependentUpon>OutputWindow.xaml</DependentUpon>
+    <Compile Include="Views\OutputView.xaml.cs">
+      <DependentUpon>OutputView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -234,7 +234,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\OutputWindow.xaml">
+    <Page Include="Views\OutputView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -33,33 +33,32 @@ using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
 namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 {
     [CLSCompliant(false)]
-	public class OutputViewModel : DockingWindowViewModelBase<OutputWindow> {
+    public class OutputViewModel : DockableContentViewModel<OutputView>
+    {
 
-        private readonly IRegionManager _regionManager;
-        private readonly IUnityContainer _container;
-
-        public OutputViewModel(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
-            : base(container, regionManager,eventAggregator)
+        public OutputViewModel()
         {
-            _container = container;
-            _regionManager = regionManager;
-
-			// Create a view
-			this.View = new OutputWindow { DataContext = this };
+            // Create a view
+            //this.View = new OutputView { DataContext = this };
 
             // Create Menu Bindings
             // Initialize commands
             this.NewCommand = new DelegateCommand<object>(NewCommand_Executed);
             this.OpenCommand = new DelegateCommand<object>(OpenCommand_Executed, Command_CanExecute);
+            this.ClearOutputCommand = new DelegateCommand<object>(ClearOutputCommand_Executed, Command_CanExecute);
+
             Techno_Fly.Tools.Dashboard.Commands.New.RegisterCommand(this.NewCommand);
             Techno_Fly.Tools.Dashboard.Commands.Open.RegisterCommand(this.OpenCommand);
+            Techno_Fly.Tools.Dashboard.Commands.ClearOutput.RegisterCommand(this.ClearOutputCommand);
 
             this.NewCommand.IsActive = true;
             this.OpenCommand.IsActive = true;
-		}
+            this.ClearOutputCommand.IsActive = true;
+        }
 
         public DelegateCommand<object> NewCommand { get; private set; }
         public DelegateCommand<object> OpenCommand { get; private set; }
+        public DelegateCommand<object> ClearOutputCommand { get; private set; }
 
         /// <summary>
         /// Occurs when the <see cref="ICommand"/> is executed.
@@ -67,7 +66,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         /// <param name="parameter">The command parameter.</param>
         private void NewCommand_Executed(object parameter)
         {
-            //this.View.OnClearExecute();
+
         }
 
         /// <summary>
@@ -77,6 +76,31 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         private void OpenCommand_Executed(object parameter)
         {
 
+        }
+
+        /// <summary>
+        /// Occurs when the <see cref="ICommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void ClearOutputCommand_Executed(object parameter)
+        {
+            //View.ClearOutput();
+            Text = "";
+        }
+
+        private string _text = string.Empty;
+        public string Text
+        {
+            get
+            {
+                return this._text;
+            }
+            set
+            {
+                this._text = value;
+                //this.OnPropertyChanged("Text");
+                Notifier.NotifyChanged("Text");
+            }
         }
 
         /// <summary>
@@ -92,16 +116,23 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             //return this.View.OnClearCommandCanExecute();
         }
 
-	    public override void WriteTraceMessage(string message)
-	    {
-	        Debug.Print(message);
-	        View.LogMessage(message);
-	    }
 
-	    protected override string ViewName { 
-			get {
-				return "Output";
-			}
-		}
-	}
+        public override void WriteTraceMessage(string message)
+        {
+            Debug.Print(message);
+            //View.LogMessage(message);
+        }
+
+        //protected override string ViewName { 
+        //    get {
+        //        return "Output";
+        //    }
+        //}
+
+
+        internal void LogMessage(string message)
+        {
+            Text = Text + Environment.NewLine + message;
+        }
+    }
 }

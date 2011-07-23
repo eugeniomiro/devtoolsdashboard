@@ -97,13 +97,10 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 				stringBuilder.Append(stringValue);
 				stringBuilder.Append("</c:" + type.Name + ">\n");
 				stringBuilder.Append("</ContentControl>");
-#if SILVERLIGHT
-				var instance = XamlReader.Load(stringBuilder.ToString()) as ContentControl;
-#else
+
 				System.IO.StringReader stringReader = new System.IO.StringReader(stringBuilder.ToString());
 				System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(stringReader);
 				var instance = XamlReader.Load(xmlReader) as ContentControl;
-#endif
 				
 				if (instance != null)
 				{

@@ -1,193 +1,178 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.ComponentModel;
 using System.IO;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Events;
 using NAntGui.Core;
-using NAntGui.Framework;
 using Microsoft.Practices.Prism.Regions;
 using System.Windows;
-using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
 using Microsoft.Win32;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Commands;
-using ICSharpCode.AvalonEdit.Document;
+using Techno_Fly.Tools.Dashboard.IO;
+using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
+using NAntGui.Framework;
+using Techno_Fly.Tools.Dashboard.Services;
 
 namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 {
     public class MainController : ViewModelBase, INavigationAware
     {
-        private readonly IRegionManager _regionManager;
-        private readonly IUnityContainer _container;
-        private readonly IEventAggregator _eventAggregator;
-        private readonly OutputWindow _outputWindow;
-        private readonly TargetsViewModel _targetsViewModel;
-
-        private enum FocusedItems
-        {
-            Window,
-            Output,
-            Other
-        }
-
-        private readonly BackgroundWorker _loader = new BackgroundWorker();
         private readonly CommandLineOptions _options;
+        private readonly OutputView _outputView;
+        private int _newFileCount;
+
+        //private enum FocusedItems
+        //{
+        //    Window,
+        //    Output,
+        //    Other
+        //}
 
         //private NAntGuiForm _mainForm;
-        private IEditCommands _editCommands;
+        //private IEditCommands _editCommands;
 
         //private readonly Dictionary<DocumentWindow, NAntDocument> _documents = new Dictionary<DocumentWindow, NAntDocument>();
 
-        private FocusedItems _focusedItem = FocusedItems.Other;
+        //private FocusedItems _focusedItem = FocusedItems.Other;
 
-        public MainController(CommandLineOptions options, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
-            : base(container, regionManager, eventAggregator)
+        public MainController(CommandLineOptions options)
         {
-            _container = container;
-            _regionManager = regionManager;
-            _eventAggregator = eventAggregator;
-            _outputWindow = _container.Resolve<OutputViewModel>().View;
-            _targetsViewModel = _container.Resolve<TargetsViewModel>();
+            _outputView = Container.Resolve<OutputView>("OutputView");
+            //_targetsView = Container.Resolve<TargetsView>();
+
+            var outputView = new Uri("OutputView", UriKind.Relative);
+            RegionManager.RequestNavigate("BottomRegion", outputView);
 
             Assert.NotNull(options, "options");
             _options = options;
-            _loader.DoWork += LoaderDoWork;
-            _loader.RunWorkerCompleted += LoaderRunWorkerCompleted;
+            //_loader.DoWork += LoaderDoWork;
+            //_loader.RunWorkerCompleted += LoaderRunWorkerCompleted;
             //RecentItems.ItemAdded += RecentItemsItemAdded;
             //Application.Idle += ApplicationIdle;
- 
+
             // Create Menu Bindings
             // Initialize commands
-            this.NewCommand = new DelegateCommand<object>(NewCommand_Executed);
-            Techno_Fly.Tools.Dashboard.Commands.New.RegisterCommand(this.NewCommand);
-            this.NewCommand.IsActive = true;
+            SaveCommand = new DelegateCommand<object>(SaveCommand_Executed, Command_CanExecute);
+            Dashboard.Commands.Save.RegisterCommand(SaveCommand);
+            SaveCommand.IsActive = true;
 
-            this.OpenCommand = new DelegateCommand<object>(OpenCommand_Executed, Command_CanExecute);
-            Techno_Fly.Tools.Dashboard.Commands.Open.RegisterCommand(this.OpenCommand);
-            this.OpenCommand.IsActive = true;
-
-            this.BuildCommand = new DelegateCommand<object>(BuildCommand_Executed, Command_CanExecute);
-            Techno_Fly.Tools.Dashboard.Commands.Build.RegisterCommand(this.BuildCommand);
-            this.BuildCommand.IsActive = true;
-
-            this.SaveCommand = new DelegateCommand<object>(SaveCommand_Executed, Command_CanExecute);
-            Techno_Fly.Tools.Dashboard.Commands.Save.RegisterCommand(this.SaveCommand);
-            this.SaveCommand.IsActive = true;
+            BuildCommand = new DelegateCommand<object>(BuildCommand_Executed, Command_CanExecute);
+            Dashboard.Commands.Build.RegisterCommand(BuildCommand);
+            BuildCommand.IsActive = true;
 
 
-            
-            
         }
 
-        void ApplicationIdle(object sender, EventArgs e)
-        {
-            CheckForFileChanges();
-            UpdateInterface();
-        }
+        //void ApplicationIdle(object sender, EventArgs e)
+        //{
+        //    CheckForFileChanges();
+        //    UpdateInterface();
+        //}
 
-        private void CheckForFileChanges()
-        {
-            //NAntDocument[] docs = new NAntDocument[_documents.Values.Count];
-            //_documents.Values.CopyTo(docs, 0);
+        //private void CheckForFileChanges()
+        //{
+        //NAntDocument[] docs = new NAntDocument[_documents.Values.Count];
+        //_documents.Values.CopyTo(docs, 0);
 
-            //foreach (NAntDocument document in docs)
-            //{
-            //    if (document.FileType == FileType.Existing && _mainForm.IsActive)
-            //    {
-            //        CheckIfFileDeleted(document);
-            //        CheckIfFileModified(document);
-            //    }
-            //}
-        }
+        //foreach (NAntDocument document in docs)
+        //{
+        //    if (document.FileType == FileType.Existing && _mainForm.IsActive)
+        //    {
+        //        CheckIfFileDeleted(document);
+        //        CheckIfFileModified(document);
+        //    }
+        //}
+        //}
 
-        private void CheckIfFileDeleted(NAntDocumentWindowModel document)
-        {
-            //if (!File.Exists(document.FullName))
-            //{
-            //    OpenDocumentDeleted(document);
-            //}
-        }
+        //private void CheckIfFileDeleted(NAntDocumentWindowModel document)
+        //{
+        //if (!File.Exists(document.FullName))
+        //{
+        //    OpenDocumentDeleted(document);
+        //}
+        //}
 
-        private void CheckIfFileModified(NAntDocumentWindowModel document)
-        {
-            DateTime lastWrite = File.GetLastWriteTime(document.FullName);
-            if (lastWrite > document.LastModified && lastWrite != document.IgnoreModifiedDate)
-            {
-                //DialogResult result = Errors.ShowDocumentChangedMessage(document.FullName);
+        //private void CheckIfFileModified(NAntDocumentWindowModel document)
+        //{
+        //    DateTime lastWrite = File.GetLastWriteTime(document.FullName);
+        //    if (lastWrite > document.LastModified && lastWrite != document.IgnoreModifiedDate)
+        //    {
+        //        DialogResult result = Errors.ShowDocumentChangedMessage(document.FullName);
 
-                //if (result == DialogResult.Yes)
-                //{
-                //    LoadDocument(document.FullName);
-                //}
-                //else
-                //{
-                //    document.IgnoreModifiedDate = lastWrite;
-                //}
-            }
-        }
+        //        if (result == DialogResult.Yes)
+        //        {
+        //            LoadDocument(document.FullName);
+        //        }
+        //        else
+        //        {
+        //            document.IgnoreModifiedDate = lastWrite;
+        //        }
+        //    }
+        //}
 
-        private void UpdateInterface()
-        {
-            //if (_documents.Count == 0)
-            //    _mainForm.NoDocumentsOpen();
-            //else
-            //    _mainForm.DocumentsOpen();
+        //private void UpdateInterface()
+        //{
+        //if (_documents.Count == 0)
+        //    _mainForm.NoDocumentsOpen();
+        //else
+        //    _mainForm.DocumentsOpen();
 
-            //// TODO: If running, this overrides the above to set the run button to 
-            //// disabled. Should consolidate the two to prevent the duplication
-            //_mainForm.UpdateBuildControls();
+        //// If running, this overrides the above to set the run button to 
+        //// disabled. Should consolidate the two to prevent the duplication
+        //_mainForm.UpdateBuildControls();
 
-            //if (_focusedItem == FocusedItems.Output)
-            //{
-            //    _mainForm.UndoEnabled = false;
-            //    _mainForm.RedoEnabled = false;
-            //    _mainForm.OutputWindowHasFocus();
-            //    _editCommands = _outputWindow;
-            //}
-            //else if (_focusedItem == FocusedItems.Window)
-            //{
-            //    _mainForm.UndoEnabled = ActiveWindow.CanUndo;
-            //    _mainForm.RedoEnabled = ActiveWindow.CanRedo;
-            //    _mainForm.ReloadEnabled = (ActiveDocument.FileType == FileType.Existing);
-            //    _editCommands = ActiveWindow.EditCommands;
-            //    _mainForm.EnableEditCommands();
-            //}
-            //else
-            //{
-            //    _mainForm.UndoEnabled = false;
-            //    _mainForm.RedoEnabled = false;
-            //    _mainForm.DisableEditCommands();
-            //}
-        }
+        //if (_focusedItem == FocusedItems.Output)
+        //{
+        //    _mainForm.UndoEnabled = false;
+        //    _mainForm.RedoEnabled = false;
+        //    _mainForm.OutputWindowHasFocus();
+        //    _editCommands = _outputWindow;
+        //}
+        //else if (_focusedItem == FocusedItems.Window)
+        //{
+        //    _mainForm.UndoEnabled = ActiveWindow.CanUndo;
+        //    _mainForm.RedoEnabled = ActiveWindow.CanRedo;
+        //    _mainForm.ReloadEnabled = (ActiveDocument.FileType == FileType.Existing);
+        //    _editCommands = ActiveWindow.EditCommands;
+        //    _mainForm.EnableEditCommands();
+        //}
+        //else
+        //{
+        //    _mainForm.UndoEnabled = false;
+        //    _mainForm.RedoEnabled = false;
+        //    _mainForm.DisableEditCommands();
+        //}
+        //}
 
-        private void OpenDocumentDeleted(NAntDocumentWindowModel document)
-        {
-            //DocumentWindow window = FindDocumentWindow(document.FullName);
-            //DialogResult result = Errors.ShowDocumentDeletedMessage(document.FullName);
+        //private void OpenDocumentDeleted(NAntDocumentWindowModel document)
+        //{
+        //DocumentWindow window = FindDocumentWindow(document.FullName);
+        //DialogResult result = Errors.ShowDocumentDeletedMessage(document.FullName);
 
-            //if (result == DialogResult.No)
-            //{
-            //    window.Close();
-            //}
-            //else
-            //{
-            //    window.TabText = Utils.AddAsterisk(window.TabText);
-            //    document.FileType = FileType.New;
-            //}
-        }
+        //if (result == DialogResult.No)
+        //{
+        //    window.Close();
+        //}
+        //else
+        //{
+        //    window.TabText = Utils.AddAsterisk(window.TabText);
+        //    document.FileType = FileType.New;
+        //}
+        //}
 
-        private void RecentItemsItemAdded(object sender, RecentItemsEventArgs e)
-        {
-            //_mainForm.CreateRecentItemsMenu();
-        }
+        //private void RecentItemsItemAdded(object sender, RecentItemsEventArgs e)
+        //{
+        //_mainForm.CreateRecentItemsMenu();
+        //}
 
         internal void NewBlankDocument()
         {
-            NAntDocumentWindowModel doc = new NAntDocumentWindowModel(_outputWindow, _options, _container ,_regionManager ,_eventAggregator);
-            //DocumentWindow window = new DocumentWindow(doc.FullName);
-            //SetupWindow(window, doc);
+            NAntDocumentWindow doc = new NAntDocumentWindow(_outputView, _options);
+            RegionManager.Regions["DocumentRegion"].Add(doc);
+
+            string newFileName = string.Format("Untitled{0}.Build", ++_newFileCount);
+            ((NAntDocumentWindowModel)doc.ViewModel).CreateNew(newFileName);
         }
 
         internal void NewNAntProjectClicked()
@@ -197,27 +182,26 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             //form.Show();
         }
 
-        private void CreateNewProject(object sender, NewProjectEventArgs e)
-        {
-            //NAntDocument doc = new NAntDocument(_outputWindow, _options);
-            //DocumentWindow window = new DocumentWindow(doc.FullName);
-            //SetupWindow(window, doc);
-            //window.Contents = Utils.GetNewDocumentContents(e.Info);
-            //ParseBuildFile(doc);
-        }
+        //private void CreateNewProject(object sender, NewProjectEventArgs e)
+        //{
+        //NAntDocument doc = new NAntDocument(_outputWindow, _options);
+        //DocumentWindow window = new DocumentWindow(doc.FullName);
+        //SetupWindow(window, doc);
+        //window.Contents = Utils.GetNewDocumentContents(e.Info);
+        //ParseBuildFile(doc);
+        //}
 
-        internal void Run(List<IBuildTarget> targets)
-        {
-            if (IsDirty(ActiveWindow))
-            {
-                SaveDocument();
-            }
+        //internal void Run(List<IBuildTarget> targets)
+        //{
+        //    if (IsDirty(ActiveWindow))
+        //    {
+        //        SaveDocument();
+        //    }
 
-            NAntDocumentWindowModel activeModel = (NAntDocumentWindowModel)ActiveWindow.DataContext;
-
-            activeModel.SetTargets(targets);
-            activeModel.Run();
-        }
+        //    NAntDocumentWindow activeWindow = (NAntDocumentWindow)ActiveWindow;
+        //    ((NAntDocumentWindowModel)activeWindow.ViewModel).SetTargets(targets);
+        //    ((NAntDocumentWindowModel)activeWindow.ViewModel).Run();
+        //}
 
         internal void Stop()
         {
@@ -226,13 +210,13 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 
         internal void SaveDocument()
         {
-            SaveDocument(ActiveWindow);
+            //SaveDocument(ActiveWindow);
         }
 
 
         internal void SaveDocumentAs()
         {
-            SaveDocumentAs(ActiveWindow);
+            //SaveDocumentAs(ActiveWindow);
         }
 
         internal void SaveAllDocuments()
@@ -283,25 +267,6 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             //}
         }
 
-        internal void OpenDocument()
-        {
-            //foreach (string filename in BuildFileBrowser.BrowseForLoad())
-            //{
-            //    LoadDocument(filename);
-            //}
-
-            // Show a file open dialog
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.CheckFileExists = true;
-            dialog.Multiselect = false;
-            dialog.Filter = "NAnt Build files (*.*)|*.Build";
-            if (dialog.ShowDialog() == true)
-            {
-                LoadDocument(dialog.FileName);
-            }
-
-        }
-
         /// <summary>
         /// Called with the Close File menu item is clicked.
         /// </summary>
@@ -334,20 +299,20 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             //_mainForm.DockPanel.ActiveDocumentChanged -= DockPanelActiveDocumentChanged;
         }
 
-        internal void SelectAll()
-        {
-            _editCommands.SelectAll();
-        }
+        //internal void SelectAll()
+        //{
+        //    _editCommands.SelectAll();
+        //}
 
-        internal void Copy()
-        {
-            _editCommands.Copy();
-        }
+        //internal void Copy()
+        //{
+        //    _editCommands.Copy();
+        //}
 
-        internal void Paste()
-        {
-            _editCommands.Paste();
-        }
+        //internal void Paste()
+        //{
+        //    _editCommands.Paste();
+        //}
 
         internal static void ShowNAntDocumentation()
         {
@@ -376,41 +341,39 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             //optionsForm.ShowDialog();
         }
 
-        internal void LoadDocument(string filename)
-        {
-            NAntDocumentWindow window = null;
-            //DocumentWindow window = FindDocumentWindow(filename);
+        //internal void LoadDocument(string filename)
+        //{
+        //    NAntDocumentWindow window = FindDocumentWindow(filename);
 
-            if (window != null)
-            {
-                //window.Select();
-                //ReloadWindow(window);
-            }
-            else if (!File.Exists(filename))
-            {
-                Errors.FileNotFound(filename);
-            }
-            else
-            {
-                //NAntDocument doc = new NAntDocument(filename, _outputWindow, _options);
-                //doc.BuildFinished += _mainForm.SetStateStopped;
+        //    if (window != null)
+        //    {
+        //        //window.Select();
+        //        //ReloadWindow(window);
+        //    }
+        //    else if (!File.Exists(filename))
+        //    {
+        //        Errors.FileNotFound(filename);
+        //    }
+        //    else
+        //    {
+        //        NAntDocumentWindow doc = new NAntDocumentWindow(filename,_outputView, _options);
+        //        RegionManager.Regions["DocumentRegion"].Add(doc);
 
-                //Settings.Default.OpenScriptDir = doc.Directory;
-                //Settings.Default.Save();
+        //        //NAntDocument doc = new NAntDocument(filename, _outputWindow, _options);
+        //        //doc.BuildFinished += _mainForm.SetStateStopped;
 
-                //window = new DocumentWindow(doc.FullName);
-                //SetupWindow(window, doc);
+        //        //Settings.Default.OpenScriptDir = doc.Directory;
+        //        //Settings.Default.Save();
 
-                //RecentItems.Add(doc.FullName);
+        //        //window = new DocumentWindow(doc.FullName);
+        //        //SetupWindow(window, doc);
 
-                // Parse the file in the background
-                //_loader.RunWorkerAsync();
+        //        //RecentItems.Add(doc.FullName);
 
-
-                NAntDocumentWindowModel model = _container.Resolve<NAntDocumentWindowModel>(new ParameterOverride("fileName", filename), new ParameterOverride("logger",_outputWindow));
-                //_regionManager.Regions["DocumentRegion"].Add(model.View);
-            }
-        }
+        //        // Parse the file in the background
+        //        //_loader.RunWorkerAsync();
+        //    }
+        //}
 
         internal NAntDocumentWindowModel GetWindow(string filename)
         {
@@ -443,27 +406,27 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 
         internal static void DragEnter(DragEventArgs e)
         {
-           // e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
+            // e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
         }
 
         internal void OutputWindowEnter(object sender, EventArgs e)
         {
-            _focusedItem = FocusedItems.Output;
+            //_focusedItem = FocusedItems.Output;
         }
 
         internal void OutputWindowLeave(object sender, EventArgs e)
         {
-            _focusedItem = FocusedItems.Other;
+            //_focusedItem = FocusedItems.Other;
         }
 
         internal void Cut()
         {
-            _editCommands.Cut();
+            //_editCommands.Cut();
         }
 
         internal void Delete()
         {
-            _editCommands.Delete();
+            //_editCommands.Delete();
         }
 
         internal void SetCursor(int lineNumber, int columnNumber)
@@ -508,63 +471,63 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 
         #region Private Methods
 
-        private void OutputWindowFileNameClicked(object sender, FileNameEventArgs e)
-        {
-            LoadDocument(e.FileName);
-            //SetCursor(e.Point.X, e.Point.Y);
-        }
+        //private void OutputWindowFileNameClicked(object sender, FileNameEventArgs e)
+        //{
+        //    LoadDocument(e.FileName);
+        //    //SetCursor(e.Point.X, e.Point.Y);
+        //}
 
-        private void CloseDocument(object sender, EventArgs e)
-        {
-            //DocumentWindow window;
+        //private void CloseDocument(object sender, EventArgs e)
+        //{
+        //DocumentWindow window;
 
-            //if (sender is DocumentWindow)
-            //    window = sender as DocumentWindow;
-            //else
-            //    window = ActiveWindow;
+        //if (sender is DocumentWindow)
+        //    window = sender as DocumentWindow;
+        //else
+        //    window = ActiveWindow;
 
-            //NAntDocument document = _documents[window];
+        //NAntDocument document = _documents[window];
 
-            //if (document.FileType == FileType.New)
-            //{
-            //    DialogResult result = Errors.DocumentNotSaved(document.Name);
+        //if (document.FileType == FileType.New)
+        //{
+        //    DialogResult result = Errors.DocumentNotSaved(document.Name);
 
-            //    if (result == DialogResult.Yes)
-            //    {
-            //        SaveDocumentAs(window);
-            //    }
-            //    else if (result == DialogResult.Cancel)
-            //    {
-            //        e.Cancel = true;
-            //    }
-            //}
-            //else if (IsDirty(window))
-            //{
-            //    DialogResult result = Errors.DocumentNotSaved(document.Name);
+        //    if (result == DialogResult.Yes)
+        //    {
+        //        SaveDocumentAs(window);
+        //    }
+        //    else if (result == DialogResult.Cancel)
+        //    {
+        //        e.Cancel = true;
+        //    }
+        //}
+        //else if (IsDirty(window))
+        //{
+        //    DialogResult result = Errors.DocumentNotSaved(document.Name);
 
-            //    if (result == DialogResult.Yes)
-            //    {
-            //        try
-            //        {
-            //            document.Save(window.Contents, false);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Errors.CouldNotSave(document.Name, ex.Message);
-            //        }
-            //    }
-            //    else if (result == DialogResult.Cancel)
-            //    {
-            //        e.Cancel = true;
-            //    }
-            //}
+        //    if (result == DialogResult.Yes)
+        //    {
+        //        try
+        //        {
+        //            document.Save(window.Contents, false);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Errors.CouldNotSave(document.Name, ex.Message);
+        //        }
+        //    }
+        //    else if (result == DialogResult.Cancel)
+        //    {
+        //        e.Cancel = true;
+        //    }
+        //}
 
-            //if (!e.Cancel)
-            //    _mainForm.RemoveDocumentMenuItem(document);
+        //if (!e.Cancel)
+        //    _mainForm.RemoveDocumentMenuItem(document);
 
-        }
+        //}
 
-        private NAntDocumentWindowModel FindDocumentWindow(string file)
+        private static NAntDocumentWindow FindDocumentWindow(string file)
         {
             //foreach (DocumentWindow window in _mainForm.DockPanel.Documents)
             //    if (_documents[window].FullName == file)
@@ -573,18 +536,18 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             return null;
         }
 
-        private void CloseAllButThisClicked()
-        {
-            //for (int index = _mainForm.DockPanel.Contents.Count - 1; index >= 0; index--)
-            //{
-            //    IDockContent content = _mainForm.DockPanel.Contents[index];
-            //    if (content is DocumentWindow && content != ActiveWindow)
-            //    {
-            //        DocumentWindow window = content as DocumentWindow;
-            //        window.Close();
-            //    }
-            //}
-        }
+        //private void CloseAllButThisClicked()
+        //{
+        //for (int index = _mainForm.DockPanel.Contents.Count - 1; index >= 0; index--)
+        //{
+        //    IDockContent content = _mainForm.DockPanel.Contents[index];
+        //    if (content is DocumentWindow && content != ActiveWindow)
+        //    {
+        //        DocumentWindow window = content as DocumentWindow;
+        //        window.Close();
+        //    }
+        //}
+        //}
 
         //private void SetupWindow(DocumentWindow window, NAntDocument doc)
         //{
@@ -606,36 +569,31 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         //    window.Show(_mainForm.DockPanel);
         //}
 
-        void WindowEnter(object sender, EventArgs e)
-        {
-            _focusedItem = FocusedItems.Window;
-        }
+        //void WindowEnter(object sender, EventArgs e)
+        //{
+        //    //_focusedItem = FocusedItems.Window;
+        //}
 
-        void WindowLeave(object sender, EventArgs e)
-        {
-            _focusedItem = FocusedItems.Other;
-        }
+        //void WindowLeave(object sender, EventArgs e)
+        //{
+        //    //_focusedItem = FocusedItems.Other;
+        //}
 
-        private void UpdateDisplay()
-        {
-            //_mainForm.Text = string.Format("NAnt-Gui - {0}", ActiveWindow.TabText);
-            //_mainForm.AddTargets(ActiveDocument.BuildScript);
-            //_mainForm.AddProperties(ActiveDocument.BuildScript.Properties);
+        //private void UpdateDisplay()
+        //{
+        //_mainForm.Text = string.Format("NAnt-Gui - {0}", ActiveWindow.TabText);
+        //_mainForm.AddTargets(ActiveDocument.BuildScript);
+        //_mainForm.AddProperties(ActiveDocument.BuildScript.Properties);
 
-            // The following is required because when a file is loaded, update display gets called from ActiveDocumentChanged
-            // before the document is finished loading and these values have been parsed.
-            string description = String.Empty;
+        // The following is required because when a file is loaded, update display gets called from ActiveDocumentChanged
+        // before the document is finished loading and these values have been parsed.
+        //string description = String.Empty;
+        //string name = String.Empty;
+        //if (!String.IsNullOrEmpty(ActiveDocument.BuildScript.Description))description = ActiveDocument.BuildScript.Description.Replace(Environment.NewLine, String.Empty);
+        //if (!String.IsNullOrEmpty(ActiveDocument.BuildScript.Name))name = ActiveDocument.BuildScript.Name;
 
-            // TODO: Figure out why this unused variable exists.
-            string name = String.Empty;
-
-            if (!String.IsNullOrEmpty(ActiveDocument.BuildScript.Description))
-                description = ActiveDocument.BuildScript.Description.Replace(Environment.NewLine, String.Empty);
-            if (!String.IsNullOrEmpty(ActiveDocument.BuildScript.Name))
-                name = ActiveDocument.BuildScript.Name;
-
-            //_mainForm.SetStatus(ActiveDocument.BuildScript.Name, description, ActiveDocument.FullName);
-        }
+        //_mainForm.SetStatus(ActiveDocument.BuildScript.Name, description, ActiveDocument.FullName);
+        //}
 
         //private void WindowFormClosed(object sender, FormClosedEventArgs e)
         //{
@@ -648,19 +606,13 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         //    }
         //}
 
-        private bool IsDirty(NAntDocumentWindow window)
-        {
-            return false;
-            //return window.Contents != _documents[window].Contents;
-        }
-
         private NAntDocumentWindow ActiveWindow
         {
             get
             {
-                IViewsCollection vc = _regionManager.Regions["DocumentRegion"].ActiveViews;
+                IViewsCollection vc = RegionManager.Regions["DocumentRegion"].ActiveViews;
                 if (vc != null) return (NAntDocumentWindow)vc.FirstOrDefault();
-                else return null;
+                return null;
                 //return _mainForm.DockPanel.ActiveDocument as DocumentWindow;
             }
         }
@@ -683,111 +635,111 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         //    }
         //}
 
-        private void LoaderDoWork(object sender, DoWorkEventArgs e)
-        {
-            ParseBuildFile(ActiveDocument);
-        }
+        //private void LoaderDoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    ParseBuildFile(ActiveDocument);
+        //}
 
-        private void LoaderRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            UpdateDisplay();
-        }
+        //private void LoaderRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    UpdateDisplay();
+        //}
 
-        private void ParseBuildFile(NAntDocumentWindowModel document)
-        {
-            try
-            {
-                document.ParseBuildScript();
-            }
-            catch (BuildFileLoadException error)
-            {
-                Errors.CouldNotLoadFile(document.Name, error.InnerException.Message);
-                SetCursor(error.LineNumber, error.ColumnNumber);
-            }
-        }
+        //private void ParseBuildFile(NAntDocumentWindowModel document)
+        //{
+        //    try
+        //    {
+        //        document.ParseBuildScript();
+        //    }
+        //    catch (BuildFileLoadException error)
+        //    {
+        //        Errors.CouldNotLoadFile(document.Name, error.InnerException.Message);
+        //        SetCursor(error.LineNumber, error.ColumnNumber);
+        //    }
+        //}
 
-        private void WindowDocumentChanged(object sender, DocumentChangeEventArgs e)
-        {
-            
-            /* 
-                * The following is commented because the script is only parsed when the 
-                * the document is saved.  Could change this, but will have to suppress
-                * the errors.
-                */
-            //// Can't parse a file that doesn't exist on the harddrive
-            //if (this.ActiveDocument.SourceFile.FileType == FileType.Existing &&
-            //    !_loader.IsBusy)
-            //{
-            //    // Parse the file in the background
-            //    _loader.RunWorkerAsync();
-            //}
+        //private void WindowDocumentChanged(object sender, DocumentChangeEventArgs e)
+        //{
 
-            UpdateTitle();
-        }
+        //    /* 
+        //        * The following is commented because the script is only parsed when the 
+        //        * the document is saved.  Could change this, but will have to suppress
+        //        * the errors.
+        //        */
+        //    //// Can't parse a file that doesn't exist on the harddrive
+        //    //if (this.ActiveDocument.SourceFile.FileType == FileType.Existing &&
+        //    //    !_loader.IsBusy)
+        //    //{
+        //    //    // Parse the file in the background
+        //    //    _loader.RunWorkerAsync();
+        //    //}
 
-        private void UpdateTitle()
-        {
-            //string name = IsDirty(ActiveWindow) && !Utils.HasAsterisk(ActiveDocument.Name) ? Utils.AddAsterisk(ActiveDocument.Name) : ActiveDocument.Name;
-            //ActiveWindow.TabText = name;
-            //_mainForm.UpdateDocumentMenuItem(ActiveDocument, name);
-            //_mainForm.Text = String.Format("NAnt-Gui - {0}", name);
-        }
+        //    UpdateTitle();
+        //}
 
-        private void SaveDocument(NAntDocumentWindow window)
-        {
-            //NAntDocument document = _documents[window];
+        //private void UpdateTitle()
+        //{
+        //    //string name = IsDirty(ActiveWindow) && !Utils.HasAsterisk(ActiveDocument.Name) ? Utils.AddAsterisk(ActiveDocument.Name) : ActiveDocument.Name;
+        //    //ActiveWindow.TabText = name;
+        //    //_mainForm.UpdateDocumentMenuItem(ActiveDocument, name);
+        //    //_mainForm.Text = String.Format("NAnt-Gui - {0}", name);
+        //}
 
-            //if (document.FileType == FileType.New)
-            //{
-            //    SaveDocumentAs(window);
-            //}
-            //else if (IsDirty(window))
-            //{
-            //    try
-            //    {
-            //        document.Save(window.Contents, true);
+        //private void SaveDocument(NAntDocumentWindow window)
+        //{
+        //NAntDocument document = _documents[window];
 
-            //        if (window == ActiveWindow)
-            //        {
-            //            List<IBuildTarget> targets = _mainForm.SelectedTargets;
-            //            UpdateTitle();
-            //            UpdateDisplay();
-            //            _mainForm.SelectedTargets = targets;
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Errors.CouldNotSave(document.Name, ex.Message);
-            //    }
-            //}
-        }
+        //if (document.FileType == FileType.New)
+        //{
+        //    SaveDocumentAs(window);
+        //}
+        //else if (IsDirty(window))
+        //{
+        //    try
+        //    {
+        //        document.Save(window.Contents, true);
 
-        private void SaveDocumentAs(NAntDocumentWindow window)
-        {
-            //string filename = BuildFileBrowser.BrowseForSave();
-            //if (filename != null)
-            //{
-            //    NAntDocument document = _documents[window];
+        //        if (window == ActiveWindow)
+        //        {
+        //            List<IBuildTarget> targets = _mainForm.SelectedTargets;
+        //            UpdateTitle();
+        //            UpdateDisplay();
+        //            _mainForm.SelectedTargets = targets;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Errors.CouldNotSave(document.Name, ex.Message);
+        //    }
+        //}
+        //}
 
-            //    try
-            //    {
-            //        document.SaveAs(filename, window.Contents);
-            //        document.BuildFinished += _mainForm.SetStateStopped;
+        //private void SaveDocumentAs(NAntDocumentWindow window)
+        //{
+        //string filename = BuildFileBrowser.BrowseForSave();
+        //if (filename != null)
+        //{
+        //    NAntDocument document = _documents[window];
 
-            //        Settings.Default.SaveScriptInitialDir = document.Directory;
-            //        Settings.Default.Save();
+        //    try
+        //    {
+        //        document.SaveAs(filename, window.Contents);
+        //        document.BuildFinished += _mainForm.SetStateStopped;
 
-            //        RecentItems.Add(filename);
-            //        _mainForm.CreateRecentItemsMenu();
-            //        UpdateTitle();
-            //        UpdateDisplay();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Errors.CouldNotSave(document.Name, ex.Message);
-            //    }
-            //}
-        }
+        //        Settings.Default.SaveScriptInitialDir = document.Directory;
+        //        Settings.Default.Save();
+
+        //        RecentItems.Add(filename);
+        //        _mainForm.CreateRecentItemsMenu();
+        //        UpdateTitle();
+        //        UpdateDisplay();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Errors.CouldNotSave(document.Name, ex.Message);
+        //    }
+        //}
+        //}
 
         #endregion
 
@@ -809,27 +761,6 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 
         #region Commands
 
-        public DelegateCommand<object> NewCommand { get; private set; }
-        public DelegateCommand<object> OpenCommand { get; private set; }
-
-        /// <summary>
-        /// Occurs when the <see cref="ICommand"/> is executed.
-        /// </summary>
-        /// <param name="parameter">The command parameter.</param>
-        private void NewCommand_Executed(object parameter)
-        {
-            NewBlankDocument();
-        }
-
-        /// <summary>
-        /// Occurs when the <see cref="ICommand"/> is executed.
-        /// </summary>
-        /// <param name="parameter">The command parameter.</param>
-        private void OpenCommand_Executed(object parameter)
-        {
-            OpenDocument();
-        }
-
         /// <summary>
         /// Occurs when the <see cref="ICommand"/> needs to determine whether it can execute.
         /// </summary>
@@ -841,6 +772,17 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         {
             return true;
             //return this.View.OnClearCommandCanExecute();
+        }
+
+        public DelegateCommand<object> ClearOutputCommand { get; private set; }
+
+        /// <summary>
+        /// Occurs when the <see cref="ICommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void ClearOutputCommand_Executed(object parameter)
+        {
+
         }
 
         public DelegateCommand<object> BuildCommand { get; private set; }
@@ -855,7 +797,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             //tab.SetProperties(_propertyGrid.GetProperties());
             //tab.SetTargets(_targetsTree.GetTargets());		
 
-            Run(_targetsViewModel.SelectedTargets);
+            //Run(((TargetsViewModel)_targetsView.ViewModel).SelectedTargets);
         }
 
         public DelegateCommand<object> SaveCommand { get; private set; }
@@ -869,8 +811,8 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             //Save(View.textEditor.Text, true);
         }
 
-
         #endregion
+
 
     }
 

@@ -91,9 +91,9 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 
             set
             {
-                base.RaisePropertyChangingEvent("IsChecked");
+                //Notifier.NotifyChanging("IsChecked");
                 _isChecked = value;
-                base.RaisePropertyChangedEvent("IsChecked");
+                Notifier.NotifyChanged("IsChecked");
             }
         }
 

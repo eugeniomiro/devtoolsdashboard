@@ -37,13 +37,13 @@ using System.Collections.Generic;
 namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 {
     [CLSCompliant(false)]
-	public class PropertiesViewModel : DockingWindowViewModelBase<PropertiesView> {
+    public class PropertiesViewModel : DockableContentViewModel<PropertiesView>
+    {
 
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
 
         public PropertiesViewModel(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
-            : base(container, regionManager,eventAggregator)
         {
             _container = container;
             _regionManager = regionManager;
@@ -59,12 +59,6 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 	    {
 	        Debug.Print(message);
 	    }
-
-	    protected override string ViewName { 
-			get {
-				return "Properties";
-			}
-		}
 
         internal void AddProperties(List<IBuildProperty> properties)
         {

@@ -1,142 +1,111 @@
-﻿#region Copyleft and Copyright
-
-// .NET Dev Tools Dashboard
-// Copyright 2011 (C) Wim Van den Broeck - Techno-Fly
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-//
-// Wim Van den Broeck (wim@techno-fly.net)
-
-#endregion
-
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using Microsoft.Practices.Prism.Events;
+using System.Windows.Threading;
+using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
-using Microsoft.Practices.Unity;
-using NAntGui;
 using NAntGui.Core;
 using NAntGui.Framework;
+using Techno_Fly.Tools.Dashboard.Content;
+using Techno_Fly.Tools.Dashboard.IO;
 using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
-using System.Collections.Generic;
+using ICSharpCode.AvalonEdit.Document;
+using Techno_Fly.Tools.Dashboard.Services;
+
+using System;
+using System.Linq;
+using System.IO;
+using System.Windows.Input;
+using NAntGui.Core;
+using Microsoft.Practices.Prism.Regions;
 using System.Windows;
-using Microsoft.Practices.Prism;
-using System.ComponentModel;
+using Microsoft.Win32;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Prism.Commands;
+using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
+using NAntGui.Framework;
 
 namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 {
-    class NAntDocumentWindowModel : DockingWindowViewModelBase<NAntDocumentWindow>, IActiveAware 
+    public class NAntDocumentWindowModel : DockableContentViewModel<NAntDocumentWindow>, IContentProvider<ISavableContent>, ISavableContent
     {
-        private readonly IRegionManager _regionManager;
-        private readonly IUnityContainer _container;
-        private readonly IEventAggregator _eventAggregator;
-
-        private CommandLineOptions _options;
-        private ILogsMessage _logger;
-
-        private BuildRunnerBase _buildRunner;
+        private readonly CommandLineOptions _options;
+        private readonly ILogsMessage _logger;
         private readonly BackgroundWorker _loader = new BackgroundWorker();
+        private BuildRunnerBase _buildRunner;
+        private PropertiesView _propertiesView;
+        private TargetsView _targetsView;
+
+        #region TextContent Dependency Property
+
+        TextDocument _textContent;
+        [Description("Text content to display.")]
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public TextDocument TextContent
+        {
+            get
+            {
+                return _textContent;
+            }
+            set
+            {
+                Notifier.Assign("TextContent", ref _textContent, value);
+                Dirty = true;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Creates new untitled document
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="options"></param>
-        /// <param name="container"></param>
-        /// <param name="regionManager"></param>
-        /// <param name="eventAggregator"></param>
-        public NAntDocumentWindowModel(ILogsMessage logger, CommandLineOptions options, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
-            : base(container, regionManager, eventAggregator)
+        public NAntDocumentWindowModel(ILogsMessage logger, CommandLineOptions options)
         {
-            _container = container;
-            _regionManager = regionManager;
-            _eventAggregator = eventAggregator;
-
-            this.IsActiveChanged += new EventHandler(Command_IsActiveChanged);
+            IsActiveChanged += Command_IsActiveChanged;
             _loader.DoWork += LoaderDoWork;
             _loader.RunWorkerCompleted += LoaderRunWorkerCompleted;
-
-            Assert.NotNull(logger, "logger");
-            Assert.NotNull(options, "options");
-
             _options = options;
             _logger = logger;
-            Name = "Untitled*";
-            Directory = ".\\";
-            FullName = Directory + Name;
-            Contents = "";
-            FileType = FileType.New;
-
-            BuildScript = new BlankBuildScript();
-
-            this.View = CreateTextDocumentWindow();
-            this.View.DataContext = this;
-            regionManager.AddToRegion("DocumentRegion", this.View);
-
-        }
-
-
-        public NAntDocumentWindowModel(string fileName,ILogsMessage logger, CommandLineOptions options, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
-            : base(container, regionManager, eventAggregator)
-        {
-            _container = container;
-            _regionManager = regionManager;
-            _eventAggregator = eventAggregator;
-
-            this.IsActiveChanged += new EventHandler(Command_IsActiveChanged);
-            _loader.DoWork += LoaderDoWork;
-            _loader.RunWorkerCompleted += LoaderRunWorkerCompleted;
-
-            // Create a view
-            _options = options;
-            _logger = logger;
-            FullName = fileName;
-
-            FileInfo fileInfo = new FileInfo(FullName);
-            Name = fileInfo.Name;
-            Directory = fileInfo.DirectoryName;
-
-            Load();
-
-            BuildScript = ScriptParserFactory.Create(fileInfo);
-            _buildRunner = BuildRunnerFactory.Create(fileInfo, logger, _options);
-            _buildRunner.Properties = BuildScript.Properties;
-
-            this.View = CreateTextDocumentWindow();
-            this.View.DataContext = this;      
-            regionManager.AddToRegion("DocumentRegion", this.View);
-
-            // Hook up events
-            //this.View.textEditor.TextChanged +=new EventHandler(textEditor_TextChanged);
 
             // Create Menu Bindings
 
             // Initialize commands
-            //this.BuildCommand = new DelegateCommand<object>(BuildCommand_Executed, Command_CanExecute);
-            //Techno_Fly.Tools.Dashboard.Commands.Build.RegisterCommand(this.BuildCommand);
-            //this.BuildCommand.IsActive = true;
+            BuildCommand = new DelegateCommand<object>(BuildCommand_Executed, Command_CanExecute);
+            Dashboard.Commands.Build.RegisterCommand(BuildCommand);
+            BuildCommand.IsActive = true;
 
-            //this.SaveCommand  = new DelegateCommand<object>(SaveCommand_Executed, Command_CanExecute);
-            //Techno_Fly.Tools.Dashboard.Commands.Save.RegisterCommand(this.SaveCommand);
-            //this.SaveCommand.IsActive = true;
+            SaveCommand = new DelegateCommand<object>(SaveCommand_Executed, Command_CanExecute);
+            Dashboard.Commands.Save.RegisterCommand(SaveCommand);
+            SaveCommand.IsActive = true;
+        }
 
-            _loader.RunWorkerAsync();
+        public NAntDocumentWindowModel(string fileName, ILogsMessage logger, CommandLineOptions options)
+        {
+            IsActiveChanged += Command_IsActiveChanged;
+            _loader.DoWork += LoaderDoWork;
+            _loader.RunWorkerCompleted += LoaderRunWorkerCompleted;
+            _options = options;
+            _logger = logger;
+
+            // Create Menu Bindings
+
+            // Initialize commands
+            BuildCommand = new DelegateCommand<object>(BuildCommand_Executed, Command_CanExecute);
+            Dashboard.Commands.Build.RegisterCommand(BuildCommand);
+            BuildCommand.IsActive = true;
+
+            SaveCommand = new DelegateCommand<object>(SaveCommand_Executed, Command_CanExecute);
+            Dashboard.Commands.Save.RegisterCommand(SaveCommand);
+            SaveCommand.IsActive = true;
 
         }
 
@@ -144,23 +113,6 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         {
             get { return _options; }
         }
-
-        /// <summary>
-        /// Creates a new text <see cref="DocumentWindow"/>.
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="logger"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        private NAntDocumentWindow CreateTextDocumentWindow()
-        {
-            // Create the document
-            NAntDocumentWindow documentWindow = new NAntDocumentWindow(Name, new BitmapImage(new Uri("/Resources/Images/TextDocument16.png", UriKind.Relative)));
-            documentWindow.Title = Name;
-            documentWindow.textEditor.Text = Contents;
-            return documentWindow;
-        }
-
 
         internal void ParseBuildScript()
         {
@@ -171,20 +123,20 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         {
             if (FileType == FileType.Existing)
             {
-                Load();
+                //Load();
                 ParseBuildFile();
             }
         }
 
-        internal void SaveAs(string filename, string contents)
+        internal void SaveAs(string filename, string content)
         {
             Assert.NotNull(filename, "filename");
-            Assert.NotNull(contents, "contents");
+            Assert.NotNull(content, "content");
 
             FullName = filename;
-            Contents = contents;
+            TextContent = new TextDocument("content");
 
-            File.WriteAllText(FullName, Contents);
+            File.WriteAllText(FullName, TextContent.Text);
 
             FileInfo fileInfo = new FileInfo(filename);
             Name = fileInfo.Name;
@@ -198,22 +150,43 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             ParseBuildFile();
         }
 
-        internal void Save(string contents, bool update)
+        internal void Save(string content, bool update)
         {
-            File.WriteAllText(FullName, contents);
+            File.WriteAllText(FullName, content);
             LastModified = File.GetLastWriteTime(FullName);
-            Contents = contents;
+            TextContent = new TextDocument(content);
 
-            if (update)
-                ParseBuildFile();
+            if (update) ParseBuildFile();
         }
 
-        private void Load()
+        public void CreateNew(string name)
         {
+            _fileName = name;
+            Title = CreateName(_fileName);
+        }
+
+        public void CreateOpened(string name, string content)
+        {
+            CreateNew(name);
+            TextContent = new TextDocument(content);
+            Dirty = false;
+            NewFile = false;
+            FullName = name;
+
             FileType = FileType.Existing;
-            Contents = File.ReadAllText(FullName);
             LastModified = File.GetLastWriteTime(FullName);
+
+            FileInfo fileInfo = new FileInfo(FullName);
+            Name = fileInfo.Name;
+            Directory = fileInfo.DirectoryName;
+
+            BuildScript = ScriptParserFactory.Create(fileInfo);
+            _buildRunner = BuildRunnerFactory.Create(fileInfo, _logger, _options);
+            _buildRunner.Properties = BuildScript.Properties;
+
+            _loader.RunWorkerAsync();
         }
+
 
         internal void Stop()
         {
@@ -223,22 +196,42 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 
         internal void Run()
         {
-            if (_buildRunner != null)
-                _buildRunner.Run();
+            if (ActiveWindow != null && ActiveWindow.ViewModel == this)
+            {
+                if (_buildRunner != null)
+                {
+                    _buildRunner.Run();
+                }
+            }
+        }
+
+        private NAntDocumentWindow ActiveWindow
+        {
+            get
+            {
+                IViewsCollection vc = RegionManager.Regions["DocumentRegion"].ActiveViews;
+                if (vc != null)
+                {
+                    foreach (var item in vc)
+                    {
+                        if (item is NAntDocumentWindow)
+                        {
+                            if (((IActiveAware)item).IsActive)
+                            {
+                                return (NAntDocumentWindow)item;
+                            }
+                        }
+                    }
+                }
+                return null;
+            }
         }
 
         internal void SetTargets(List<IBuildTarget> targets)
         {
             Assert.NotNull(targets, "targets");
-            if (_buildRunner != null)
-                _buildRunner.Targets = targets;
+            if (_buildRunner != null) _buildRunner.Targets = targets;
         }
-
-        //internal void Close()
-        //{
-        //    if (_buildRunner != null)
-        //        _buildRunner.Stop();
-        //}
 
         private void ParseBuildFile()
         {
@@ -270,8 +263,6 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
 
         #region Properties
 
-        public string Contents { get; set; }
-
         public FileType FileType { get; set; }
 
         public string FullName { get; private set; }
@@ -291,82 +282,74 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
             Debug.Print(message);
         }
 
-        protected override string ViewName
+        #endregion
+
+        #region Commands
+
+        public DelegateCommand<object> BuildCommand { get; private set; }
+
+        /// <summary>
+        /// Occurs when the <see cref="ICommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void BuildCommand_Executed(object parameter)
         {
-            get
-            {
-                return "NAntDocumentWindow";
-            }
+                _targetsView = Container.Resolve<TargetsView>("TargetsView");
+                var view = new Uri("TargetsView", UriKind.Relative);
+                RegionManager.RequestNavigate("LeftRegion", view);
+
+                var model = (TargetsViewModel)_targetsView.ViewModel;
+
+                Save(TextContent.Text, false);
+                //SetProperties(_propertyGrid.GetProperties());
+                //SetTargets(model.GetTargets());
+
+                Run();
         }
 
-        //private string _title;
-        //public string Title
+        //private bool DisplayLoginScreen()
         //{
-        //    get { return _title; }
-        //    set { _title = value; }
+        //    Login frm = new Login();
+        //    frm.ShowDialog();
+        //    if (frm.DialogResult.HasValue && frm.DialogResult.Value)
+        //    {
+        //        _buildRunner.UserName = frm.txtUserName.Text;
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        _buildRunner.UserName = "";
+        //        return false;
+        //    }
         //}
+
+        public DelegateCommand<object> SaveCommand { get; private set; }
+
+        /// <summary>
+        /// Occurs when the <see cref="ICommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void SaveCommand_Executed(object parameter)
+        {
+            Save(TextContent.Text, true);
+        }
+
+        /// <summary>
+        /// Occurs when the <see cref="ICommand"/> needs to determine whether it can execute.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        /// <returns>
+        /// <c>true</c> if the command can execute; otherwise, <c>false</c>/.
+        /// </returns>
+        private bool Command_CanExecute(object parameter)
+        {
+            return CanSave;
+            //return this.View.OnClearCommandCanExecute();
+        }
 
         #endregion
 
-        //#region Commands
-
-        //public DelegateCommand<object> BuildCommand { get; private set; }
-
-        ///// <summary>
-        ///// Occurs when the <see cref="ICommand"/> is executed.
-        ///// </summary>
-        ///// <param name="parameter">The command parameter.</param>
-        //private void BuildCommand_Executed(object parameter)
-        //{
-        //    //tab.Save(false);
-        //    //tab.SetProperties(_propertyGrid.GetProperties());
-        //    //tab.SetTargets(_targetsTree.GetTargets());		
-        //    Run();
-        //}
-
-        //public DelegateCommand<object> SaveCommand { get; private set; }
-
-        ///// <summary>
-        ///// Occurs when the <see cref="ICommand"/> is executed.
-        ///// </summary>
-        ///// <param name="parameter">The command parameter.</param>
-        //private void SaveCommand_Executed(object parameter)
-        //{
-        //    Save(View.textEditor.Text, true);
-        //}
-
-        ///// <summary>
-        ///// Occurs when the <see cref="ICommand"/> needs to determine whether it can execute.
-        ///// </summary>
-        ///// <param name="parameter">The command parameter.</param>
-        ///// <returns>
-        ///// <c>true</c> if the command can execute; otherwise, <c>false</c>/.
-        ///// </returns>
-        //private bool Command_CanExecute(object parameter)
-        //{
-        //    return true;
-        //    //return this.View.OnClearCommandCanExecute();
-        //}
-
-        //#endregion
-
-
         // credits http://www.softinsight.com/bnoyes/2009/12/08/DetectingTheActiveViewInAPrismApp.aspx
-        private bool _IsActive;
-        public bool IsActive
-        {
-            get
-            {
-                return _IsActive;
-            }
-            set
-            {
-                _IsActive = value;
-                //SaveCommand.IsActive = value;
-                IsActiveChanged(this, EventArgs.Empty);
-            }
-        }
-
 
         public event EventHandler IsActiveChanged = delegate { };
 
@@ -375,53 +358,178 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">EventArgs to pass to the event.</param>
-        private void Command_IsActiveChanged(object sender,EventArgs e)
+        private void Command_IsActiveChanged(object sender, EventArgs e)
         {
             //this.OnCanExecuteChanged();
-            AddTargets(BuildScript);
+            //AddTargets(BuildScript);
         }
-
 
         internal void AddProperties(List<IBuildProperty> properties)
         {
-            PropertiesViewModel propertiesViewModel = _container.Resolve<PropertiesViewModel>();
+            _propertiesView = Container.Resolve<PropertiesView>("PropertiesView");
+            var view = new Uri("PropertiesView", UriKind.Relative);
+            RegionManager.RequestNavigate("LeftRegion", view);
 
-            //_propertyWindow.AddProperties(properties);
+            var model = (PropertiesViewModel)_propertiesView.ViewModel;
+            model.AddProperties(properties);
         }
 
         internal void AddTargets(IBuildScript buildScript)
         {
-            TargetsViewModel targetsViewModel = _container.Resolve<TargetsViewModel>();
-            targetsViewModel.ProjectName = buildScript.Name;
-            targetsViewModel.SetTargets(buildScript.Targets); 
+            _targetsView = Container.Resolve<TargetsView>("TargetsView");
+            var view = new Uri("TargetsView", UriKind.Relative);
+            RegionManager.RequestNavigate("LeftRegion", view);
 
-            //_targetsWindow.ProjectName = buildScript.Name;
-            //_targetsWindow.SetTargets(buildScript.Targets);
+            var model = (TargetsViewModel)_targetsView.ViewModel;
+            model.ProjectName = buildScript.Name;
+            model.SetTargets(buildScript.Targets);
         }
 
         private void LoaderDoWork(object sender, DoWorkEventArgs e)
         {
-            //ParseBuildFile();
+            ParseBuildFile();
             ParseBuildScript();
         }
 
         private void LoaderRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //UpdateDisplay();
+            UpdateDisplay();
             Command_IsActiveChanged(this, null);
         }
 
-        //private void ParseBuildFile(NAntDocumentWindowModel document)
-        //{
-        //    try
-        //    {
-        //        document.ParseBuildScript();
-        //    }
-        //    catch (BuildFileLoadException error)
-        //    {
-        //        Errors.CouldNotLoadFile(document.Name, error.InnerException.Message);
-        //        SetCursor(error.LineNumber, error.ColumnNumber);
-        //    }
-        //}
+        private void UpdateDisplay()
+        {
+            //AddTargets(BuildScript);
+            //AddProperties(BuildScript.Properties);
+        }
+
+        #region Implementation of IContentProvider<ISavableContent>
+
+        public ISavableContent Content
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        #endregion
+
+        #region Implementation of ISavableContent
+
+        public bool CanSave
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        #endregion
+
+        #region Dirty Dependency Property
+
+        private bool _dirty;
+        public bool Dirty
+        {
+            get
+            {
+                return _dirty;
+            }
+            set
+            {
+                Notifier.Assign("Dirty", ref _dirty, value);
+            }
+        }
+
+        #endregion
+
+        private bool _newFile = true;
+        public bool NewFile
+        {
+            get
+            {
+                return _newFile;
+            }
+            internal set
+            {
+                Notifier.Assign("NewFile", ref _newFile, value);
+            }
+        }
+
+        public FileOperationResult Save(FileErrorAction fileErrorAction)
+        {
+            return SaveAux(fileErrorAction, false);
+        }
+
+        public FileOperationResult SaveAs(FileErrorAction fileErrorAction)
+        {
+            return SaveAux(fileErrorAction, true);
+        }
+
+        static string CreateName(string fileName)
+        {
+            var result = Path.GetFileName(fileName);
+            return result;
+        }
+
+        string _fileName;
+        public string FileName
+        {
+            get
+            {
+                return _fileName;
+            }
+            set
+            {
+                Notifier.Assign("FileName", ref _fileName, value);
+            }
+        }
+
+        FileOperationResult SaveAux(FileErrorAction fileErrorAction, bool performSaveAs)
+        {
+            FileOperationResult result;
+            string temp = _fileName;
+
+            if (NewFile || performSaveAs)
+            {
+                result = SaveAux(fileErrorAction, true, ref temp);
+            }
+            else
+            {
+                result = SaveAux(fileErrorAction, false, ref temp);
+            }
+
+            if (result == FileOperationResult.Successful)
+            {
+                FileName = temp;
+                NewFile = false;
+                Title = CreateName(_fileName);
+                Dirty = false;
+            }
+
+            return FileOperationResult.Successful;
+        }
+
+        FileOperationResult SaveAux(FileErrorAction fileErrorAction, bool performSaveAs, ref string tempFileName)
+        {
+            var fileService = Dependency.Resolve<IFileService>("");
+            string nameTemp = tempFileName;
+
+            FileOperationHandler handler =
+                name =>
+                {
+                    string fileContent = null;
+                    var dispatcher = Dependency.Resolve<Dispatcher>("");
+                    dispatcher.InvokeIfRequired(delegate { fileContent = TextContent.Text; });
+                    FileSystem.WriteFile(name, fileContent);
+                    nameTemp = name;
+                };
+
+            FileOperationResult result = performSaveAs ? fileService.SaveAs(tempFileName, handler, fileErrorAction) : fileService.Save(tempFileName, handler, fileErrorAction);
+            tempFileName = nameTemp;
+
+            return result;
+        }
     }
 }

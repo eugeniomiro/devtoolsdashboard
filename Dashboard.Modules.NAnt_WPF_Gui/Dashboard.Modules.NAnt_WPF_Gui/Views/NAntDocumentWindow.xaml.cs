@@ -22,49 +22,51 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using AvalonDock;
 using NAntGui;
 using NAntGui.Framework;
-using Microsoft.Practices.Prism;
+using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels;
 
 namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views
 {
     /// <summary>
     /// Interaction logic for NantDocumentWindow2.xaml
     /// </summary>
-    [CLSCompliant(false)]
-    public partial class NAntDocumentWindow : DockableContent, ITabViewInfo, IActiveAware 
+    public partial class NAntDocumentWindow : DockableContentView, ITabViewInfo
     {
-        public NAntDocumentWindow()
+        private CommandLineOptions _options = new CommandLineOptions();
+
+        public NAntDocumentWindow(ILogsMessage logger, CommandLineOptions options)
         {
             InitializeComponent();
+            DataContext = ViewModel = new NAntDocumentWindowModel(logger, options);
         }
 
-        public NAntDocumentWindow(string name,ImageSource imageSource)
+        public NAntDocumentWindow(string fileName, ILogsMessage logger, CommandLineOptions options)
         {
             InitializeComponent();
-            Title = name;
+            DataContext = ViewModel = new NAntDocumentWindowModel(fileName, logger, options);
         }
 
-
-        // credits http://www.softinsight.com/bnoyes/2009/12/08/DetectingTheActiveViewInAPrismApp.aspx
-        private bool _IsActive;
-        public bool IsActive
+        public NAntDocumentWindowModel NAntDocumentWindowModel
         {
             get
             {
-                return _IsActive;
-            }
-            set
-            {
-                _IsActive = value;
-                IActiveAware vmAware = DataContext as IActiveAware;
-                if (vmAware != null)
-                    vmAware.IsActive = value;
-
+                return (NAntDocumentWindowModel)DataContext;
             }
         }
-        public event EventHandler IsActiveChanged = delegate { };
+
     }
 }

@@ -62,11 +62,7 @@ namespace Microsoft.Practices.Prism
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "The Logger is added to the container which will dispose it when the container goes out of scope.")]
         protected virtual ILoggerFacade CreateLogger()
         {
-#if SILVERLIGHT
-            return new EmptyLogger();
-#else
             return new TextLogger();
-#endif
         }
 
         /// <summary>
@@ -126,9 +122,6 @@ namespace Microsoft.Practices.Prism
             RegionAdapterMappings regionAdapterMappings = ServiceLocator.Current.GetInstance<RegionAdapterMappings>();
             if (regionAdapterMappings != null)
             {
-#if SILVERLIGHT
-                regionAdapterMappings.RegisterMapping(typeof(TabControl), ServiceLocator.Current.GetInstance<TabControlRegionAdapter>());
-#endif
                 regionAdapterMappings.RegisterMapping(typeof(Selector), ServiceLocator.Current.GetInstance<SelectorRegionAdapter>());
                 regionAdapterMappings.RegisterMapping(typeof(ItemsControl), ServiceLocator.Current.GetInstance<ItemsControlRegionAdapter>());
                 regionAdapterMappings.RegisterMapping(typeof(ContentControl), ServiceLocator.Current.GetInstance<ContentControlRegionAdapter>());
@@ -147,24 +140,12 @@ namespace Microsoft.Practices.Prism
 
             if (defaultRegionBehaviorTypesDictionary != null)
             {
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(AutoPopulateRegionBehavior.BehaviorKey,
-                                                                  typeof(AutoPopulateRegionBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(BindRegionContextToDependencyObjectBehavior.BehaviorKey,
-                                                                  typeof(BindRegionContextToDependencyObjectBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionActiveAwareBehavior.BehaviorKey,
-                                                                  typeof(RegionActiveAwareBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(SyncRegionContextWithHostBehavior.BehaviorKey,
-                                                                  typeof(SyncRegionContextWithHostBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionManagerRegistrationBehavior.BehaviorKey,
-                                                                  typeof(RegionManagerRegistrationBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionMemberLifetimeBehavior.BehaviorKey,
-                                                  typeof(RegionMemberLifetimeBehavior));
-
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(AutoPopulateRegionBehavior.BehaviorKey,typeof(AutoPopulateRegionBehavior));
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(BindRegionContextToDependencyObjectBehavior.BehaviorKey,typeof(BindRegionContextToDependencyObjectBehavior));
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionActiveAwareBehavior.BehaviorKey,typeof(RegionActiveAwareBehavior));
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(SyncRegionContextWithHostBehavior.BehaviorKey,typeof(SyncRegionContextWithHostBehavior));
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionManagerRegistrationBehavior.BehaviorKey,typeof(RegionManagerRegistrationBehavior));
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionMemberLifetimeBehavior.BehaviorKey,typeof(RegionMemberLifetimeBehavior));
             }
 
             return defaultRegionBehaviorTypesDictionary;

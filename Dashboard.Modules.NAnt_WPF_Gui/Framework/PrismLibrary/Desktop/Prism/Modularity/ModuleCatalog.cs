@@ -137,17 +137,7 @@ namespace Microsoft.Practices.Prism.Modularity
             {
                 throw new ArgumentNullException("xamlStream");
             }
-
-#if SILVERLIGHT
-            string xaml;
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(xamlStream))
-            {
-                xaml = reader.ReadToEnd();
-            }
-            return XamlReader.Load(xaml) as ModuleCatalog;
-#else
             return XamlReader.Load(xamlStream) as ModuleCatalog;
-#endif
         }
 
         /// <summary>

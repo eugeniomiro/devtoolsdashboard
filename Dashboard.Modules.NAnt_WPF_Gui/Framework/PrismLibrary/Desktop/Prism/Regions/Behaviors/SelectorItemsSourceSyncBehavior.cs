@@ -70,9 +70,8 @@ namespace Microsoft.Practices.Prism.Regions.Behaviors
         protected override void OnAttach()
         {
             bool itemsSourceIsSet = this.hostControl.ItemsSource != null;
-#if !SILVERLIGHT
             itemsSourceIsSet = itemsSourceIsSet || (BindingOperations.GetBinding(this.hostControl, ItemsControl.ItemsSourceProperty) != null);
-#endif
+
             if (itemsSourceIsSet)
             {
                 throw new InvalidOperationException(Resources.ItemsControlHasItemsSourceException);
@@ -162,12 +161,7 @@ namespace Microsoft.Practices.Prism.Regions.Behaviors
                 this.updatingActiveViewsInHostControlSelectionChanged = true;
 
                 object source;
-#if SILVERLIGHT
-                // e.OriginalSource == null, that's why we use sender.
-                source = sender;
-#else
                 source = e.OriginalSource;
-#endif
 
                 if (source == sender)
                 {

@@ -1,8 +1,9 @@
-﻿<AvalonDock:DockableContent x:Class="Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views.NAntDocumentWindow"
+﻿<Dashboard:DockableContentView x:Class="Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views.NAntDocumentWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
     xmlns:AvalonDock="clr-namespace:AvalonDock;assembly=AvalonDock"
+    xmlns:Dashboard="clr-namespace:Techno_Fly.Tools.Dashboard;assembly=Dashboard.Infrastructure"
     Height="300" Width="300" Title="" HideOnClose="False">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,4 +16,4 @@
 				SyntaxHighlighting="XML" ShowLineNumbers="True">
         </avalonEdit:TextEditor>
     </Grid>
-</AvalonDock:DockableContent>
+</Dashboard:DockableContentView>

@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Techno_Fly.Tools.Dashboard.Content
 {
-    /* TODO: Comment. */
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TContent"></typeparam>
     public interface IContentProvider<TContent> where TContent : class
     {
         TContent Content

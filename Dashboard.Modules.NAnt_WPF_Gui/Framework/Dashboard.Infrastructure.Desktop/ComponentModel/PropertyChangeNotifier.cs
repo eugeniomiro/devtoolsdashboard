@@ -1,34 +1,24 @@
-﻿#region File and License Information
-/*
-<File>
-	<Copyright>Copyright © 2007, Daniel Vaughan. All rights reserved.</Copyright>
-	<License>
-		Redistribution and use in source and binary forms, with or without
-		modification, are permitted provided that the following conditions are met:
-			* Redistributions of source code must retain the above copyright
-			  notice, this list of conditions and the following disclaimer.
-			* Redistributions in binary form must reproduce the above copyright
-			  notice, this list of conditions and the following disclaimer in the
-			  documentation and/or other materials provided with the distribution.
-			* Neither the name of the <organization> nor the
-			  names of its contributors may be used to endorse or promote products
-			  derived from this software without specific prior written permission.
+﻿#region Copyleft and Copyright
 
-		THIS SOFTWARE IS PROVIDED BY <copyright holder> ''AS IS'' AND ANY
-		EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-		WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-		DISCLAIMED. IN NO EVENT SHALL <copyright holder> BE LIABLE FOR ANY
-		DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-		(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-		LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-		ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-		(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-		SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-	</License>
-	<Owner Name="Daniel Vaughan" Email="dbvaughan@gmail.com"/>
-	<CreationDate>2009-09-06 16:53:52Z</CreationDate>
-</File>
-*/
+// .NET Dev Tools Dashboard
+// Copyright 2011 (C) Wim Van den Broeck - Techno-Fly
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+//
+// Wim Van den Broeck (wim@techno-fly.net)
+
 #endregion
 
 using System;
@@ -109,9 +99,7 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 
 		#region event PropertyChanged
 
-#if !SILVERLIGHT
 		[field: NonSerialized]
-#endif
 		event PropertyChangedEventHandler propertyChanged;
 
 		/// <summary>
@@ -192,16 +180,8 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 				if (maintainThreadAffinity)
 				{
 					Exception exception = null;
-//#if WINDOWS_PHONE
-//                    var dispatcher = System.Windows.Deployment.Current.Dispatcher;
-//                    dispatcher.InvokeIfRequired(() => propertyChanged(owner, e));
-////#elif SILVERLIGHT
-////                    var dispatcher = System.Windows.Deployment.Current.Dispatcher;
-////                    dispatcher.InvokeIfRequired(() => propertyChanged(owner, e));
-//#else
 					if (blockWhenRaisingEvents)
 					{
-						/* TODO: change ui syncronization API to use Boolean blocking and non blocking. */
 						UISynchronizationContext.Instance.InvokeAndBlockUntilCompletion(
 							delegate
 								{
@@ -230,7 +210,6 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 								}
 							});
 					}
-//#endif
 					if (exception != null)
 					{
 						throw exception;
@@ -396,20 +375,12 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 		AssignmentResult AssignWithNotification<TProperty>(
 			string propertyName, ref TProperty property, TProperty newValue)
 		{
-#if WINDOWS_PHONE
-			/* Hack for GeoCoordinate comparison bug. */
-			if (EqualityComparer<TProperty>.Default.Equals(property, newValue))
-			{
-				return AssignmentResult.AlreadyAssigned;
-			}
-#else
 			/* Boxing may occur here. We should consider 
 			 * providing some overloads for primitives. */
 			if (Equals(property, newValue)) 
 			{
 				return AssignmentResult.AlreadyAssigned;
 			}
-#endif
 			if (useExtendedEventArgs)
 			{
 				var args = new PropertyChangingEventArgs<TProperty>(propertyName, property, newValue);
@@ -442,20 +413,12 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 			where TProperty : class
 		{
 			var typedOldValue = field != null ? (TProperty)field.Target : null;
-#if WINDOWS_PHONE
-			if (EqualityComparer<TProperty>.Default.Equals(
-					typedOldValue, newValue))
-			{
-				return AssignmentResult.AlreadyAssigned;
-			}
-#else
 			/* Boxing may occur here. We should consider 
 			 * providing some overloads for primitives. */
 			if (Equals(typedOldValue, newValue))
 			{
 				return AssignmentResult.AlreadyAssigned;
 			}
-#endif
 			if (useExtendedEventArgs)
 			{
 				var args = new PropertyChangingEventArgs<TProperty>(
@@ -546,17 +509,6 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 			NotifyChanged(name, oldValue, newValue);
 		}
 		
-//		static MemberInfo GetMemberInfo<T, TResult>(Expression<Func<T, TResult>> expression)
-//		{
-//			var member = expression.Body as MemberExpression;
-//			if (member != null)
-//			{
-//				return member.Member;
-//			}
-//
-//			/* TODO: Make localizable resource. */
-//			throw new ArgumentException("MemberExpression expected.", "expression");
-//		}
 
 		static MemberInfo GetMemberInfo<T>(Expression<Func<T>> expression)
 		{
@@ -566,14 +518,12 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 				return member.Member;
 			}
 
-			/* TODO: Make localizable resource. */
 			throw new ArgumentException("MemberExpression expected.", "expression");
 		}
 
 		#region INotifyPropertyChanging Implementation
-#if !SILVERLIGHT
+
 		[field: NonSerialized]
-#endif
 		event PropertyChangingEventHandler propertyChanging;
 
 		public event PropertyChangingEventHandler PropertyChanging
@@ -612,58 +562,6 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 		}
 		#endregion
 
-#if SILVERLIGHT
-//		readonly object expressionsLock = new object();
-//
-//		string GetPropertyName<T, TResult>(Expression<Func<T, TResult>> expression)
-//		{
-//			string name;
-//			lock (expressionsLock)
-//			{
-//				if (!expressions.TryGetValue(expression.ToString(), out name))
-//				{
-//					if (!expressions.TryGetValue(expression.ToString(), out name))
-//					{
-//						var memberInfo = GetMemberInfo(expression);
-//						if (memberInfo == null)
-//						{
-//							/* TODO: Make localizable resource. */
-//							throw new InvalidOperationException("MemberInfo not found.");
-//						}
-//						name = memberInfo.Name;
-//						expressions.Add(expression.ToString(), name);
-//					}
-//				}
-//			}
-//
-//			return name;
-//		}
-		readonly object expressionsLock = new object();
-
-		string GetPropertyName<T>(Expression<Func<T>> expression)
-		{
-			string name;
-			if (!expressions.TryGetValue(expression.ToString(), out name))
-			{
-				lock (expressionsLock)
-				{
-					if (!expressions.TryGetValue(expression.ToString(), out name))
-					{
-						var memberInfo = GetMemberInfo(expression);
-						if (memberInfo == null)
-						{
-							/* TODO: Make localizable resource. */
-							throw new InvalidOperationException("MemberInfo not found.");
-						}
-						name = memberInfo.Name;
-						expressions.Add(expression.ToString(), name);
-					}
-				}
-			}
-
-			return name;
-		}
-#else
 		readonly ReaderWriterLockSlim expressionsLock = new ReaderWriterLockSlim();
 
 		string GetPropertyName<TProperty>(Expression<Func<TProperty>> expression)
@@ -682,7 +580,6 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 							var memberInfo = GetMemberInfo(expression);
 							if (memberInfo == null)
 							{
-								/* TODO: Make localizable resource. */
 								throw new InvalidOperationException("MemberInfo not found.");
 							}
 							name = memberInfo.Name;
@@ -701,7 +598,6 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 			}
 			return name;
 		}
-#endif
 
 		bool cleanupOccured;
 
@@ -746,15 +642,11 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 		[Conditional("DEBUG")]
 		void ValidatePropertyName(string propertyName)
 		{
-#if !SILVERLIGHT
 			var propertyDescriptor = TypeDescriptor.GetProperties(Owner)[propertyName];
 			if (propertyDescriptor == null)
 			{
-				/* TODO: Make localizable resource. */
-				throw new Exception(string.Format(
-					"The property '{0}' does not exist.", propertyName));
+				throw new Exception(string.Format("The property '{0}' does not exist.", propertyName));
 			}
-#endif
 		}
 
 		bool useExtendedEventArgs;
@@ -774,53 +666,6 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 		readonly Dictionary<string, PropertyChangedEventArgs> propertyChangedEventArgsCache = new Dictionary<string, PropertyChangedEventArgs>();
 		readonly Dictionary<string, PropertyChangingEventArgs> propertyChangingEventArgsCache = new Dictionary<string, PropertyChangingEventArgs>();
 
-#if SILVERLIGHT
-		readonly object propertyChangingEventArgsCacheLock = new object();
-
-		PropertyChangingEventArgs RetrieveOrCreatePropertyChangingEventArgs(string propertyName)
-		{
-			var result = RetrieveOrCreateEventArgs(
-				propertyName, 
-				propertyChangingEventArgsCacheLock, 
-				propertyChangingEventArgsCache, 
-				x => new PropertyChangingEventArgs(x));
-
-			return result;
-		}
-
-		readonly object propertyChangedEventArgsCacheLock = new object();
-
-		PropertyChangedEventArgs RetrieveOrCreatePropertyChangedEventArgs(string propertyName)
-		{
-			var result = RetrieveOrCreateEventArgs(
-				propertyName,
-				propertyChangedEventArgsCacheLock,
-				propertyChangedEventArgsCache,
-				x => new PropertyChangedEventArgs(x));
-
-			return result;
-		}
-
-		static TArgs RetrieveOrCreateEventArgs<TArgs>(
-			string propertyName, object cacheLock, Dictionary<string, TArgs> argsCache, 
-			Func<string, TArgs> createFunc)
-		{
-			ArgumentValidator.AssertNotNull(propertyName, "propertyName");
-			TArgs result;
-
-			lock (cacheLock)
-			{
-				if (argsCache.TryGetValue(propertyName, out result))
-				{
-					return result;
-				}
-
-				result = createFunc(propertyName);
-				argsCache[propertyName] = result;
-			}
-			return result;
-		}
-#else
 		readonly ReaderWriterLockSlim propertyChangedEventArgsCacheLock = new ReaderWriterLockSlim();
 		
 		PropertyChangedEventArgs RetrieveOrCreatePropertyChangedEventArgs(string propertyName)
@@ -882,7 +727,6 @@ namespace Techno_Fly.Tools.Dashboard.ComponentModel
 
 			return result;
 		}
-#endif
 
 		public void NotifyChanged(string propertyName)
 		{

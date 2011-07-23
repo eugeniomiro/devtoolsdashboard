@@ -30,6 +30,7 @@ namespace Techno_Fly.Tools.Dashboard {
         public const string ShellWorkspaceRegion = "ShellWorkspace";
         public const string ShellNavigationRegion = "ShellNavigation";
         public const string StatusBarMessageRegion = "StatusBarMessage";
+        public const string DocumentRegion = "DocumentRegion";
 
         public const string Ribbon = "Ribbon";
         public const string RibbonApplicationMenu = "RibbonApplicationMenu";

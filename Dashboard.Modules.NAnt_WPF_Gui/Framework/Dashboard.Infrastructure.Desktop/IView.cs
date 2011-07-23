@@ -22,7 +22,11 @@ namespace Techno_Fly.Tools.Dashboard
         /// </summary>
         event EventHandler<EventArgs> ViewLoaded;
 
-        /* TODO: [DV] Comment. */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="force"></param>
+        /// <returns></returns>
         bool Close(bool force);
     }
 }

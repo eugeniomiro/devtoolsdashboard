@@ -6,11 +6,12 @@ using System.Windows.Threading;
 
 namespace Techno_Fly.Tools.Dashboard
 {
-	/* TODO: [DV] Comment. */
+
+    /// <summary>
+    /// 
+    /// </summary>
 	public static class DispatcherExtensions
 	{
-
-#if !SILVERLIGHT
 		/// <summary>
 		/// A simple threading extension method, to invoke a delegate
 		/// on the correct thread if it is not currently on the correct thread
@@ -32,7 +33,6 @@ namespace Techno_Fly.Tools.Dashboard
 				action();
 			}
 		}
-#endif
 
 		/// <summary>
 		/// A simple threading extension method, to invoke a delegate
@@ -46,11 +46,7 @@ namespace Techno_Fly.Tools.Dashboard
 		{
 			if (!dispatcher.CheckAccess())
 			{
-#if SILVERLIGHT
-				dispatcher.BeginInvoke(action);
-#else
 				dispatcher.Invoke(DispatcherPriority.Normal, action);
-#endif
 			}
 			else
 			{
@@ -70,11 +66,7 @@ namespace Techno_Fly.Tools.Dashboard
 //		{
 //			if (!dispatcher.CheckAccess())
 //			{
-//#if SILVERLIGHT
-//				dispatcher.BeginInvoke(action);
-//#else
 //				dispatcher.Invoke(DispatcherPriority.Background, action);
-//#endif
 //			}
 //			else
 //			{
@@ -92,12 +84,7 @@ namespace Techno_Fly.Tools.Dashboard
 		/// <param name="action">The delegate to run</param>
 		public static void InvokeWithoutBlocking(this Dispatcher dispatcher, Action action)
 		{
-#if SILVERLIGHT
-			dispatcher.BeginInvoke(action);
-#else
 			dispatcher.BeginInvoke(DispatcherPriority.Background, action);
-#endif
 		}
-
 	}
 }

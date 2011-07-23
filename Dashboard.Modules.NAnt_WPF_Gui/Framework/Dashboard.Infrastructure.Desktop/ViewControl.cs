@@ -27,10 +27,8 @@ namespace Techno_Fly.Tools.Dashboard
         }
 
         [Description("The view model for this view.")]
-#if !SILVERLIGHT
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-#endif
         public IViewModel ViewModel
         {
             get
@@ -50,9 +48,7 @@ namespace Techno_Fly.Tools.Dashboard
         /// </summary>
         public ViewControl()
         {
-#if !SILVERLIGHT
             Focusable = true;
-#endif
             if (!EnvironmentValues.DesignTime)
             {
                 Loaded += OnLoaded;

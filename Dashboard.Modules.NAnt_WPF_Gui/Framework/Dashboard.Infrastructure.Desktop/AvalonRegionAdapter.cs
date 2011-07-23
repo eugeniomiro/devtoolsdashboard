@@ -88,7 +88,6 @@ namespace Techno_Fly.Tools.Dashboard
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                // TODO Test destoying panes in DockablePane's
                 foreach (object item in e.OldItems)
                 {
                     if (regionTarget is DocumentPane)

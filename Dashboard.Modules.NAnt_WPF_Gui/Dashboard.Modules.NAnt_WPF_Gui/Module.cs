@@ -1,70 +1,91 @@
-#region Copyleft and Copyright
-
-// .NET Dev Tools Dashboard
-// Copyright 2011 (C) Wim Van den Broeck - Techno-Fly
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-//
-// Wim Van den Broeck (wim@techno-fly.net)
-
-#endregion
-
+//===================================================================================
+// Microsoft patterns & practices
+// Composite Application Guidance for Windows Presentation Foundation and Silverlight
+//===================================================================================
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+// THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
+// OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
+// LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+// FITNESS FOR A PARTICULAR PURPOSE.
+//===================================================================================
+// The example companies, organizations, products, domain names,
+// e-mail addresses, logos, people, places, and events depicted
+// herein are fictitious.  No association with any real company,
+// organization, product, domain name, email address, logo, person,
+// places, or events is intended or should be inferred.
+//===================================================================================
 using System;
+using System.IO;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
+using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
+using NAntGui.Framework;
+using Techno_Fly.Tools.Dashboard.IO;
 using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.ViewModels;
 using Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views;
+using Techno_Fly.Tools.Dashboard.Services;
 
 namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui
 {
     [Module(ModuleName = "NAnt_WPF_Gui")]
-    public class Module : IModule
+    public class Module : ModuleBase
     {
-        private readonly IRegionManager _regionManager;
-        private readonly IUnityContainer _container;
+        private readonly CommandLineOptions _options = new CommandLineOptions();
+        private OutputView _outputView;
+        private int _newFileCount;
+        private const string FileFilter = "NAnt files (*.build)|*.build";
 
-        public Module(IUnityContainer container, IRegionManager regionManager)
+        public Module()
         {
-            _container = container;
-            _regionManager = regionManager;
+
         }
 
-        public void Initialize()
+        public override void Initialize()
+        {
+            base.Initialize();
+            this.RegisterViewsAndServices();
+            this.InitializeCommands();
+        }
+
+        private void InitializeCommands()
+        {
+            NewCommand = new DelegateCommand<object>(NewCommand_Executed);
+            Dashboard.Commands.New.RegisterCommand(NewCommand);
+            NewCommand.IsActive = true;
+
+            OpenCommand = new DelegateCommand<object>(OpenCommand_Executed, Command_CanExecute);
+            Dashboard.Commands.Open.RegisterCommand(OpenCommand);
+            OpenCommand.IsActive = true;
+        }
+
+        private void RegisterViewsAndServices()
         {
             try
             {
-                System.Diagnostics.Trace.WriteLine("Module1.ModuleInit ...");
+                System.Diagnostics.Trace.WriteLine("NAnt_WPF_Gui.Initialize ...");
 
-                // Register task button with Prism Region
+                Container.RegisterType<ModuleTaskButton>(new ContainerControlledLifetimeManager());
+                RegionManager.Regions["TaskButtonRegion"].Add(Container.Resolve<ModuleTaskButton>());
 
-                _regionManager.RegisterViewWithRegion("TaskButtonRegion", typeof(ModuleTaskButton));
-                _container.RegisterType<Object, ModuleRibbonTab>("ModuleRibbonTab");
+                Container.RegisterType<Object, ModuleRibbonTab>("DeployServersModuleRibbonTab");
 
-                
-                _container.RegisterType<Object, PropertiesView>("PropertiesView");
-                _container.RegisterType<Object, PropertiesView>("TargetsView");
-                _container.RegisterType<Object, OutputWindow>("OutputView");
-                _container.RegisterType<Object, NAntDocumentWindow>("NAntDocumentWindow");
+                //_container.RegisterType<Object, TargetsView>("TargetsView");
+                //_container.RegisterType<Object, PropertiesView>("PropertiesView");
+                //_container.RegisterType<Object, OutputView>("OutputView");
+                Container.RegisterType<Object, NAntDocumentWindow>("NAntDocumentWindow");
 
-                _container.RegisterType<PropertiesViewModel>(new ContainerControlledLifetimeManager());
-                _container.RegisterType<TargetsViewModel>(new ContainerControlledLifetimeManager());
-                _container.RegisterType<OutputViewModel>(new ContainerControlledLifetimeManager());
+                Container.RegisterType<Object, TargetsView>("TargetsView", new ContainerControlledLifetimeManager());
+                Container.RegisterType<Object, PropertiesView>("PropertiesView", new ContainerControlledLifetimeManager());
+                Container.RegisterType<Object, OutputView>("OutputView", new ContainerControlledLifetimeManager());
+                Container.RegisterType<Object, MainController>("MainController", new ContainerControlledLifetimeManager());
 
-                _container.RegisterType<MainController>(new ContainerControlledLifetimeManager());
-                _container.RegisterType<NAntDocumentWindowModel>("NAntDocumentWindowModel");
+                //_container.RegisterType<NAntDocumentWindowModel>("NAntDocumentWindowModel");
+
+                Container.RegisterType<ILogsMessage, OutputView>();
 
             }
             catch (Exception ex)
@@ -72,7 +93,99 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui
                 System.Diagnostics.Trace.WriteLine(ex.ToString());
                 throw;
             }
-
         }
+
+        bool OpenTextFile()
+        {
+            //Log.Info("Attempting to open a text file.");
+
+            var fileService = Dependency.Resolve<IFileService>("");
+
+            string fileNameUsed = null;
+            string textFromFile = null;
+
+            FileOperationResult operationResult = fileService.Open(
+                name =>
+                {
+                    textFromFile = File.ReadAllText(name);
+                    fileNameUsed = name;
+                }, FileErrorAction.InformOnly, FileFilter);
+
+            if (operationResult == FileOperationResult.Successful)
+            {
+                _outputView = Container.Resolve<OutputView>("OutputView");
+
+                var view = new NAntDocumentWindow(_outputView, _options);
+                ShowView(RegionNames.DocumentRegion, view, true);
+                ((NAntDocumentWindowModel)view.ViewModel).CreateOpened(fileNameUsed, textFromFile);
+
+                //var view = new TextEditorView();
+                //ShowView(RegionNames.Workspace, view, true);
+                //view.TextEditorViewModel.CreateOpened(fileNameUsed, textFromFile);
+
+                /* Send an output message. */
+                //var eventAggregator = Dependency.Resolve<IEventAggregator>("");
+                //var outputPostedEvent = eventAggregator.GetEvent<OutputPostedEvent>();
+                //outputPostedEvent.Publish(new OutputMessage
+                //{
+                //    Category = outputCategory,
+                //    Message = fileNameUsed + " opened."
+                //});
+            }
+
+            return true;
+        }
+
+        bool CreateNewTextFile()
+        {
+            var view = new NAntDocumentWindow(_outputView, _options);
+            ShowView(RegionNames.DocumentRegion, view, true);
+            string newFileName = string.Format("Untitled{0}.build", ++_newFileCount);
+            ((NAntDocumentWindowModel)view.ViewModel).CreateNew(newFileName);
+
+            //var eventAggregator = Dependency.Resolve<IEventAggregator>();
+            //var outputPostedEvent = eventAggregator.GetEvent<OutputPostedEvent>();
+            //outputPostedEvent.Publish(new OutputMessage
+            //{
+            //    Category = outputCategory,
+            //    Message = newFileName + " created."
+            //});
+            return true;
+        }
+
+        public DelegateCommand<object> NewCommand { get; private set; }
+        public DelegateCommand<object> OpenCommand { get; private set; }
+
+        /// <summary>
+        /// Occurs when the <see cref="ICommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void NewCommand_Executed(object parameter)
+        {
+            CreateNewTextFile();
+        }
+
+        /// <summary>
+        /// Occurs when the <see cref="ICommand"/> is executed.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        private void OpenCommand_Executed(object parameter)
+        {
+            OpenTextFile();
+        }
+
+        /// <summary>
+        /// Occurs when the <see cref="ICommand"/> needs to determine whether it can execute.
+        /// </summary>
+        /// <param name="parameter">The command parameter.</param>
+        /// <returns>
+        /// <c>true</c> if the command can execute; otherwise, <c>false</c>/.
+        /// </returns>
+        private bool Command_CanExecute(object parameter)
+        {
+            return true;
+            //return this.View.OnClearCommandCanExecute();
+        }
+
     }
 }

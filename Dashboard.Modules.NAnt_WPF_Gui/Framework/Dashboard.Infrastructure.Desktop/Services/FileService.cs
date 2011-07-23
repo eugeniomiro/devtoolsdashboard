@@ -1,14 +1,24 @@
-﻿#region File and License Information
-/*
-<File>
-	<Copyright>Copyright © 2007, Daniel Vaughan. All rights reserved.</Copyright>
-	<License see="prj:///Documentation/License.txt"/>
-	<Owner Name="Daniel Vaughan" Email="dbvaughan@gmail.com"/>
-	<CreationDate>2009-04-15 21:47:56Z</CreationDate>
-	<LastSubmissionDate>$Date: $</LastSubmissionDate>
-	<Version>$Revision: $</Version>
-</File>
-*/
+﻿#region Copyleft and Copyright
+
+// .NET Dev Tools Dashboard
+// Copyright 2011 (C) Wim Van den Broeck - Techno-Fly
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+//
+// Wim Van den Broeck (wim@techno-fly.net)
+
 #endregion
 
 using System;
@@ -39,7 +49,7 @@ namespace Techno_Fly.Tools.Dashboard.Services
 
 			var shell = Dependency.Resolve<IMainWindow>("") as Window;
 			var dialog = new SaveFileDialog();
-			/* TODO: Customize the save dialog. */
+
 			dialog.FileName = fileName;
 			if (!dialog.ShowDialog(shell).Value)
 			{
@@ -66,10 +76,10 @@ namespace Techno_Fly.Tools.Dashboard.Services
 			catch (IOException ex)
 			{
 				log.Info("Unable to save file: " + fileName, ex);
-				userMessage = "A problem occured saving the file."; /* TODO: Make localizable resource. */
+				userMessage = "A problem occured saving the file.";
 				ioExceptionOccured = true;
 			}
-			catch (Exception ex) /* TODO: catch common IO errors and report to user. */
+			catch (Exception ex)
 			{
 				log.Info("Unable to save file: " + fileName, ex);
 				var userMessageException = ex as IUserMessageProvider;
@@ -128,7 +138,6 @@ namespace Techno_Fly.Tools.Dashboard.Services
 				dispatcher.InvokeIfRequired(delegate
 				{
 					var dialog = new OpenFileDialog();
-					/* TODO: Customize the save dialog. */
 					dialog.Title = "Choose file name";
 					dialog.Filter = dialogFilter;
 					if (!dialog.ShowDialog(shell).Value)
@@ -155,7 +164,7 @@ namespace Techno_Fly.Tools.Dashboard.Services
             //    userMessage = string.Format(StringResources.Services_FileService_FileCreatedInNewerVersion, fileNameToUse);
             //    log.Info("Unable to open file: " + filePath, ex);
             //}
-            catch (Exception ex) /* TODO: catch common IO errors and report to user. */
+            catch (Exception ex)
             {
                 log.Info("Unable to open file: " + filePath, ex);
             }

@@ -47,9 +47,8 @@ namespace Microsoft.Practices.Prism.Regions
         {
             if (regionTarget == null) throw new ArgumentNullException("regionTarget");
             bool contentIsSet = regionTarget.Content != null;
-#if !SILVERLIGHT
             contentIsSet = contentIsSet || (BindingOperations.GetBinding(regionTarget, ContentControl.ContentProperty) != null);
-#endif
+
             if (contentIsSet)
             {
                 throw new InvalidOperationException(Resources.ContentControlHasContentException);

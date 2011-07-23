@@ -66,10 +66,8 @@ namespace Microsoft.Practices.Prism.Commands
         public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
             : base((o) => executeMethod((T)o), (o) => canExecuteMethod((T)o))
         {
-            if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", Resources.DelegateCommandDelegatesCannotBeNull);
+            if (executeMethod == null || canExecuteMethod == null) throw new ArgumentNullException("executeMethod", Resources.DelegateCommandDelegatesCannotBeNull);
 
-#if !WINDOWS_PHONE
             Type genericType = typeof(T);
 
             // DelegateCommand allows object or Nullable<>.  
@@ -81,7 +79,6 @@ namespace Microsoft.Practices.Prism.Commands
                     throw new InvalidCastException(Resources.DelegateCommandInvalidGenericPayloadType);
                 }
             }
-#endif
         }
 
         ///<summary>

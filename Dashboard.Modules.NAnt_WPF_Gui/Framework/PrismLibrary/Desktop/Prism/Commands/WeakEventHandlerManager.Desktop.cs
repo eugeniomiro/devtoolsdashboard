@@ -83,19 +83,8 @@ namespace Microsoft.Practices.Prism.Commands
             public static DispatcherProxy CreateDispatcher()
             {
                 DispatcherProxy proxy = null;
-#if SILVERLIGHT
-                if (Deployment.Current == null)
-                    return null;
-
-                proxy = new DispatcherProxy(Deployment.Current.Dispatcher);
-#else
-                if (Application.Current == null)
-                    return null;
-
-                proxy = new DispatcherProxy(Application.Current.Dispatcher);
-#endif
-                return proxy;
-
+                if (Application.Current == null) return null;
+                return new DispatcherProxy(Application.Current.Dispatcher);
             }
 
             public bool CheckAccess()
@@ -106,11 +95,7 @@ namespace Microsoft.Practices.Prism.Commands
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Portability", "CA1903:UseOnlyApiFromTargetedFramework", MessageId = "System.Windows.Threading.Dispatcher.#BeginInvoke(System.Delegate,System.Windows.Threading.DispatcherPriority,System.Object[])")]
 			public DispatcherOperation BeginInvoke(Delegate method, params Object[] args)
             {
-#if SILVERLIGHT
-                return innerDispatcher.BeginInvoke(method, args);
-#else
                 return innerDispatcher.BeginInvoke(method, DispatcherPriority.Normal, args);
-#endif
             }
         }
 

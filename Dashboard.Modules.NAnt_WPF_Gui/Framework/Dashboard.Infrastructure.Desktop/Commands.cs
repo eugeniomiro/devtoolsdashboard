@@ -48,6 +48,7 @@ namespace Techno_Fly.Tools.Dashboard
             Print = new CompositeCommand(true);
             Add = new CompositeCommand(true);
             Clear = new CompositeCommand(true);
+            ClearOutput = new CompositeCommand(true);
             Remove = new CompositeCommand(true);
             LoadLayout = new CompositeCommand(true);
             SaveLayout = new CompositeCommand(true);
@@ -103,6 +104,12 @@ namespace Techno_Fly.Tools.Dashboard
         /// </summary>
         /// <value>The <see cref="CompositeCommand"/>.</value>
         public static CompositeCommand Clear { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="CompositeCommand"/>.
+        /// </summary>
+        /// <value>The <see cref="CompositeCommand"/>.</value>
+        public static CompositeCommand ClearOutput { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="CompositeCommand"/>.

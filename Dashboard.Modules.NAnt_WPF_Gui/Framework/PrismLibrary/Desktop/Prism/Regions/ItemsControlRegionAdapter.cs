@@ -47,9 +47,8 @@ namespace Microsoft.Practices.Prism.Regions
             if (regionTarget == null) throw new ArgumentNullException("regionTarget");
 
             bool itemsSourceIsSet = regionTarget.ItemsSource != null;
-#if !SILVERLIGHT
             itemsSourceIsSet = itemsSourceIsSet || (BindingOperations.GetBinding(regionTarget, ItemsControl.ItemsSourceProperty) != null);
-#endif
+
             if (itemsSourceIsSet)
             {
                 throw new InvalidOperationException(Resources.ItemsControlHasItemsSourceException);

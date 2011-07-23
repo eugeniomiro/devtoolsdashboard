@@ -23,7 +23,7 @@
 
 using System.Diagnostics;
 
-namespace Techno_Fly.Tools.Dashboard 
+namespace Techno_Fly.Tools.Dashboard
 {
 
     [Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationElementType(typeof(Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomTraceListenerData))]
@@ -34,7 +34,7 @@ namespace Techno_Fly.Tools.Dashboard
         {
         }
 
-        public ViewModelTraceListener(IDockingWindowViewModel model)
+        public ViewModelTraceListener(IDockableContentViewModel model)
         {
             _myViewModel = model;
         }
@@ -51,10 +51,10 @@ namespace Techno_Fly.Tools.Dashboard
                 case TraceEventType.Critical:
                 case TraceEventType.Error:
                     prefix = "!!! ";
-                    break; 
+                    break;
                 case TraceEventType.Warning:
                     prefix = "! ";
-                    break; 
+                    break;
             }
 
             if ((data) is Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry)
@@ -109,8 +109,8 @@ namespace Techno_Fly.Tools.Dashboard
             }
         }
 
-        private static IDockingWindowViewModel _myViewModel;
-        public static IDockingWindowViewModel MyViewModel
+        private static IDockableContentViewModel _myViewModel;
+        public static IDockableContentViewModel MyViewModel
         {
             get { return _myViewModel; }
             set { _myViewModel = value; }

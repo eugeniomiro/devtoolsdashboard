@@ -32,11 +32,8 @@ namespace Microsoft.Practices.Prism.Commands
         private readonly Action<object> executeMethod;
         private readonly Func<object, bool> canExecuteMethod;
         private bool _isActive;
-
-#if !SILVERLIGHT
         private List<WeakReference> _canExecuteChangedHandlers;
-#endif
-
+        
         /// <summary>
         /// Createse a new instance of a <see cref="DelegateCommandBase"/>, specifying both the execute action and the can execute function.
         /// </summary>
@@ -68,22 +65,6 @@ namespace Microsoft.Practices.Prism.Commands
             }
         }
 
-#if SILVERLIGHT
-    /// <summary>
-    /// Raises <see cref="ICommand.CanExecuteChanged"/> on the UI thread so every 
-    /// command invoker can requery <see cref="ICommand.CanExecute"/> to check if the
-    /// <see cref="CompositeCommand"/> can execute.
-    /// </summary>
-        protected virtual void OnCanExecuteChanged()
-        {
-            var handlers = CanExecuteChanged;
-            if (handlers != null)
-            {
-                handlers(this, EventArgs.Empty);
-            }
-        }
-#else
-
         /// <summary>
         /// Raises <see cref="ICommand.CanExecuteChanged"/> on the UI thread so every 
         /// command invoker can requery <see cref="ICommand.CanExecute"/> to check if the
@@ -93,7 +74,6 @@ namespace Microsoft.Practices.Prism.Commands
         {
             WeakEventHandlerManager.CallWeakReferenceHandlers(this, _canExecuteChangedHandlers);
         }
-#endif
 
         /// <summary>
         /// Raises <see cref="DelegateCommandBase.CanExecuteChanged"/> on the UI thread so every command invoker
@@ -149,12 +129,6 @@ namespace Microsoft.Practices.Prism.Commands
             return canExecuteMethod == null || canExecuteMethod(parameter);
         }
 
-#if SILVERLIGHT
-    /// <summary>
-    /// Occurs when changes occur that affect whether or not the command should execute. 
-    /// </summary>
-        public event EventHandler CanExecuteChanged;
-#else
         /// <summary>
         /// Occurs when changes occur that affect whether or not the command should execute. You must keep a hard
         /// reference to the handler to avoid garbage collection and unexpected results. See remarks for more information.
@@ -186,6 +160,5 @@ namespace Microsoft.Practices.Prism.Commands
                 WeakEventHandlerManager.RemoveWeakReferenceHandler(_canExecuteChangedHandlers, value);
             }
         }
-#endif
     }
 }

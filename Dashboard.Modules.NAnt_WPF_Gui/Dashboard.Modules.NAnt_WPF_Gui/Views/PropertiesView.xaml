@@ -1,10 +1,11 @@
-﻿<AvalonDock:DockableContent  x:Class="Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views.PropertiesView"
+﻿<Dashboard:DockableContentView  x:Class="Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui.Views.PropertiesView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:AvalonDock="clr-namespace:AvalonDock;assembly=AvalonDock"
+    xmlns:Dashboard="clr-namespace:Techno_Fly.Tools.Dashboard;assembly=Dashboard.Infrastructure"
     xmlns:wpg="clr-namespace:WPG;assembly=WPG"
 	Title="Properties">
     <DockPanel VerticalAlignment="Stretch" >
         <!--<wpg:PropertyGrid  DockPanel.Dock="Top" Name="myGrid" Instance=""  VerticalAlignment="Stretch" IsEnabled="True"></wpg:PropertyGrid>-->
     </DockPanel>
-</AvalonDock:DockableContent>
+</Dashboard:DockableContentView>
