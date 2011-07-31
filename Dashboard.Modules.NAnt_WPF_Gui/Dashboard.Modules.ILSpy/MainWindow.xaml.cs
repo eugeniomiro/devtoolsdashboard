@@ -46,7 +46,7 @@ namespace ICSharpCode.ILSpy
 	/// <summary>
 	/// The main window of the application.
 	/// </summary>
-	partial class MainWindow : Window
+    partial class MainWindow : UserControl
 	{
         static CompositionContainer compositionContainer;
 
@@ -73,37 +73,56 @@ namespace ICSharpCode.ILSpy
 		
 		public MainWindow()
 		{
+            var catalog = new AggregateCatalog();
+            //catalog.Catalogs.Add(new AssemblyCatalog(typeof(App).Assembly));
+            catalog.Catalogs.Add(new DirectoryCatalog(".", "*.Plugin.dll"));
+
+            compositionContainer = new CompositionContainer(catalog);
+
+            Languages.Initialize(compositionContainer);
+
+            //if (!Debugger.IsAttached)
+            //{
+            //    AppDomain.CurrentDomain.UnhandledException += ShowErrorBox;
+            //    Dispatcher.CurrentDispatcher.UnhandledException += Dispatcher_UnhandledException;
+            //}
+
+            //EventManager.RegisterClassHandler(typeof(Window),
+            //                                  Hyperlink.RequestNavigateEvent,
+            //                                  new RequestNavigateEventHandler(Window_RequestNavigate));
+
+
 			instance = this;
 			spySettings = ILSpySettings.Load();
 			this.sessionSettings = new SessionSettings(spySettings);
 			this.assemblyListManager = new AssemblyListManager(spySettings);
 			
-			this.Icon = new BitmapImage(new Uri("pack://application:,,,/ILSpy;component/images/ILSpy.ico"));
+			//this.Icon = new BitmapImage(new Uri("pack://application:,,,/ILSpy;component/images/ILSpy.ico"));
 			
 			this.DataContext = sessionSettings;
-			this.Left = sessionSettings.WindowBounds.Left;
-			this.Top = sessionSettings.WindowBounds.Top;
-			this.Width = sessionSettings.WindowBounds.Width;
-			this.Height = sessionSettings.WindowBounds.Height;
+			//this.Left = sessionSettings.WindowBounds.Left;
+			//this.Top = sessionSettings.WindowBounds.Top;
+            //this.Width = sessionSettings.WindowBounds.Width;
+            //this.Height = sessionSettings.WindowBounds.Height;
 			// TODO: validate bounds (maybe a monitor was removed...)
-			this.WindowState = sessionSettings.WindowState;
+			//this.WindowState = sessionSettings.WindowState;
 			
 			InitializeComponent();
 
-            CompositionContainer.ComposeParts(this);
-			mainPane.Content = decompilerTextView;
+            //CompositionContainer.ComposeParts(this);
+            //mainPane.Content = decompilerTextView;
 			
-			if (sessionSettings.SplitterPosition > 0 && sessionSettings.SplitterPosition < 1) {
-				leftColumn.Width = new GridLength(sessionSettings.SplitterPosition, GridUnitType.Star);
-				rightColumn.Width = new GridLength(1 - sessionSettings.SplitterPosition, GridUnitType.Star);
-			}
-			sessionSettings.FilterSettings.PropertyChanged += filterSettings_PropertyChanged;
+            //if (sessionSettings.SplitterPosition > 0 && sessionSettings.SplitterPosition < 1) {
+            //    leftColumn.Width = new GridLength(sessionSettings.SplitterPosition, GridUnitType.Star);
+            //    rightColumn.Width = new GridLength(1 - sessionSettings.SplitterPosition, GridUnitType.Star);
+            //}
+            //sessionSettings.FilterSettings.PropertyChanged += filterSettings_PropertyChanged;
 			
-			InitMainMenu();
-			InitToolbar();
-			ContextMenuProvider.Add(treeView);
+            //InitMainMenu();
+            //InitToolbar();
+            //ContextMenuProvider.Add(treeView);
 			
-			this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            //this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
 		}
 		
 		#region Toolbar extensibility
@@ -112,25 +131,25 @@ namespace ICSharpCode.ILSpy
 		
 		void InitToolbar()
 		{
-			int navigationPos = 0;
-			int openPos = 1;
-			foreach (var commandGroup in toolbarCommands.OrderBy(c => c.Metadata.ToolbarOrder).GroupBy(c => c.Metadata.ToolbarCategory)) {
-				if (commandGroup.Key == "Navigation") {
-					foreach (var command in commandGroup) {
-						toolBar.Items.Insert(navigationPos++, MakeToolbarItem(command));
-						openPos++;
-					}
-				} else if (commandGroup.Key == "Open") {
-					foreach (var command in commandGroup) {
-						toolBar.Items.Insert(openPos++, MakeToolbarItem(command));
-					}
-				} else {
-					toolBar.Items.Add(new Separator());
-					foreach (var command in commandGroup) {
-						toolBar.Items.Add(MakeToolbarItem(command));
-					}
-				}
-			}
+            //int navigationPos = 0;
+            //int openPos = 1;
+            //foreach (var commandGroup in toolbarCommands.OrderBy(c => c.Metadata.ToolbarOrder).GroupBy(c => c.Metadata.ToolbarCategory)) {
+            //    if (commandGroup.Key == "Navigation") {
+            //        foreach (var command in commandGroup) {
+            //            toolBar.Items.Insert(navigationPos++, MakeToolbarItem(command));
+            //            openPos++;
+            //        }
+            //    } else if (commandGroup.Key == "Open") {
+            //        foreach (var command in commandGroup) {
+            //            toolBar.Items.Insert(openPos++, MakeToolbarItem(command));
+            //        }
+            //    } else {
+            //        toolBar.Items.Add(new Separator());
+            //        foreach (var command in commandGroup) {
+            //            toolBar.Items.Add(MakeToolbarItem(command));
+            //        }
+            //    }
+            //}
 			
 		}
 		
@@ -154,44 +173,45 @@ namespace ICSharpCode.ILSpy
 		
 		void InitMainMenu()
 		{
-			foreach (var topLevelMenu in mainMenuCommands.OrderBy(c => c.Metadata.MenuOrder).GroupBy(c => c.Metadata.Menu)) {
-				var topLevelMenuItem = mainMenu.Items.OfType<MenuItem>().FirstOrDefault(m => (m.Header as string) == topLevelMenu.Key);
-				foreach (var category in topLevelMenu.GroupBy(c => c.Metadata.MenuCategory)) {
-					if (topLevelMenuItem == null) {
-						topLevelMenuItem = new MenuItem();
-						topLevelMenuItem.Header = topLevelMenu.Key;
-						mainMenu.Items.Add(topLevelMenuItem);
-					} else if (topLevelMenuItem.Items.Count > 0) {
-						topLevelMenuItem.Items.Add(new Separator());
-					}
-					foreach (var entry in category) {
-						MenuItem menuItem = new MenuItem();
-						menuItem.Command = CommandWrapper.Unwrap(entry.Value);
-						if (!string.IsNullOrEmpty(entry.Metadata.Header))
-							menuItem.Header = entry.Metadata.Header;
-						if (!string.IsNullOrEmpty(entry.Metadata.MenuIcon)) {
-							menuItem.Icon = new Image {
-								Width = 16,
-								Height = 16,
-								Source = Images.LoadImage(entry.Value, entry.Metadata.MenuIcon)
-							};
-						}
-						topLevelMenuItem.Items.Add(menuItem);
-					}
-				}
-			}
+            //foreach (var topLevelMenu in mainMenuCommands.OrderBy(c => c.Metadata.MenuOrder).GroupBy(c => c.Metadata.Menu)) {
+            //    var topLevelMenuItem = mainMenu.Items.OfType<MenuItem>().FirstOrDefault(m => (m.Header as string) == topLevelMenu.Key);
+            //    foreach (var category in topLevelMenu.GroupBy(c => c.Metadata.MenuCategory)) {
+            //        if (topLevelMenuItem == null) {
+            //            topLevelMenuItem = new MenuItem();
+            //            topLevelMenuItem.Header = topLevelMenu.Key;
+            //            mainMenu.Items.Add(topLevelMenuItem);
+            //        } else if (topLevelMenuItem.Items.Count > 0) {
+            //            topLevelMenuItem.Items.Add(new Separator());
+            //        }
+            //        foreach (var entry in category) {
+            //            MenuItem menuItem = new MenuItem();
+            //            menuItem.Command = CommandWrapper.Unwrap(entry.Value);
+            //            if (!string.IsNullOrEmpty(entry.Metadata.Header))
+            //                menuItem.Header = entry.Metadata.Header;
+            //            if (!string.IsNullOrEmpty(entry.Metadata.MenuIcon)) {
+            //                menuItem.Icon = new Image {
+            //                    Width = 16,
+            //                    Height = 16,
+            //                    Source = Images.LoadImage(entry.Value, entry.Metadata.MenuIcon)
+            //                };
+            //            }
+            //            topLevelMenuItem.Items.Add(menuItem);
+            //        }
+            //    }
+            //}
 		}
 		#endregion
 		
 		#region Message Hook
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-			HwndSource source = PresentationSource.FromVisual(this) as HwndSource;;
-			if (source != null) {
-				source.AddHook(WndProc);
-			}
-		}
+
+        //protected override void OnSourceInitialized(EventArgs e)
+        //{
+        //    base.OnSourceInitialized(e);
+        //    HwndSource source = PresentationSource.FromVisual(this) as HwndSource;;
+        //    if (source != null) {
+        //        source.AddHook(WndProc);
+        //    }
+        //}
 		
 		unsafe IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
 		{
@@ -208,8 +228,7 @@ namespace ICSharpCode.ILSpy
 					}
 					var args = new CommandLineArguments(lines);
 					if (HandleCommandLineArguments(args)) {
-						if (!args.NoActivate && WindowState == WindowState.Minimized)
-							WindowState = WindowState.Normal;
+						//if (!args.NoActivate && WindowState == WindowState.Minimized)WindowState = WindowState.Normal;
 						HandleCommandLineArgumentsAfterShowList(args);
 						handled = true;
 						return (IntPtr)1;
@@ -335,10 +354,10 @@ namespace ICSharpCode.ILSpy
 			assemblyListTreeNode.Select = node => SelectNode(node);
 			treeView.Root = assemblyListTreeNode;
 			
-			if (assemblyList.ListName == AssemblyListManager.DefaultListName)
-				this.Title = "ILSpy";
-			else
-				this.Title = "ILSpy - " + assemblyList.ListName;
+            //if (assemblyList.ListName == AssemblyListManager.DefaultListName)
+            //    this.Title = "ILSpy";
+            //else
+            //    this.Title = "ILSpy - " + assemblyList.ListName;
 		}
 
 		void assemblyList_Assemblies_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -638,27 +657,27 @@ namespace ICSharpCode.ILSpy
 
 		#endregion
 		
-		protected override void OnStateChanged(EventArgs e)
-		{
-			base.OnStateChanged(e);
-			// store window state in settings only if it's not minimized
-			if (this.WindowState != System.Windows.WindowState.Minimized)
-				sessionSettings.WindowState = this.WindowState;
-		}
+        //protected override void OnStateChanged(EventArgs e)
+        //{
+        //    base.OnStateChanged(e);
+        //    // store window state in settings only if it's not minimized
+        //    if (this.WindowState != System.Windows.WindowState.Minimized)
+        //        sessionSettings.WindowState = this.WindowState;
+        //}
 		
-		protected override void OnClosing(CancelEventArgs e)
-		{
-			base.OnClosing(e);
-			sessionSettings.ActiveAssemblyList = assemblyList.ListName;
-			sessionSettings.ActiveTreeViewPath = GetPathForNode(treeView.SelectedItem as SharpTreeNode);
-			sessionSettings.WindowBounds = this.RestoreBounds;
-			sessionSettings.SplitterPosition = leftColumn.Width.Value / (leftColumn.Width.Value + rightColumn.Width.Value);
-			if (topPane.Visibility == Visibility.Visible)
-				sessionSettings.BottomPaneSplitterPosition = topPaneRow.Height.Value / (topPaneRow.Height.Value + textViewRow.Height.Value);
-			if (bottomPane.Visibility == Visibility.Visible)
-				sessionSettings.BottomPaneSplitterPosition = bottomPaneRow.Height.Value / (bottomPaneRow.Height.Value + textViewRow.Height.Value);
-			sessionSettings.Save();
-		}
+        //protected override void OnClosing(CancelEventArgs e)
+        //{
+        //    base.OnClosing(e);
+        //    sessionSettings.ActiveAssemblyList = assemblyList.ListName;
+        //    sessionSettings.ActiveTreeViewPath = GetPathForNode(treeView.SelectedItem as SharpTreeNode);
+        //    sessionSettings.WindowBounds = this.RestoreBounds;
+        //    sessionSettings.SplitterPosition = leftColumn.Width.Value / (leftColumn.Width.Value + rightColumn.Width.Value);
+        //    if (topPane.Visibility == Visibility.Visible)
+        //        sessionSettings.BottomPaneSplitterPosition = topPaneRow.Height.Value / (topPaneRow.Height.Value + textViewRow.Height.Value);
+        //    if (bottomPane.Visibility == Visibility.Visible)
+        //        sessionSettings.BottomPaneSplitterPosition = bottomPaneRow.Height.Value / (bottomPaneRow.Height.Value + textViewRow.Height.Value);
+        //    sessionSettings.Save();
+        //}
 		
 		#region Top/Bottom Pane management
 		public void ShowInTopPane(string title, object content)

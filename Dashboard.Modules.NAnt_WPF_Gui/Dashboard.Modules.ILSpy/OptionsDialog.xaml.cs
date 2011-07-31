@@ -107,7 +107,7 @@ namespace ICSharpCode.ILSpy
 		public override void Execute(object parameter)
 		{
 			OptionsDialog dlg = new OptionsDialog();
-			dlg.Owner = MainWindow.Instance;
+			//dlg.Owner = MainWindow.Instance;
 			if (dlg.ShowDialog() == true) {
 				new RefreshCommand().Execute(parameter);
 			}

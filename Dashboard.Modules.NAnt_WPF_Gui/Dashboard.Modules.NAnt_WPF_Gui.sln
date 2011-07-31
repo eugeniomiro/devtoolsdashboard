@@ -12,7 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AvalonEdit", "AvalonEdit", "{73E896BC-14D1-45D7-9D20-70E79A6E5A81}"
 	ProjectSection(SolutionItems) = preProject
 		References\AvalonEdit\ICSharpCode.AvalonEdit.dll = References\AvalonEdit\ICSharpCode.AvalonEdit.dll
-		References\AvalonEdit\ICSharpCode.AvalonEdit.xml = References\AvalonEdit\ICSharpCode.AvalonEdit.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NAntGui", "NAntGui", "{A050357C-6A57-4A52-8B0B-03ABE997D875}"

@@ -26,7 +26,7 @@ namespace ICSharpCode.ILSpy
 		public override void Execute(object parameter)
 		{
 			OpenFromGacDialog dlg = new OpenFromGacDialog();
-			dlg.Owner = MainWindow.Instance;
+			//dlg.Owner = MainWindow.Instance;
 			if (dlg.ShowDialog() == true)
 				MainWindow.Instance.OpenFiles(dlg.SelectedFileNames);
 		}

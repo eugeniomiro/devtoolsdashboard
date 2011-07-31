@@ -71,7 +71,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy
                 Container.RegisterType<TaskButton>(new ContainerControlledLifetimeManager());
                 RegionManager.Regions["TaskButtonRegion"].Add(Container.Resolve<TaskButton>());
 
-                Container.RegisterType<Object, ModuleRibbonTab>("ILSpyTab");
+                Container.RegisterType<Object, ModuleRibbonTab>("ILSpyModuleRibbonTab");
 
                 Container.RegisterType<Object, MainWindow>("MainWindow");
 
