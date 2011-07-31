@@ -53,3 +53,14 @@ using System.Windows;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+internal static class RevisionClass
+{
+    public const string Major = "1";
+    public const string Minor = "0";
+    public const string Build = "0";
+    public const string Revision = "1000";
+    public const string VersionName = null;
+
+    public const string FullVersion = Major + "." + Minor + "." + Build + ".1000";
+}

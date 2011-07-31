@@ -71,7 +71,7 @@ namespace Techno_Fly.Tools.Dashboard.Modules.NAnt_WPF_Gui
                 Container.RegisterType<TaskButton>(new ContainerControlledLifetimeManager());
                 RegionManager.Regions["TaskButtonRegion"].Add(Container.Resolve<TaskButton>());
 
-                Container.RegisterType<Object, ModuleRibbonTab>("NAnt_WPF_GuiModuleRibbonTab");
+                Container.RegisterType<Object, ModuleRibbonTab>("NAnt_WPF_GuiTab");
 
                 //_container.RegisterType<Object, TargetsView>("TargetsView");
                 //_container.RegisterType<Object, PropertiesView>("PropertiesView");

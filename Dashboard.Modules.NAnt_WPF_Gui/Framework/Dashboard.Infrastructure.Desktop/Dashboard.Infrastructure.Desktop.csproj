@@ -189,7 +189,6 @@
     <Compile Include="Services\IViewService.cs" />
     <Compile Include="Services\ViewService.cs" />
     <Compile Include="Services\ViewService.Desktop.cs" />
-    <Compile Include="TBExtender.cs" />
     <Compile Include="UIElementSateChangedEvent.cs" />
     <Compile Include="ViewControl.cs" />
     <Compile Include="ViewModelBase.cs" />

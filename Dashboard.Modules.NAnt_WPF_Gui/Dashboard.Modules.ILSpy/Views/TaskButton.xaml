@@ -6,6 +6,6 @@
      xmlns:Dashboard="clr-namespace:Techno_Fly.Tools.Dashboard;assembly=Dashboard.Infrastructure"
     >
     <Grid>
-        <ribbon:RibbonToggleButton   Name="ILSpyButton" LargeImageSource="..\ILSpy.ico" Label="ILSpy" Command="{Data:Binding ShowModuleView}" Dashboard:TbExtender.IsChecked="{Binding Path=IsChecked, Mode=OneWay}" />
+        <ribbon:RibbonToggleButton Name="ILSpyButton" IsThreeState="False" LargeImageSource="..\ILSpy.ico" Label="ILSpy" Command="{Data:Binding ShowModuleView}" IsChecked="{Binding Path=IsChecked}" />
     </Grid>
 </Dashboard:ViewControl>

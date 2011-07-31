@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,6 +43,21 @@
     <Reference Include="AvalonDock.Themes">
       <HintPath>..\References\AvalonDock\AvalonDock.Themes.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\References\ILSpy\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.Decompiler">
+      <HintPath>..\References\ILSpy\ICSharpCode.Decompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory">
+      <HintPath>..\References\ILSpy\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.TreeView">
+      <HintPath>..\References\ILSpy\ICSharpCode.TreeView.dll</HintPath>
+    </Reference>
+    <Reference Include="ILSpy.BamlDecompiler.Plugin">
+      <HintPath>..\References\ILSpy\ILSpy.BamlDecompiler.Plugin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Prism\EntLib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
@@ -58,6 +74,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Prism\Unity\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\References\ILSpy\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\References\ILSpy\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -65,6 +87,7 @@
       <HintPath>..\References\RibbonControlsLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -75,9 +98,130 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutPage.cs" />
+    <Compile Include="AnalyzerTreeView.cs" />
+    <Compile Include="AssemblyList.cs" />
+    <Compile Include="AssemblyListManager.cs" />
+    <Compile Include="CommandLineArguments.cs" />
+    <Compile Include="Commands\BrowseBackCommand.cs" />
+    <Compile Include="Commands\BrowseForwardCommand.cs" />
+    <Compile Include="Commands\CommandWrapper.cs" />
+    <Compile Include="Commands\DecompileAllCommand.cs" />
+    <Compile Include="Commands\ExitCommand.cs" />
+    <Compile Include="Commands\ExportCommandAttribute.cs" />
+    <Compile Include="Commands\OpenCommand.cs" />
+    <Compile Include="Commands\OpenFromGacCommand.cs" />
+    <Compile Include="Commands\RefreshCommand.cs" />
+    <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\ShowModuleViewCommand.cs" />
+    <Compile Include="Commands\SimpleCommand.cs" />
+    <Compile Include="ContextMenuEntry.cs" />
+    <Compile Include="Controls\DockedPane.cs" />
+    <Compile Include="Controls\SearchBox.cs" />
+    <Compile Include="Controls\SortableGridViewColumn.cs" />
+    <Compile Include="DecompilationOptions.cs" />
+    <Compile Include="DecompilerSettingsPanel.xaml.cs">
+      <DependentUpon>DecompilerSettingsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DisplaySettings.cs" />
+    <Compile Include="DisplaySettingsPanel.xaml.cs">
+      <DependentUpon>DisplaySettingsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FilterSettings.cs" />
+    <Compile Include="Fusion.cs" />
+    <Compile Include="GacInterop.cs" />
+    <Compile Include="GuessFileType.cs" />
+    <Compile Include="ILSpySettings.cs" />
+    <Compile Include="Images\AccessOverlayIcon.cs" />
+    <Compile Include="Images\Images.cs" />
+    <Compile Include="Images\MemberIcon.cs" />
+    <Compile Include="Images\TypeIcon.cs" />
+    <Compile Include="IPane.cs" />
+    <Compile Include="ISmartTextOutput.cs" />
+    <Compile Include="Languages\CSharpLanguage.cs" />
+    <Compile Include="Languages\ILAstLanguage.cs" />
+    <Compile Include="Languages\ILLanguage.cs" />
+    <Compile Include="Languages\Language.cs" />
+    <Compile Include="Languages\Languages.cs" />
+    <Compile Include="LoadedAssembly.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Module.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="NavigationHistory.cs" />
+    <Compile Include="NavigationState.cs" />
+    <Compile Include="OpenFromGacDialog.xaml.cs">
+      <DependentUpon>OpenFromGacDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsDialog.xaml.cs">
+      <DependentUpon>OptionsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchPane.cs" />
+    <Compile Include="SessionSettings.cs" />
+    <Compile Include="TextView\AvalonEditTextOutput.cs" />
+    <Compile Include="TextView\CaretHighlightAdorner.cs" />
+    <Compile Include="TextView\DecompilerTextView.cs" />
+    <Compile Include="TextView\OutputLengthExceededException.cs" />
+    <Compile Include="TextView\ReferenceElementGenerator.cs" />
+    <Compile Include="TextView\UIElementGenerator.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzeContextMenuEntry.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedEventAccessorTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedEventFiredByTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedEventOverridesTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedEventTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedFieldAccessTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedFieldTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedInterfaceEventImplementedByTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedInterfaceMethodImplementedByTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedInterfacePropertyImplementedByTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedMethodOverridesTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedMethodTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedMethodUsedByTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedMethodUsesTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedPropertyAccessorTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedPropertyOverridesTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedPropertyTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedTypeExposedByTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedTypeExtensionMethodsTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedTypeInstantiationsTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedTypeTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzedVirtualMethodUsedByTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzerEntityTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzerSearchTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\AnalyzerTreeNode.cs" />
+    <Compile Include="TreeNodes\Analyzer\Helpers.cs" />
+    <Compile Include="TreeNodes\Analyzer\ScopedWhereUsedAnalyzer.cs" />
+    <Compile Include="TreeNodes\AssemblyListTreeNode.cs" />
+    <Compile Include="TreeNodes\AssemblyReferenceTreeNode.cs" />
+    <Compile Include="TreeNodes\AssemblyTreeNode.cs" />
+    <Compile Include="TreeNodes\BaseTypesEntryNode.cs" />
+    <Compile Include="TreeNodes\BaseTypesTreeNode.cs" />
+    <Compile Include="TreeNodes\DerivedTypesEntryNode.cs" />
+    <Compile Include="TreeNodes\DerivedTypesTreeNode.cs" />
+    <Compile Include="TreeNodes\EventTreeNode.cs" />
+    <Compile Include="TreeNodes\FieldTreeNode.cs" />
+    <Compile Include="TreeNodes\FilterResult.cs" />
+    <Compile Include="TreeNodes\ILSpyTreeNode.cs" />
+    <Compile Include="TreeNodes\IMemberTreeNode.cs" />
+    <Compile Include="TreeNodes\MethodTreeNode.cs" />
+    <Compile Include="TreeNodes\ModuleReferenceTreeNode.cs" />
+    <Compile Include="TreeNodes\NamespaceTreeNode.cs" />
+    <Compile Include="TreeNodes\PropertyTreeNode.cs" />
+    <Compile Include="TreeNodes\ReferenceFolderTreeNode.cs" />
+    <Compile Include="TreeNodes\ResourceListTreeNode.cs" />
+    <Compile Include="TreeNodes\ResourceNodes\CursorResourceEntryNode.cs" />
+    <Compile Include="TreeNodes\ResourceNodes\ImageResourceEntryNode.cs" />
+    <Compile Include="TreeNodes\ResourceNodes\IResourceNodeFactory.cs" />
+    <Compile Include="TreeNodes\ResourceNodes\ResourceEntryNode.cs" />
+    <Compile Include="TreeNodes\ResourceNodes\ResourcesFileTreeNode.cs" />
+    <Compile Include="TreeNodes\ResourceNodes\ResourceTreeNode.cs" />
+    <Compile Include="TreeNodes\ResourceNodes\XamlResourceNode.cs" />
+    <Compile Include="TreeNodes\ResourceNodes\XmlResourceNode.cs" />
+    <Compile Include="TreeNodes\ThreadingSupport.cs" />
+    <Compile Include="TreeNodes\TypeTreeNode.cs" />
     <Compile Include="ViewModels\TaskButtonViewModel.cs" />
     <Compile Include="Views\ModuleRibbonTab.xaml.cs">
       <DependentUpon>ModuleRibbonTab.xaml</DependentUpon>
@@ -85,8 +229,48 @@
     <Compile Include="Views\TaskButton.xaml.cs">
       <DependentUpon>TaskButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XmlDoc\AddXmlDocTransform.cs" />
+    <Compile Include="XmlDoc\XmlDocKeyProvider.cs" />
+    <Compile Include="XmlDoc\XmlDocLoader.cs" />
+    <Compile Include="XmlDoc\XmlDocRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\SearchBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DecompilerSettingsPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DisplaySettingsPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OpenFromGacDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OptionsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SearchPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TextView\DecompilerTextView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ModuleRibbonTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,8 +297,67 @@
       <Name>Prism.Desktop</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Images\" />
+    <Content Include="Images\Assembly.png" />
+    <Content Include="Images\AssemblyList.png" />
+    <Content Include="Images\AssemblyWarning.png" />
+    <Content Include="Images\Back.png" />
+    <Content Include="Images\Class.png" />
+    <Content Include="Images\ClearSearch.png" />
+    <Content Include="Images\Constructor.png" />
+    <Content Include="Images\Delegate.png" />
+    <Content Include="Images\Delete.png" />
+    <Content Include="Images\Enum.png" />
+    <Content Include="Images\EnumValue.png" />
+    <Content Include="Images\Event.png" />
+    <Content Include="Images\ExtensionMethod.png" />
+    <Content Include="Images\Field.png" />
+    <Content Include="Images\FieldReadOnly.png" />
+    <Content Include="Images\Find.png" />
+    <Content Include="Images\FindAssembly.png" />
+    <Content Include="Images\Folder.Closed.png" />
+    <Content Include="Images\Folder.Open.png" />
+    <Content Include="Images\Forward.png" />
+    <Content Include="Images\ILSpy.ico" />
+    <Content Include="Images\Indexer.png" />
+    <Content Include="Images\Interface.png" />
+    <Content Include="Images\Library.png" />
+    <Content Include="Images\Literal.png" />
+    <Content Include="Images\Method.png" />
+    <Content Include="Images\NameSpace.png" />
+    <Content Include="Images\OK.png" />
+    <Content Include="Images\Open.png" />
+    <Content Include="Images\Operator.png" />
+    <Content Include="Images\OverlayInternal.png" />
+    <Content Include="Images\OverlayPrivate.png" />
+    <Content Include="Images\OverlayProtected.png" />
+    <Content Include="Images\OverlayProtectedInternal.png" />
+    <Content Include="Images\OverlayStatic.png" />
+    <Content Include="Images\PInvokeMethod.png" />
+    <Content Include="Images\PrivateInternal.png" />
+    <Content Include="Images\Property.png" />
+    <Content Include="Images\ReferenceFolder.Closed.png" />
+    <Content Include="Images\ReferenceFolder.Open.png" />
+    <Content Include="Images\Refresh.png" />
+    <Content Include="Images\Resource.png" />
+    <Content Include="Images\ResourceImage.png" />
+    <Content Include="Images\ResourceResourcesFile.png" />
+    <Content Include="Images\ResourceXml.png" />
+    <Content Include="Images\ResourceXsd.png" />
+    <Content Include="Images\ResourceXslt.png" />
+    <Content Include="Images\SaveFile.png" />
+    <Content Include="Images\Search.png" />
+    <Content Include="Images\StaticClass.png" />
+    <Content Include="Images\Struct.png" />
+    <Content Include="Images\SubTypes.png" />
+    <Content Include="Images\SuperTypes.png" />
+    <Content Include="Images\ViewCode.png" />
+    <Content Include="Images\VirtualMethod.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ILSpy.pdn" />
+    <None Include="TextView\ILAsm-Mode.xshd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

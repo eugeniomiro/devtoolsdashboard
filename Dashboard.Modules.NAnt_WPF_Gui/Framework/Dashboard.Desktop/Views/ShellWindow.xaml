@@ -124,9 +124,8 @@
 								</TextBlock.Triggers>
                     </TextBlock>
                 </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup Header="" >
+                <ribbon:RibbonGroup Header="" x:Name="TaskButtonRegion" prism:RegionManager.RegionName="TaskButtonRegion" >
                     <!-- Task Button Region -->
-                    <ItemsControl x:Name="TaskButtonRegion" prism:RegionManager.RegionName="TaskButtonRegion" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <!-- Navigation Pane Grid -->
@@ -148,6 +147,7 @@
             </ad:ResizingPanel>
 
         </ad:DockingManager>
-
+        <ContentControl Grid.Row="1" x:Name="WorkspaceRegion" Margin="0,4,0,0" prism:RegionManager.RegionName="WorkspaceRegion" >
+        </ContentControl>
     </Grid>
 </ribbon:RibbonWindow>

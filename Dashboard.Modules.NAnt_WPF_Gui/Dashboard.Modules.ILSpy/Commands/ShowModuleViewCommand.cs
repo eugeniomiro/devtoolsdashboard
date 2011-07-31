@@ -64,19 +64,9 @@ namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy.Commands
             var moduleRibbonTab = new Uri("ILSpyModuleRibbonTab", UriKind.Relative);
             regionManager.RequestNavigate("RibbonRegion", moduleRibbonTab);
 
-            //var targetsView = new Uri("TargetsView", UriKind.Relative);
-            //regionManager.RequestNavigate("LeftRegion", targetsView, NavigationCompleted);
-
-            //var propertiesView = new Uri("PropertiesView", UriKind.Relative);
-            //regionManager.RequestNavigate("LeftRegion", propertiesView, NavigationCompleted);
-
-            //var outputView = new Uri("OutputView", UriKind.Relative);
-            //regionManager.RequestNavigate("BottomRegion", outputView, NavigationCompleted);
-
-            //container.Resolve<MainController>();
-
-            /* We invoke the NavigationCompleted() callback 
-             * method in our final  navigation request. */
+            // Show Workspace
+            var mainWindow = new Uri("MainWindow", UriKind.Relative);
+            regionManager.RequestNavigate("WorkspaceRegion", mainWindow, NavigationCompleted);
         }
 
         #endregion

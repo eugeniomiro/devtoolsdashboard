@@ -27,6 +27,7 @@ using Techno_Fly.Tools.Dashboard.IO;
 using Techno_Fly.Tools.Dashboard.Modules.ILSpy.ViewModels;
 using Techno_Fly.Tools.Dashboard.Modules.ILSpy.Views;
 using Techno_Fly.Tools.Dashboard.Services;
+using ICSharpCode.ILSpy;
 
 namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy
 {
@@ -70,7 +71,9 @@ namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy
                 Container.RegisterType<TaskButton>(new ContainerControlledLifetimeManager());
                 RegionManager.Regions["TaskButtonRegion"].Add(Container.Resolve<TaskButton>());
 
-                Container.RegisterType<Object, ModuleRibbonTab>("ILSpyModuleRibbonTab");
+                Container.RegisterType<Object, ModuleRibbonTab>("ILSpyTab");
+
+                Container.RegisterType<Object, MainWindow>("MainWindow");
 
                 //Container.RegisterType<Object, NAntDocumentWindow>("NAntDocumentWindow");
                 //Container.RegisterType<Object, TargetsView>("TargetsView", new ContainerControlledLifetimeManager());

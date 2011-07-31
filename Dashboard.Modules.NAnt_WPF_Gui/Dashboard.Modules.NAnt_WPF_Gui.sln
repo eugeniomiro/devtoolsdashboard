@@ -80,9 +80,25 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DevToolsDashboardSetup", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.ILSpy", "Dashboard.Modules.ILSpy\Dashboard.Modules.ILSpy.csproj", "{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.TestModule1", "Dashboard.Modules.TestModule1\Dashboard.Modules.TestModule1.csproj", "{BB71C76B-1661-4455-BADA-BDDB07D42CB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.TestModule2", "Dashboard.Modules.TestModule2\Dashboard.Modules.TestModule2.csproj", "{891E9F96-81F7-4BAD-B61D-51C5F60255F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ILSpy", "ILSpy", "{EECEA0CA-7363-4917-9C38-1348A52B435B}"
+	ProjectSection(SolutionItems) = preProject
+		References\ILSpy\ICSharpCode.AvalonEdit.dll = References\ILSpy\ICSharpCode.AvalonEdit.dll
+		References\ILSpy\ICSharpCode.Decompiler.dll = References\ILSpy\ICSharpCode.Decompiler.dll
+		References\ILSpy\ICSharpCode.NRefactory.dll = References\ILSpy\ICSharpCode.NRefactory.dll
+		References\ILSpy\ICSharpCode.TreeView.dll = References\ILSpy\ICSharpCode.TreeView.dll
+		References\ILSpy\ILSpy.BamlDecompiler.Plugin.dll = References\ILSpy\ILSpy.BamlDecompiler.Plugin.dll
+		References\ILSpy\ILSpy.exe = References\ILSpy\ILSpy.exe
+		References\ILSpy\Mono.Cecil.dll = References\ILSpy\Mono.Cecil.dll
+		References\ILSpy\Mono.Cecil.Pdb.dll = References\ILSpy\Mono.Cecil.Pdb.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 12
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs32
 		SccLocalPath0 = .
@@ -119,6 +135,12 @@ Global
 		SccProjectUniqueName9 = Dashboard.Modules.ILSpy\\Dashboard.Modules.ILSpy.csproj
 		SccProjectName9 = Dashboard.Modules.ILSpy
 		SccLocalPath9 = Dashboard.Modules.ILSpy
+		SccProjectUniqueName10 = Dashboard.Modules.TestModule1\\Dashboard.Modules.TestModule1.csproj
+		SccProjectName10 = Dashboard.Modules.TestModule1
+		SccLocalPath10 = Dashboard.Modules.TestModule1
+		SccProjectUniqueName11 = Dashboard.Modules.TestModule2\\Dashboard.Modules.TestModule2.csproj
+		SccProjectName11 = Dashboard.Modules.TestModule2
+		SccLocalPath11 = Dashboard.Modules.TestModule2
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -272,6 +294,36 @@ Global
 		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|x86.ActiveCfg = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Part1|x86.ActiveCfg = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Release|x86.ActiveCfg = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Part1|x86.ActiveCfg = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{891E9F96-81F7-4BAD-B61D-51C5F60255F2}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -281,6 +333,7 @@ Global
 		{73E896BC-14D1-45D7-9D20-70E79A6E5A81} = {C1DB9DC5-34D8-4987-80BF-8E9E894ECF17}
 		{A050357C-6A57-4A52-8B0B-03ABE997D875} = {C1DB9DC5-34D8-4987-80BF-8E9E894ECF17}
 		{A266B28E-5327-461B-85BE-7011DF1C3A57} = {C1DB9DC5-34D8-4987-80BF-8E9E894ECF17}
+		{EECEA0CA-7363-4917-9C38-1348A52B435B} = {C1DB9DC5-34D8-4987-80BF-8E9E894ECF17}
 		{022EDA6A-0B76-44C3-A530-8312C1B40030} = {8B4B9011-20ED-448F-A450-11EED2AB24D6}
 		{E26BC89B-3B66-4E96-8FE2-655BD10CFB1B} = {8B4B9011-20ED-448F-A450-11EED2AB24D6}
 		{D336009D-51F3-4834-BA7D-85B989FB5BC4} = {8B4B9011-20ED-448F-A450-11EED2AB24D6}

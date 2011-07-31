@@ -34,11 +34,6 @@ namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy.ViewModels
     [CLSCompliant(false)]
     public class TaskButtonViewModel : ViewModelBase, INavigationAware
     {
-        #region Fields
-
-        private bool? _isChecked;
-
-        #endregion
 
         #region Constructor
 
@@ -82,16 +77,20 @@ namespace Techno_Fly.Tools.Dashboard.Modules.ILSpy.ViewModels
 
         #region Administrative Properties
 
+        private bool _isChecked;
+
         /// <summary>
         /// Whether the button is checked (selected).
         /// </summary>
-        public bool? IsChecked
+        public bool IsChecked
         {
-            get { return _isChecked; }
+            get
+            {
+                return _isChecked;
+            }
 
             set
             {
-                //Notifier.NotifyChanging("IsChecked");
                 _isChecked = value;
                 Notifier.NotifyChanged("IsChecked");
             }
