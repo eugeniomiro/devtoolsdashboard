@@ -84,7 +84,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\RibbonControlsLibrary.dll</HintPath>
+      <HintPath>..\packages\RibbonControlsLibrary.4.0.0\lib\net40\RibbonControlsLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -100,7 +100,6 @@
   <ItemGroup>
     <Compile Include="AboutPage.cs" />
     <Compile Include="AnalyzerTreeView.cs" />
-    <Compile Include="AssemblyList.cs" />
     <Compile Include="AssemblyListManager.cs" />
     <Compile Include="CommandLineArguments.cs" />
     <Compile Include="Commands\BrowseBackCommand.cs" />
@@ -357,6 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ILSpy.pdn" />
+    <None Include="packages.config" />
     <None Include="TextView\ILAsm-Mode.xshd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -75,10 +75,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Infrastructure.De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.NAnt_WPF_Gui", "Dashboard.Modules.NAnt_WPF_Gui\Dashboard.Modules.NAnt_WPF_Gui.csproj", "{093C592F-ADE2-4B72-8410-31D355CB9943}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DevToolsDashboardSetup", "DevToolsDashboardSetup\DevToolsDashboardSetup.vdproj", "{7840CFD3-82CB-4204-AFDE-D56C91892B85}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.ILSpy", "Dashboard.Modules.ILSpy\Dashboard.Modules.ILSpy.csproj", "{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.TestModule1", "Dashboard.Modules.TestModule1\Dashboard.Modules.TestModule1.csproj", "{BB71C76B-1661-4455-BADA-BDDB07D42CB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Modules.TestModule2", "Dashboard.Modules.TestModule2\Dashboard.Modules.TestModule2.csproj", "{891E9F96-81F7-4BAD-B61D-51C5F60255F2}"
@@ -96,51 +92,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ILSpy", "ILSpy", "{EECEA0CA
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs32
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Dashboard.Modules.NAnt_WPF_Gui\\Dashboard.Modules.NAnt_WPF_Gui.csproj
-		SccProjectName1 = Dashboard.Modules.NAnt_WPF_Gui
-		SccLocalPath1 = Dashboard.Modules.NAnt_WPF_Gui
-		SccProjectUniqueName2 = Framework\\Dashboard.Desktop\\Dashboard.Desktop.csproj
-		SccProjectTopLevelParentUniqueName2 = Dashboard.Modules.NAnt_WPF_Gui.sln
-		SccProjectName2 = Framework/Dashboard.Desktop
-		SccLocalPath2 = Framework\\Dashboard.Desktop
-		SccProjectUniqueName3 = Framework\\Dashboard.Infrastructure.Desktop\\Dashboard.Infrastructure.Desktop.csproj
-		SccProjectTopLevelParentUniqueName3 = Dashboard.Modules.NAnt_WPF_Gui.sln
-		SccProjectName3 = Framework/Dashboard.Infrastructure.Desktop
-		SccLocalPath3 = Framework\\Dashboard.Infrastructure.Desktop
-		SccProjectUniqueName4 = Framework\\PrismLibrary\\Desktop\\Prism.UnityExtensions\\Prism.UnityExtensions.Desktop.csproj
-		SccProjectTopLevelParentUniqueName4 = Dashboard.Modules.NAnt_WPF_Gui.sln
-		SccProjectName4 = Framework/PrismLibrary/Desktop/Prism.UnityExtensions
-		SccLocalPath4 = Framework\\PrismLibrary\\Desktop\\Prism.UnityExtensions
-		SccProjectUniqueName5 = Framework\\PrismLibrary\\Desktop\\Prism\\Prism.Desktop.csproj
-		SccProjectTopLevelParentUniqueName5 = Dashboard.Modules.NAnt_WPF_Gui.sln
-		SccProjectName5 = Framework/PrismLibrary/Desktop/Prism
-		SccLocalPath5 = Framework\\PrismLibrary\\Desktop\\Prism
-		SccProjectUniqueName6 = Framework\\WPG\\WPG.csproj
-		SccProjectTopLevelParentUniqueName6 = Dashboard.Modules.NAnt_WPF_Gui.sln
-		SccProjectName6 = Framework/WPG
-		SccLocalPath6 = Framework\\WPG
-		SccProjectUniqueName7 = Framework\\WPGBrushEditor\\WPGBrushEditor.csproj
-		SccProjectTopLevelParentUniqueName7 = Dashboard.Modules.NAnt_WPF_Gui.sln
-		SccProjectName7 = Framework/WPGBrushEditor
-		SccLocalPath7 = Framework\\WPGBrushEditor
-		SccProjectUniqueName8 = DevToolsDashboardSetup\\DevToolsDashboardSetup.vdproj
-		SccProjectName8 = DevToolsDashboardSetup
-		SccLocalPath8 = DevToolsDashboardSetup
-		SccProjectUniqueName9 = Dashboard.Modules.ILSpy\\Dashboard.Modules.ILSpy.csproj
-		SccProjectName9 = Dashboard.Modules.ILSpy
-		SccLocalPath9 = Dashboard.Modules.ILSpy
-		SccProjectUniqueName10 = Dashboard.Modules.TestModule1\\Dashboard.Modules.TestModule1.csproj
-		SccProjectName10 = Dashboard.Modules.TestModule1
-		SccLocalPath10 = Dashboard.Modules.TestModule1
-		SccProjectUniqueName11 = Dashboard.Modules.TestModule2\\Dashboard.Modules.TestModule2.csproj
-		SccProjectName11 = Dashboard.Modules.TestModule2
-		SccLocalPath11 = Dashboard.Modules.TestModule2
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -260,39 +211,6 @@ Global
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{093C592F-ADE2-4B72-8410-31D355CB9943}.Release|x86.ActiveCfg = Release|Any CPU
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Debug|Any CPU.ActiveCfg = Debug
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Debug|Any CPU.Build.0 = Debug
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Debug|Mixed Platforms.Build.0 = Debug
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Debug|x86.ActiveCfg = Debug
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Debug|x86.Build.0 = Debug
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Part1|Any CPU.ActiveCfg = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Part1|Any CPU.Build.0 = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Part1|Mixed Platforms.ActiveCfg = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Part1|Mixed Platforms.Build.0 = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Part1|x86.ActiveCfg = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Part1|x86.Build.0 = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|Any CPU.ActiveCfg = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|Any CPU.Build.0 = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|Mixed Platforms.ActiveCfg = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|Mixed Platforms.Build.0 = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|x86.ActiveCfg = Release
-		{7840CFD3-82CB-4204-AFDE-D56C91892B85}.Release|x86.Build.0 = Release
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|Any CPU.ActiveCfg = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|Any CPU.Build.0 = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Part1|x86.ActiveCfg = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{8B3D91EC-6234-4F71-B70A-08DDF7F828F3}.Release|x86.ActiveCfg = Release|Any CPU
 		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB71C76B-1661-4455-BADA-BDDB07D42CB5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

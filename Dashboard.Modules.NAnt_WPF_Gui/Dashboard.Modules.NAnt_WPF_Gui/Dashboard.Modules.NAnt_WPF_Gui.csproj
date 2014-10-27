@@ -101,7 +101,7 @@
       <HintPath>..\References\NAntGui\NAnt-Gui.Framework.dll</HintPath>
     </Reference>
     <Reference Include="NAnt-Gui.MSBuild">
-      <HintPath>..\References\NAntGui\NAnt-Gui.MSBuild.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Techno Fly\.NET Dev Tools Dashboard\Source\lib\NAnt-Gui.MSBuild.dll</HintPath>
     </Reference>
     <Reference Include="NAnt-Gui.NAnt, Version=1.4.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
